@@ -7,6 +7,13 @@
     </url>
     
     <url>
+        <loc>http://www.foreverz.cn/projects/</loc>
+        <lastmod>2016-09-29T16:19:29.535Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>http://www.foreverz.cn/tags/</loc>
         <lastmod>2016-09-29T15:13:56.292Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -23,13 +30,6 @@
     <url>
         <loc>http://www.foreverz.cn/about/</loc>
         <lastmod>2016-09-29T12:43:44.231Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>http://www.foreverz.cn/works/</loc>
-        <lastmod>2016-09-28T16:17:36.410Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
