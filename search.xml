@@ -58,7 +58,7 @@
 <h2 id="粗体、斜体、删除线"><a href="#粗体、斜体、删除线" class="headerlink" title="粗体、斜体、删除线"></a>粗体、斜体、删除线</h2><p>粗体：在文字前后添加 ** (注意符号与文字间不要有空格）<br>斜体：在文字前后添加 *<br>删除线：在文字前后添加 ~~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**粗体**</div><div class="line">*斜体*</div><div class="line">~~删除线~~</div></pre></td></tr></table></figure></p>
 <p>保存后的效果：<br><strong>粗体</strong><br><em>斜体</em><br><del>删除线</del></p>
 <h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>Markdown中的转义字符为\，可以转义的有：<br>\ 反斜杠<br>` 反引号<br>* 星号<br>_ 下划线<br>{ } 大括号<br>[ ] 中括号<br>( ) 小括号<br># 井号<br>+ 加号<br>- 减号<br>. 英文句号<br>! 感叹号</p>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>在文字前添加 &gt;<br>保存后的效果：</p>
+<h2 id="引用文字"><a href="#引用文字" class="headerlink" title="引用文字"></a>引用文字</h2><p>在文字前添加 &gt;<br>保存后的效果：</p>
 <blockquote>
 <p>如果你无法简洁的表达你的想法，那只说明你还不够了解它。 – 阿尔伯特·爱因斯坦</p>
 </blockquote>
