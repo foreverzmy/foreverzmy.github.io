@@ -93,9 +93,9 @@
 <ol>
 <li>有序列表</li>
 <li>有序列表</li>
-<li>有序列表<br>此外还有二级列表和三级列表等，语法如下；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. 有序列表</div><div class="line">	1.1 二级列表</div><div class="line">1. 有序列表</div><div class="line">	2.1 二级列表</div><div class="line">		2.1.1 二级列表</div><div class="line">4. 有序列表</div></pre></td></tr></table></figure>
-</li>
+<li>有序列表</li>
 </ol>
+<p>此外还有二级列表和三级列表等，语法如下；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. 有序列表</div><div class="line">	1.1 二级列表</div><div class="line">1. 有序列表</div><div class="line">	2.1 二级列表</div><div class="line">		2.1.1 二级列表</div><div class="line">4. 有序列表</div></pre></td></tr></table></figure></p>
 <p>效果展示：</p>
 <ol>
 <li>有序列表<br> 1.1 二级列表</li>
@@ -107,9 +107,9 @@
 <p>效果展示：</p>
 <ul>
 <li>无序列表</li>
-<li>无序列表<br>此外还有二级列表和三级列表等，语法如下；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* 无序列表</div><div class="line">	* 二级列表</div><div class="line">* 无序列表</div><div class="line">	* 二级列表</div><div class="line">		* 三级列表</div></pre></td></tr></table></figure>
-</li>
+<li>无序列表</li>
 </ul>
+<p>此外还有二级列表和三级列表等，语法如下；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* 无序列表</div><div class="line">	* 二级列表</div><div class="line">* 无序列表</div><div class="line">	* 二级列表</div><div class="line">		* 三级列表</div></pre></td></tr></table></figure></p>
 <p>效果展示：</p>
 <ul>
 <li>无序列表<ul>
@@ -134,11 +134,6 @@
 <li>[ ]CSS</li>
 <li>[x]JavaScript</li>
 </ul>
-<ol>
-<li>[ ]有序列表</li>
-<li>[ ]有序列表</li>
-<li>[ ]有序列表</li>
-</ol>
 <h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>Markdown中的转义字符为\，可以转义的有：</p>
 <table>
 <thead>
