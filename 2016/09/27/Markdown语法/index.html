@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://foreverz.cn/img/avatar.png">
 <meta property="og:image" content="http://foreverz.cn/img/avatar.png">
 <meta property="og:image" content="http://p1.bpimg.com/4851/4172c368837ea17b.png">
-<meta property="og:updated_time" content="2016-10-01T07:06:21.187Z">
+<meta property="og:updated_time" content="2016-10-01T07:31:44.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown语法">
 <meta name="twitter:description" content="先是使用了为知笔记，接触到Markdown,后来又在github玩起了博客，Markdown就更加必不可少了，在使用为知笔记的过程中，由于为知笔记有很多的bug，自己也是新手，所以用的很不顺手，走了很多的弯路，后来改用sublime编辑，果然好很多，推荐大家也用sublime进行编辑。下面呢是我在用Markdown过程中学到到语法和总结的一些使用心得和方法。持续更新哦！">
@@ -147,13 +147,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>Menu</li>
+                        <li>Tags</li>
                         
-                        <li>友情链接</li>
+                        <li>Friends</li>
                         
                         
-                        <li>关于我</li>
+                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -289,7 +289,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
       <div class="body-wrap"><article id="post-Markdown语法" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -338,6 +338,7 @@
         <p><excerpt in="" index="" |="" 首页摘要=""><br>先是使用了为知笔记，接触到Markdown,后来又在github玩起了博客，Markdown就更加必不可少了，在使用为知笔记的过程中，由于为知笔记有很多的bug，自己也是新手，所以用的很不顺手，走了很多的弯路，后来改用sublime编辑，果然好很多，推荐大家也用sublime进行编辑。下面呢是我在用Markdown过程中学到到语法和总结的一些使用心得和方法。持续更新哦！<a id="more"></a></excerpt></p>
 <the rest="" of="" contents="" |="" 余下全文="">
 
+<p>由于我使用了<a href="https://github.com/MOxFIVE/yelee" target="_blank" rel="external">yelee</a>主题，所以显示的效果会不一样哦。</p>
 <h2 id="关于标题"><a href="#关于标题" class="headerlink" title="关于标题"></a>关于标题</h2><p>在行首插入 1 到 6个#，分别表示标题 1 到标题 6，语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 这是标题1</div><div class="line">## 这是标题2</div><div class="line">### 这是标题3</div><div class="line">#### 这是标题4</div><div class="line">##### 这是标题5</div><div class="line">###### 这是标题6</div></pre></td></tr></table></figure></p>
 <p>效果展示：<br><img src="http://p1.bpimg.com/4851/66c2d7412399f8cf.png" alt="标题"></p>
 <h2 id="显示文本"><a href="#显示文本" class="headerlink" title="显示文本"></a>显示文本</h2><h3 id="普通文本"><a href="#普通文本" class="headerlink" title="普通文本"></a>普通文本</h3><p>文本顶格写就会显示普通文本。</p>
@@ -392,8 +393,16 @@
 <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>在行首增加 1. 、 2. 、 3. ，即数字和英文句点, 不要求数字一定要连续，可以都是 1.，后面加一个空格。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1. 有序列表</div><div class="line">1. 有序列表</div><div class="line">4. 有序列表</div></pre></td></tr></table></figure></p>
 <p>效果展示：</p>
 <ol>
-<li>有序列表<br> 1.1 erji</li>
 <li>有序列表</li>
+<li>有序列表</li>
+<li>有序列表<br>此外还有二级列表和三级列表等，语法如下；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. 有序列表</div><div class="line">	1.1 二级列表</div><div class="line">1. 有序列表</div><div class="line">	2.1 二级列表</div><div class="line">		2.1.1 二级列表</div><div class="line">4. 有序列表</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>效果展示：</p>
+<ol>
+<li>有序列表<br> 1.1 二级列表</li>
+<li>有序列表<br> 2.1 二级列表<pre><code>2.1.1 二级列表
+</code></pre></li>
 <li>有序列表</li>
 </ol>
 <h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>在行首增加 * 、+ 或 -，后面跟一个空格，语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 无序列表</div><div class="line">* 无序列表</div></pre></td></tr></table></figure></p>
@@ -420,13 +429,18 @@
 <blockquote>
 <p>注意：使用列表时需要在后面加上空行与其它内容区隔开，否则会被加入最后一个列表里。</p>
 </blockquote>
-<h3 id="任务清单"><a href="#任务清单" class="headerlink" title="任务清单"></a>任务清单</h3><p>列表可被转换为任务清单，只要在列表项开头加上[ ]或者[x],(分别表示已完成和未完成)。<br>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- [ ]HTML</div><div class="line">- [ ]CSS</div><div class="line">- [x]JavaScript</div></pre></td></tr></table></figure></p>
+<h3 id="任务清单"><a href="#任务清单" class="headerlink" title="任务清单"></a>任务清单</h3><p>列表可被转换为任务清单，只要在列表项开头加上<a href="中间有空格"> </a>或者[x],(分别表示已完成和未完成)。<br>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- [ ]HTML</div><div class="line">- [ ]CSS</div><div class="line">- [x]JavaScript</div></pre></td></tr></table></figure></p>
 <p>效果展示：</p>
 <ul>
 <li>[ ]HTML</li>
 <li>[ ]CSS</li>
 <li>[x]JavaScript</li>
 </ul>
+<ol>
+<li>[ ]有序列表</li>
+<li>[ ]有序列表</li>
+<li>[ ]有序列表</li>
+</ol>
 <h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>Markdown中的转义字符为\，可以转义的有：</p>
 <table>
 <thead>
@@ -463,16 +477,16 @@
 <table>
 <thead>
 <tr>
-<th>为知笔记</th>
-<th>更新</th>
-<th>版本</th>
+<th>blog</th>
+<th>system</th>
+<th>theme</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>WizNote</td>
-<td>Markdown</td>
-<td>Latest</td>
+<td>github page</td>
+<td>hexo</td>
+<td>yelee</td>
 </tr>
 </tbody>
 </table>
@@ -507,17 +521,17 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/09/27/Markdown语法/">Markdown语法</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Mervyn Zhang</a></p>
-        <p><span>发布时间:</span>2016-09-27, 22:37:08</p>
-        <p><span>最后更新:</span>2016-10-01, 15:06:21</p>
+        <p><span>Title:</span><a href="/2016/09/27/Markdown语法/">Markdown语法</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Mervyn Zhang</a></p>
+        <p><span>Created:</span>2016-09-27, 22:37:08</p>
+        <p><span>Updated:</span>2016-10-01, 15:31:44</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/09/27/Markdown语法/" title="Markdown语法">http://www.foreverz.cn/2016/09/27/Markdown语法/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.foreverz.cn/2016/09/27/Markdown语法/　　作者: Mervyn Zhang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2016/09/27/Markdown语法/" title="Markdown语法">http://www.foreverz.cn/2016/09/27/Markdown语法/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.foreverz.cn/2016/09/27/Markdown语法/　　By Mervyn Zhang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
         </p>
     </div>
 
@@ -538,7 +552,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
+        <strong class="toc-title">Contents</strong>
         
             <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于标题"><span class="toc-number">1.</span> <span class="toc-text">关于标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#显示文本"><span class="toc-number">2.</span> <span class="toc-text">显示文本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#普通文本"><span class="toc-number">2.1.</span> <span class="toc-text">普通文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#超链接文本"><span class="toc-number">2.2.</span> <span class="toc-text">超链接文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单行文本"><span class="toc-number">2.3.</span> <span class="toc-text">单行文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本块"><span class="toc-number">2.4.</span> <span class="toc-text">文本块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文字高亮"><span class="toc-number">2.5.</span> <span class="toc-text">文字高亮</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#粗体、斜体、删除线"><span class="toc-number">3.</span> <span class="toc-text">粗体、斜体、删除线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入链接"><span class="toc-number">4.</span> <span class="toc-text">插入链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入图片"><span class="toc-number">5.</span> <span class="toc-text">插入图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表"><span class="toc-number">6.</span> <span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#有序列表"><span class="toc-number">6.1.</span> <span class="toc-text">有序列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无序列表"><span class="toc-number">6.2.</span> <span class="toc-text">无序列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#任务清单"><span class="toc-number">6.3.</span> <span class="toc-text">任务清单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#转义字符"><span class="toc-number">7.</span> <span class="toc-text">转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表格"><span class="toc-number">8.</span> <span class="toc-text">表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用"><span class="toc-number">9.</span> <span class="toc-text">引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引用文本"><span class="toc-number">9.1.</span> <span class="toc-text">引用文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用代码"><span class="toc-number">9.2.</span> <span class="toc-text">引用代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成目录"><span class="toc-number">10.</span> <span class="toc-text">生成目录</span></a></li></ol>
         
@@ -554,10 +568,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
 
     <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+        yiliaConfig.toc = ["Hide", "Show", !!"true"];
     </script>
 
 
@@ -617,15 +631,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/09/29/js随机颜色/" title="上一篇: JS实现随机颜色的三种方式和颜色格式的转化">
+            <a href="/2016/09/29/js随机颜色/" title="Pre: JS实现随机颜色的三种方式和颜色格式的转化">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
     </div>
 
@@ -646,14 +660,14 @@
                 2016 Mervyn Zhang
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -662,7 +676,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -718,9 +732,9 @@ MathJax.Hub.Queue(function() {
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window

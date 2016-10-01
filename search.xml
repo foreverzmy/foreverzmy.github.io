@@ -36,6 +36,7 @@
       <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>先是使用了为知笔记，接触到Markdown,后来又在github玩起了博客，Markdown就更加必不可少了，在使用为知笔记的过程中，由于为知笔记有很多的bug，自己也是新手，所以用的很不顺手，走了很多的弯路，后来改用sublime编辑，果然好很多，推荐大家也用sublime进行编辑。下面呢是我在用Markdown过程中学到到语法和总结的一些使用心得和方法。持续更新哦！<a id="more"></a></excerpt></p>
 <the rest="" of="" contents="" |="" 余下全文="">
 
+<p>由于我使用了<a href="https://github.com/MOxFIVE/yelee" target="_blank" rel="external">yelee</a>主题，所以显示的效果会不一样哦。</p>
 <h2 id="关于标题"><a href="#关于标题" class="headerlink" title="关于标题"></a>关于标题</h2><p>在行首插入 1 到 6个#，分别表示标题 1 到标题 6，语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 这是标题1</div><div class="line">## 这是标题2</div><div class="line">### 这是标题3</div><div class="line">#### 这是标题4</div><div class="line">##### 这是标题5</div><div class="line">###### 这是标题6</div></pre></td></tr></table></figure></p>
 <p>效果展示：<br><img src="http://p1.bpimg.com/4851/66c2d7412399f8cf.png" alt="标题"></p>
 <h2 id="显示文本"><a href="#显示文本" class="headerlink" title="显示文本"></a>显示文本</h2><h3 id="普通文本"><a href="#普通文本" class="headerlink" title="普通文本"></a>普通文本</h3><p>文本顶格写就会显示普通文本。</p>
@@ -90,8 +91,16 @@
 <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>在行首增加 1. 、 2. 、 3. ，即数字和英文句点, 不要求数字一定要连续，可以都是 1.，后面加一个空格。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1. 有序列表</div><div class="line">1. 有序列表</div><div class="line">4. 有序列表</div></pre></td></tr></table></figure></p>
 <p>效果展示：</p>
 <ol>
-<li>有序列表<br> 1.1 erji</li>
 <li>有序列表</li>
+<li>有序列表</li>
+<li>有序列表<br>此外还有二级列表和三级列表等，语法如下；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. 有序列表</div><div class="line">	1.1 二级列表</div><div class="line">1. 有序列表</div><div class="line">	2.1 二级列表</div><div class="line">		2.1.1 二级列表</div><div class="line">4. 有序列表</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>效果展示：</p>
+<ol>
+<li>有序列表<br> 1.1 二级列表</li>
+<li>有序列表<br> 2.1 二级列表<pre><code>2.1.1 二级列表
+</code></pre></li>
 <li>有序列表</li>
 </ol>
 <h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>在行首增加 * 、+ 或 -，后面跟一个空格，语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 无序列表</div><div class="line">* 无序列表</div></pre></td></tr></table></figure></p>
@@ -118,13 +127,18 @@
 <blockquote>
 <p>注意：使用列表时需要在后面加上空行与其它内容区隔开，否则会被加入最后一个列表里。</p>
 </blockquote>
-<h3 id="任务清单"><a href="#任务清单" class="headerlink" title="任务清单"></a>任务清单</h3><p>列表可被转换为任务清单，只要在列表项开头加上[ ]或者[x],(分别表示已完成和未完成)。<br>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- [ ]HTML</div><div class="line">- [ ]CSS</div><div class="line">- [x]JavaScript</div></pre></td></tr></table></figure></p>
+<h3 id="任务清单"><a href="#任务清单" class="headerlink" title="任务清单"></a>任务清单</h3><p>列表可被转换为任务清单，只要在列表项开头加上<a href="中间有空格"> </a>或者[x],(分别表示已完成和未完成)。<br>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- [ ]HTML</div><div class="line">- [ ]CSS</div><div class="line">- [x]JavaScript</div></pre></td></tr></table></figure></p>
 <p>效果展示：</p>
 <ul>
 <li>[ ]HTML</li>
 <li>[ ]CSS</li>
 <li>[x]JavaScript</li>
 </ul>
+<ol>
+<li>[ ]有序列表</li>
+<li>[ ]有序列表</li>
+<li>[ ]有序列表</li>
+</ol>
 <h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><p>Markdown中的转义字符为\，可以转义的有：</p>
 <table>
 <thead>
@@ -161,16 +175,16 @@
 <table>
 <thead>
 <tr>
-<th>为知笔记</th>
-<th>更新</th>
-<th>版本</th>
+<th>blog</th>
+<th>system</th>
+<th>theme</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>WizNote</td>
-<td>Markdown</td>
-<td>Latest</td>
+<td>github page</td>
+<td>hexo</td>
+<td>yelee</td>
 </tr>
 </tbody>
 </table>
