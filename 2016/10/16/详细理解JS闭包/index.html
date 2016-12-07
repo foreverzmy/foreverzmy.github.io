@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Mervyn Zhang" />
+
+
+
+<meta name="description" content="最近参加面试，错过一个福利很好的公司，很是心痛。我发现很多大型公司都对校招生的项目要求不高，框架基本都没问，但是要求基础扎实，其中就有对闭包的考察，最近仔细钻研了一下，对闭包也有了一些理解，就在这总结一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详细理解JS闭包">
+<meta property="og:url" content="http://www.foreverz.cn/2016/10/16/详细理解JS闭包/index.html">
+<meta property="og:site_name" content="心有猛虎，细嗅蔷薇">
+<meta property="og:description" content="最近参加面试，错过一个福利很好的公司，很是心痛。我发现很多大型公司都对校招生的项目要求不高，框架基本都没问，但是要求基础扎实，其中就有对闭包的考察，最近仔细钻研了一下，对闭包也有了一些理解，就在这总结一下。">
+<meta property="og:updated_time" content="2016-10-18T14:36:05.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详细理解JS闭包">
+<meta name="twitter:description" content="最近参加面试，错过一个福利很好的公司，很是心痛。我发现很多大型公司都对校招生的项目要求不高，框架基本都没问，但是要求基础扎实，其中就有对闭包的考察，最近仔细钻研了一下，对闭包也有了一些理解，就在这总结一下。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="心有猛虎，细嗅蔷薇" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>详细理解JS闭包 | 心有猛虎，细嗅蔷薇</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Mervyn Zhang</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">任他支离狂悖，任他颠倒颇僻，我自八风不动。我自心如磐石。</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/projects/">项目展示</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:dukez1239@gamil.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2201078341" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zmyforever1" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 网易云音乐" href="http://music.163.com/#/user/home?id=71626540" title="网易云音乐"></a>
+                            
+                                <a class="fa QQ" href="/921255465" title="QQ"></a>
+                            
+                                <a class="fa 微信" href="/zmyloveforever" title="微信"></a>
+                            
+                                <a class="fa CodePen" href="http://codepen.io/foreveryuan/" title="CodePen"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Material-Design/">Material Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fs模块/">fs模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js函数/">js函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js原型/">js原型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js继承/">js继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodegrass模块/">nodegrass模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续更新/">持续更新</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/颜色/">颜色</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一个即将毕业步入职场的小菜年，这在魔幻迷离的世界摸索前行，勤勤恳恳，认真耕耘。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Mervyn Zhang</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Mervyn Zhang</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">任他支离狂悖，任他颠倒颇僻，我自八风不动。我自心如磐石。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/projects/">项目展示</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:dukez1239@gamil.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2201078341" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zmyforever1" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="http://music.163.com/#/user/home?id=71626540" title="网易云音乐"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/921255465" title="QQ"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/zmyloveforever" title="微信"></a>
+                            
+                                <a class="fa CodePen" target="_blank" href="http://codepen.io/foreveryuan/" title="CodePen"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-详细理解JS闭包" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/16/详细理解JS闭包/" class="article-date">
+      <time datetime="2016-10-16T02:04:36.000Z" itemprop="datePublished">2016-10-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      详细理解JS闭包
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/closure/">closure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>最近参加面试，错过一个福利很好的公司，很是心痛。我发现很多大型公司都对校招生的项目要求不高，框架基本都没问，但是要求基础扎实，其中就有对闭包的考察，最近仔细钻研了一下，对闭包也有了一些理解，就在这总结一下。<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="关于变量"><a href="#关于变量" class="headerlink" title="关于变量"></a>关于变量</h2><p>要了解闭包就要先了解js中的变量。<br>js中有全局变量和局部变量。其中可以在任意位置访问和修改的就是全局变量。在函数中用var声明的只能在函数内访问和修改的就是局部变量（let和var在函数中声明的变量作用是一样的，这里就不单列出来了）。</p>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>局部变量必须用var关键字来声明，否则会自动添加到全局对象的属性上去，成为全局变量。</li>
+<li>全局变量是一直存在的，你用或者不用，他就在那里。而局部变量只有在调用函数的时候才会存在，函数调用过后变量就会销毁，下一次使用函数的时候会重新创建。</li>
+</ol>
+<h2 id="关于函数"><a href="#关于函数" class="headerlink" title="关于函数"></a>关于函数</h2><ol>
+<li>函数是可以进行多级嵌套的。</li>
+<li>函数里面的子函数可以访问使用它上级定义的变量，不止是上一级，而是像冒泡一样逐层往上查找，找到了就会停止查找，而如果找到全局也没有找到就会报错。</li>
+<li><p>函数里调用函数外变量不能用var，否则就是声明同名局部变量，对函数外变量不会有影响。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="number">2</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(x);</div><div class="line">    &#125;</div><div class="line">    b();</div><div class="line">&#125;</div><div class="line">a();</div><div class="line"><span class="built_in">console</span>.log(x);</div></pre></td></tr></table></figure>
+<p> 结果会先输出2，再输出1。这是因为在函数a里用<code>var</code>重新声明了一个局部变量x并赋值为2，此时在函数a中的变量x和全局变量x是没有关系的。所以调用函数a输出的是局部变量，结果为2，而最下面则输出的是全局变量，结果为1.</p>
+</li>
+<li><p>函数自调：函数除了上面用<code>a()</code>这样调用外，还可以自调，可以用()把函数包裹起来，后面跟上()执行这个函数。为什么包裹起来呢？因为不包裹那么就是对函数的声明，包裹起来就是一个表达式了，js会直接执行表达式，所以还可以在函数前加”~”、”+”、”-“等符号,函数后跟()让函数自调,但这些符号有很多局限，所以不是很了解的话还是少用。</p>
+</li>
+<li><p><strong>JavaScript中的函数运行在它们被定义的作用域里，而不是它们被执行的作用域里。</strong><br>其实这句话就是前面第三条，但是很重要，特别提出来，闭包的实现主要也是因为这个原因。</p>
+</li>
+<li><p>JavaScript中有回收机制，函数被引用执行完成后不再被引用，这个函数的作用域就会被回收销毁，如果两个对象互相引用，而不再被第三者所引用，那么这两个互相引用的对象也会被回收。但是两个对象互相引用，且在被第三者引用，那么就不会被回收。闭包的作用就是让这个函数的作用域不会被回收销毁。</p>
+</li>
+</ol>
+<h2 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h2><p>闭包的解释：一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。<br>这是说的什么鬼，字都认识，可是合成一句话就一脸懵逼了，还是举个栗子吧：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        i ++;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> b;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> c = a();</div><div class="line">c(); <span class="comment">//=&gt; 1</span></div><div class="line">c(); <span class="comment">//=&gt; 2</span></div></pre></td></tr></table></figure></p>
+<p>这段代码会输出1和2，我们会发现在这段代码中有两个特点：</p>
+<pre><code>1. 函数b嵌套在函数a中;
+2. 函数a返回函数b;
+</code></pre><p>这就是一个最简单的闭包。<br>在执行完<code>var c = a()</code>之后，c其实是指向b的函数，那么<code>c();</code>就相当于在函数<code>a</code>外执行了<code>a</code>里的函数<code>b</code>。函数b被c引用，而c是全局变量，并不会被回收，而b是在a里面的函数，所以最后函数a的作用域就会被保存在内存中而不会被销毁。<br>所以如果把上面的代码修改一下，让全局变量c不引用b，就会释放a的作用域，闭包也就释放了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        i ++;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> b;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> c = a();</div><div class="line">c(); <span class="comment">//=&gt; 1</span></div><div class="line">c(); <span class="comment">//=&gt; 2</span></div><div class="line">c = a();</div><div class="line">c(); <span class="comment">//=&gt; 1</span></div><div class="line">c(); <span class="comment">//=&gt; 2</span></div></pre></td></tr></table></figure>
+<p>上面代码在会输出两个1、2、1、2，而不是1、2、3、4，原因就是在第一个闭包形成输出1、2之后，将闭包释放了，然后又形成了一个新的闭包，调用又输出1和2。</p>
+<p>还有一个更为常见的闭包写法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        i++;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> b;</div><div class="line">&#125;)();</div><div class="line">a();</div><div class="line">a();</div></pre></td></tr></table></figure>
+<p>匿名函数自执行把函数b赋给了a，这个a就是return回去的函数b；执行<code>a();</code>就是执行内函数b，这样就形成了一个闭包。</p>
+<h2 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h2><p>闭包是非常重要的一个概念，利用闭包很多的好处：</p>
+<h3 id="保护函数内的变量安全-加强了封装性"><a href="#保护函数内的变量安全-加强了封装性" class="headerlink" title="保护函数内的变量安全,加强了封装性"></a>保护函数内的变量安全,加强了封装性</h3><p>以最开始的例子为例，函数a中i只有函数b才能访问，而无法通过其他途径访问到，因此保护了i的安全性。以第一个闭包来说，函数a中的i只有函数b才能访问，而无法通过其他途径访问到，因此保护了i的安全性。</p>
+<h3 id="在内存中维持一个变量，使逻辑连续-用的太多就变成了缺点，占内存"><a href="#在内存中维持一个变量，使逻辑连续-用的太多就变成了缺点，占内存" class="headerlink" title="在内存中维持一个变量，使逻辑连续(用的太多就变成了缺点，占内存)"></a>在内存中维持一个变量，使逻辑连续(用的太多就变成了缺点，占内存)</h3><p>依然如前例，由于闭包，函数a中i的一直存在于内存中，因此每次执行c()，都会给i自加1。</p>
+<h3 id="实现JS私有属性和私有方法"><a href="#实现JS私有属性和私有方法" class="headerlink" title="实现JS私有属性和私有方法"></a>实现JS私有属性和私有方法</h3><p>通过保护函数内变量的安全，可以利用面向对象的方法创建函数的私有属性和私有方法，且不能被Constructor外访问到。</p>
+<h2 id="闭包的缺点"><a href="#闭包的缺点" class="headerlink" title="闭包的缺点"></a>闭包的缺点</h2><p>闭包有一个非常严重的问题，那就是内存浪费问题，这个内存浪费不仅仅因为它常驻内存，更重要的是，对闭包的使用不当会造成无效内存的产生。看下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">10000</span>; i++) &#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(i)</div><div class="line">        &#125;, <span class="number">0</span>)</div><div class="line">    &#125;;</div><div class="line">    a(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个例子会创建10000个闭包，存在内存中不会释放，会造成内存的极大浪费，所以闭包要慎用。</p>
+<h2 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h2><h3 id="解决for循环后执行输出全为循环后值的问题。"><a href="#解决for循环后执行输出全为循环后值的问题。" class="headerlink" title="解决for循环后执行输出全为循环后值的问题。"></a>解决for循环后执行输出全为循环后值的问题。</h3><p>面试题，结果是什么？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;, <span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个就是我之前遇到过的一个面试题，答案当然很简单，是3个4，不了解的童鞋可以去看一下定时器的运行机制。<br>那么怎么能让它输出1，2，3呢？<br>这个当然有很多的方法，我们这里用闭包来做。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(i)</div><div class="line">        &#125;, <span class="number">0</span>)</div><div class="line">    &#125;;</div><div class="line">    a(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面这个函数就是使用闭包实现了输出1,2,3；在这里a就是外包函数，setTimeout的回调函数就是内函数，而setTimeout就是在外部对内函数的调用。所以这里其实有3个闭包，每个闭包函数被调用了一次，然后就释放掉了。<br>这个函数还可以简化一下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</div><div class="line">    + <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(i)</div><div class="line">        &#125;, <span class="number">0</span>)</div><div class="line">    &#125;(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是用了函数自调来实现的闭包，同样有3个闭包，那么怎么使用1个闭包来实现呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(a++);</div><div class="line">        &#125;, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;();</div></pre></td></tr></table></figure></p>
+<p>这里就是用了1个闭包实现了输出1,2,3；这里的a是内部变量，然后for循环和setTimeout是对内函数的3次外部调用。</p>
+<h3 id="利用闭包模拟对象的私有属性"><a href="#利用闭包模拟对象的私有属性" class="headerlink" title="利用闭包模拟对象的私有属性"></a>利用闭包模拟对象的私有属性</h3><p>JavaScript以前缺少块级作用域，没有private修饰符，但是具有函数作用域。作用域的好处是内部函数可以访问它们的外部函数的参数和变量（除了this和argument。内部中的函数中的this指向全局对象，argument指向内部函数的函数参数）。我们可以利用这种属性来模拟面向对象中的私有属性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">aname</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> aname = aname || <span class="string">'No Input'</span>;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        get name() &#123;</div><div class="line">            <span class="keyword">return</span> aname;</div><div class="line">        &#125;,</div><div class="line">        set name(newNmae) &#123;</div><div class="line">            aname = newNmae;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fun = test();</div><div class="line"><span class="built_in">console</span>.log(fun.name);	<span class="comment">//=&gt;No Input</span></div><div class="line">fun.name = <span class="string">"mervyn"</span>;</div><div class="line"><span class="built_in">console</span>.log(fun.name);	<span class="comment">//=&gt;mervyn</span></div></pre></td></tr></table></figure></p>
+<p>在这里利用闭包和访问器属性模拟出了对象的私有属性的读取与修改。</p>
+<h3 id="利用闭包模拟对象的私有方法"><a href="#利用闭包模拟对象的私有方法" class="headerlink" title="利用闭包模拟对象的私有方法"></a>利用闭包模拟对象的私有方法</h3><p>模拟私有方法和模拟私有属相差不多，不过返回的直接是函数而不是访问器而已。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">aname</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> aname = aname || <span class="string">'No Input'</span>;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">getName</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> aname;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">setName</span>: <span class="function"><span class="keyword">function</span>(<span class="params">newName</span>) </span>&#123;</div><div class="line">            aname = newName;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> fun = test();</div><div class="line"><span class="built_in">console</span>.log(fun.getName());	<span class="comment">//=&gt;No Input</span></div><div class="line">fun.setName(<span class="string">'mervyn'</span>);</div><div class="line"><span class="built_in">console</span>.log(fun.getName());	<span class="comment">//=&gt;mervyn</span></div></pre></td></tr></table></figure></p>
+<p>在这里利用闭包直接返回多个函数模拟出了对象的私有方法，可以再外部直接调用，像调用对象方法一样使用。</p>
+<p>更多闭包的应用请参考<a href="http://www.cnblogs.com/star-studio/archive/2011/06/22/2086493.html" target="_blank" rel="external">这里</a>;</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>闭包是一种非常强大的设计原则，在js中学会使用闭包是非常重要的，使用闭包可以大大简化用户的调用，达到目的。</li>
+<li>不需要知道闭包的原理和细节，只要知道闭包的基本使用就可以了。</li>
+<li>尽量少学习。</li>
+</ol>
+</the>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Mervyn Zhang</a></p>
+        <p><span>发布时间:</span>2016-10-16, 10:04:36</p>
+        <p><span>最后更新:</span>2016-10-18, 22:36:05</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/16/详细理解JS闭包/" title="详细理解JS闭包">http://www.foreverz.cn/2016/10/16/详细理解JS闭包/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.foreverz.cn/2016/10/16/详细理解JS闭包/　　作者: Mervyn Zhang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/10/18/js的原型与继承/">
+                    js函数、原型与继承
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/10/09/Node-js的nodegrass网页请求模块/">
+                    Node.js的nodegrass网页请求模块
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于变量"><span class="toc-number">1.</span> <span class="toc-text">关于变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于函数"><span class="toc-number">2.</span> <span class="toc-text">关于函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是闭包？"><span class="toc-number">3.</span> <span class="toc-text">什么是闭包？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包的作用"><span class="toc-number">4.</span> <span class="toc-text">闭包的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#保护函数内的变量安全-加强了封装性"><span class="toc-number">4.1.</span> <span class="toc-text">保护函数内的变量安全,加强了封装性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在内存中维持一个变量，使逻辑连续-用的太多就变成了缺点，占内存"><span class="toc-number">4.2.</span> <span class="toc-text">在内存中维持一个变量，使逻辑连续(用的太多就变成了缺点，占内存)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现JS私有属性和私有方法"><span class="toc-number">4.3.</span> <span class="toc-text">实现JS私有属性和私有方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包的缺点"><span class="toc-number">5.</span> <span class="toc-text">闭包的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包的应用"><span class="toc-number">6.</span> <span class="toc-text">闭包的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决for循环后执行输出全为循环后值的问题。"><span class="toc-number">6.1.</span> <span class="toc-text">解决for循环后执行输出全为循环后值的问题。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用闭包模拟对象的私有属性"><span class="toc-number">6.2.</span> <span class="toc-text">利用闭包模拟对象的私有属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用闭包模拟对象的私有方法"><span class="toc-number">6.3.</span> <span class="toc-text">利用闭包模拟对象的私有方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"详细理解JS闭包　| 心有猛虎，细嗅蔷薇　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/16/详细理解JS闭包/" data-title="详细理解JS闭包" data-url="http://www.foreverz.cn/2016/10/16/详细理解JS闭包/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"null"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/10/18/js的原型与继承/" title="上一篇: js函数、原型与继承">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/10/09/Node-js的nodegrass网页请求模块/" title="下一篇: Node.js的nodegrass网页请求模块">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/二叉树与js/">二叉树与js</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/18/js的原型与继承/">js函数、原型与继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/09/Node-js的nodegrass网页请求模块/">Node.js的nodegrass网页请求模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/04/Node-js的fs文件系统/">Node.js的FileSystem文件模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/loadingView/">canvas画Material风格的loadingView</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Sublime Text3的使用/">Sublime Text3的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/js随机颜色/">JS实现随机颜色的三种方式和颜色格式的转化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/27/Markdown语法/">Markdown语法</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Mervyn Zhang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
