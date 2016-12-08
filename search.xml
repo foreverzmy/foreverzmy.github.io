@@ -4,9 +4,505 @@
   
     
     <entry>
-      <title><![CDATA[二叉树与js]]></title>
-      <url>http://www.foreverz.cn/2016/10/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%8Ejs/</url>
-      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>二叉树是非常基础有非常重要的数据结构，在一些场合有着非常重要的左右。掌握二叉树对编写高质量代码、减少代码量有很大的促进作用！<a id="more"></a></excerpt></p>
+      <title><![CDATA[Node.js的nodegrass网页请求模块]]></title>
+      <url>http://www.foreverz.cn/2016/12/08/Node-js%E7%9A%84nodegrass%E7%BD%91%E9%A1%B5%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>Node.js的网页请求有官方提供的的http模块，但是用起来过于繁琐与复杂，所以有了第三方基于http封装的nodegrass模块，简单易懂，方便使用。<a id="more"></a></excerpt></p>
+<p><the rest="" of="" contents="" |="" 余下全文=""></the></p>
+<h2 id="nodegrass是什么？"><a href="#nodegrass是什么？" class="headerlink" title="nodegrass是什么？"></a>nodegrass是什么？</h2><p>模块开发者的介绍是：nodegrass is a tool to process client request for Node.js，翻译过来就是nodegress是为Node.js处理客户端请求的工具。是对Node.js官方提供的http模块的二次处理封装，使Node.js更加的易于使用，下面我们就来看看nodegrass的用法。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先是nodegrass的安装方法，可以直接使用npm安装,建议安装在项目文件夹里:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install nodegrass -save</div></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>然后就介绍Node.js的使用了。<br>下面是开发者提供的Demo,首先是get请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//get request</span></div><div class="line"><span class="keyword">var</span> nodegrass = <span class="built_in">require</span>(<span class="string">'nodegrass'</span>);</div><div class="line">nodegrass.get(<span class="string">"https://github.com"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data,status,headers</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(status);</div><div class="line">    <span class="built_in">console</span>.log(headers);</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;,<span class="literal">null</span>,<span class="string">'utf8'</span>).on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Got error: "</span> + e.message);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>首先<code>require</code>加载模块，然后就可以直接使用了。这里是get的<code>https://github.com</code>网站</p>
+<p>post请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ng=<span class="built_in">require</span>(<span class="string">'nodegrass'</span>);</div><div class="line">ng.post(<span class="string">"https://api.weibo.com/oauth2/access_token"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data,status,headers</span>)</span>&#123;</div><div class="line"> <span class="keyword">var</span> accessToken = <span class="built_in">JSON</span>.parse(data);</div><div class="line">	<span class="keyword">var</span> err = <span class="literal">null</span>;</div><div class="line"> <span class="keyword">if</span>(accessToken.error)&#123;</div><div class="line">     	err = accessToken;</div><div class="line"> &#125;</div><div class="line"> callback(err,accessToken);</div><div class="line"> &#125;,headers,options,<span class="string">'utf8'</span>);</div></pre></td></tr></table></figure>
+<p>post方法相比get方法多提供了headers请求头参数，options–post的数据，它们都是对象字面量的类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> headers = &#123;</div><div class="line">    <span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>,</div><div class="line">    <span class="string">'Content-Length'</span>:data.length</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> options = &#123;</div><div class="line">         <span class="attr">client_id</span> : <span class="string">'id'</span>,</div><div class="line">     <span class="attr">client_secret</span> : <span class="string">'cs'</span>,</div><div class="line">     <span class="attr">grant_type</span> : <span class="string">'authorization_code'</span>,</div><div class="line">     <span class="attr">redirect_uri</span> : <span class="string">'your callback url'</span>,</div><div class="line">     <span class="attr">code</span>: acode</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>利用nodegrass做代理服务器？……**</p>
+<p>看例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ng = <span class="built_in">require</span>(<span class="string">'nodegrass'</span>),</div><div class="line"> http=<span class="built_in">require</span>(<span class="string">'http'</span>),</div><div class="line"> url=<span class="built_in">require</span>(<span class="string">'url'</span>);</div><div class="line"> http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(req.url).pathname;</div><div class="line">    <span class="keyword">if</span>(pathname === <span class="string">'/'</span>)&#123;</div><div class="line">        ng.get(<span class="string">'http://foreverz.cn/'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            res.writeHeader(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html;charset=utf-8'</span>&#125;);</div><div class="line">            res.write(data+<span class="string">"\n"</span>);</div><div class="line">            res.end();</div><div class="line">            &#125;,<span class="string">'utf8'</span>);</div><div class="line">        &#125;</div><div class="line"> &#125;).listen(<span class="number">9000</span>);</div><div class="line"> <span class="built_in">console</span>.log(<span class="string">'server listening 9000...'</span>);</div></pre></td></tr></table></figure>
+<p>就这么简单，当然代理服务器还有复杂的多，这个不算是，但至少你访问本地9000端口，看到的是不是博客主页呢？</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[全屏滚动插件fullPage使用教程]]></title>
+      <url>http://www.foreverz.cn/2016/11/03/%E5%85%A8%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%8F%92%E4%BB%B6fullPage%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>经常在各种网站上看到全屏滚动的交互，在网页上实现了类似PPT的效果，很高大上，最近搜索了一下，发现可以实现这个效果的两个插件，但是有一个<code>fullPage</code>插件没有相关API的详细说明，自己在使用的过程中总结一下，写在这里！<a id="more"></a></excerpt></p>
+<p><the rest="" of="" contents="" |="" 余下全文=""><br>有两个插件<code>fullPage.js</code>和<code>fullPage</code>都能实现全屏滚动，名字也是一样的，只是少了“.js”；但是两者的区别在于<code>fullPage.js</code>是基于<code>jQuery</code>库开发的，使用<code>fullPage.js</code>需要先引入<code>jQuery</code>，而<code>fullPage</code>则是原生js开发的，不需要依赖任何一个js库，可以单独使用。功能上虽然不如<code>fullPage.js</code>强大，但一般使用已经足够了，尤其是它的动画效果，你可以自由设定缩放、旋转以产生各种各样的动画效果。同时它还支持<code>fullPage.js</code>所没有的水平滚动。<br>我这里讲的就是原生<code>fullPage</code>插件的使用。</the></p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="引入文件"><a href="#引入文件" class="headerlink" title="引入文件"></a>引入文件</h3><p>使用<code>fullPage</code>插件首先要引入fullPage文件，可以在<a href="http://alvarotrigo.com/fullPage/extensions/" target="_blank" rel="external">fullPage官网</a>上进行下载，然后通过<code>script</code>标签引用。</p>
+<h3 id="HTML语法"><a href="#HTML语法" class="headerlink" title="HTML语法"></a>HTML语法</h3><h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p><code>fullPage</code>对<code>HTML</code>语法没有什么严格的要求，只是需要一个外层元素，然后每一屏的内容放在一个子元素中，这样顺序排下来就可以,不过最好还是按照官方推荐的格式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pageContain"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"page page1 current"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"contain"</span>&gt;</span></div><div class="line">            <span class="comment">&lt;!-- your own code here--&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- ect.. --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--alternative--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"navBar"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>0<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- ect.. --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--alternative--&gt;</span></div></pre></td></tr></table></figure>
+<p><code>#pageContain</code>就是外层元素，里面的每一个直接子元素都是一屏的内容；<br><code>#navBar</code>则是导航标签，用来显示当前屏幕位置和跳转到对应屏幕，可以省略；<br><code>.current</code>则是定义当前显示的页面；</p>
+<h4 id="data-step页内动画"><a href="#data-step页内动画" class="headerlink" title="data-step页内动画"></a>data-step页内动画</h4><p>可以在<code>.page</code>的<code>div</code>上加上<code>data-step=n</code>属性，可以创造出不切屏的逐桢动画。<br>原理是滚动鼠标或者滑动页面时，为<code>.page</code>加上一个<code>class</code>属性为<code>step1</code>，滑动一次则增加1，一直增加到<code>n</code>，然后，就可以在CSS里利用<code>animation</code>属性添加动画了。<br>注意：使用导航条跳转时默认会回到<code>stepx</code>(x为上次浏览到的地方)，如果想跳转时重新开始，可以调用<code>callback</code>函数清除掉class：<code>stepx</code>;</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><p>CSS可以自己定义样式，不过fullPage会把外层元素的每个子元素都设置为全屏，而且会可以自适应不同的屏幕。如果是行内元素，则会变为块级元素，且内容会居中。以下是一些必须的样式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">html &#123;</div><div class="line">    -ms-touch-action: none;  /* 阻止windows Phone 的默认触摸事件 */</div><div class="line">&#125;</div><div class="line">body,</div><div class="line">div &#123;</div><div class="line">	margin: 0;</div><div class="line">	padding: 0;</div><div class="line">&#125;</div><div class="line">body &#123;</div><div class="line">    width: 100%;</div><div class="line">    *cursor: default;</div><div class="line">    overflow: hidden;</div><div class="line">&#125;</div><div class="line">#pageContain &#123; /*设置超出页面部分隐藏*/</div><div class="line">    overflow: hidden;</div><div class="line">&#125;</div><div class="line">.page &#123;	/*设置页面为全屏*/</div><div class="line">    display: none;</div><div class="line">    width: 100%;</div><div class="line">    height: 100%;</div><div class="line">    overflow: hidden;</div><div class="line">    position: absolute;</div><div class="line">    top: 0;</div><div class="line">    left: 0;</div><div class="line">&#125;</div><div class="line">.current &#123; /当前页效果/</div><div class="line">    display: block;</div><div class="line">    z-index: 1;</div><div class="line">&#125;</div><div class="line">.slide &#123; /*滚动时的页面*/</div><div class="line">    display: block;</div><div class="line">    z-index: 2;</div><div class="line">&#125;</div><div class="line">.swipe &#123; /*滑动时的效果*/</div><div class="line">    display: block;</div><div class="line">    z-index: 3;</div><div class="line">    transition-duration: 0ms !important;</div><div class="line">    -webkit-transition-duration: 0ms !important;</div><div class="line">&#125;</div><div class="line">.page1 &#123;</div><div class="line">	... /*每个页面的样式*/</div><div class="line">&#125;</div><div class="line">...</div><div class="line">.step1 &#123;</div><div class="line">	... /*每页动画样式*/</div><div class="line">&#125;</div><div class="line">...</div><div class="line">#navBar &#123;</div><div class="line">	... /*导航样式*/</div><div class="line">&#125;</div><div class="line">#navBar li &#123;</div><div class="line">	... /*导航标签样式*/</div><div class="line">&#125;</div><div class="line">#navBar .active &#123;</div><div class="line">    ... /*导航条激活时的样式*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>CSS文件中这些样式是必须的，而且最好不要调整顺序，否则可能会有未知的错误出现。</p>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>在JS文件中，则需要按照格式来进行设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> runPage = <span class="keyword">new</span> FullPage(&#123;</div><div class="line">    <span class="attr">id</span>: <span class="string">'pageContain'</span>, 							<span class="comment">// 父级元素的Id;</span></div><div class="line">    slideTime: <span class="number">800</span>, 							<span class="comment">// 每页切换时间(毫秒);</span></div><div class="line">    continuous: <span class="literal">false</span>, 							<span class="comment">// 是否循环(即能从最后页跳到第一页面);</span></div><div class="line">    effect: &#123; 									<span class="comment">// 切换动画效果;</span></div><div class="line">        transform: &#123;							<span class="comment">//CSS3转换动画;</span></div><div class="line">            translate: <span class="string">'Y'</span>, 					<span class="comment">// 'X'|'Y'|'XY'|'none'表示 X轴|Y轴|XY轴|无;</span></div><div class="line">            scale: [<span class="number">.1</span>, <span class="number">1</span>], 					<span class="comment">// [起始缩放比例, 结束时缩放比例];</span></div><div class="line">            rotate: [<span class="number">0</span>, <span class="number">0</span>], 					<span class="comment">// [起始旋转角度, 结束时旋转角度];</span></div><div class="line">        &#125;,</div><div class="line">        <span class="attr">opacity</span>: [<span class="number">0</span>, <span class="number">1</span>], 						<span class="comment">// [起始透明度, 结束时透明度];</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">mode</span>: <span class="string">'wheel,touch,nav:navBar'</span>, 			<span class="comment">//  转换模式，表示 '滚轮,触摸,导航条:导航条id';</span></div><div class="line">    easing: <span class="string">'ease'</span>, 							<span class="comment">// 动画行进速度;</span></div><div class="line">    start: <span class="number">1</span>, 									<span class="comment">// 初始化时被展示的页面页码;</span></div><div class="line">    onSwipeStart : <span class="function"><span class="keyword">function</span>(<span class="params">index, thisPage</span>) </span>&#123;	<span class="comment">// 触摸开始时的回调函数;</span></div><div class="line">    	<span class="keyword">return</span> <span class="string">'stop'</span>;							<span class="comment">//此次触摸将不会生效;</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">beforeChange</span> : <span class="function"><span class="keyword">function</span>(<span class="params">index, thisPage</span>) </span>&#123;	<span class="comment">// 滑动开始时的回调函数;</span></div><div class="line">    	<span class="keyword">return</span> <span class="string">'stop'</span>;							<span class="comment">//此次滑动将还原;</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">callback</span> : <span class="function"><span class="keyword">function</span>(<span class="params">index, thisPage</span>) </span>&#123;		<span class="comment">// 滑动结束后的回调函数;</span></div><div class="line">    	alert(index);</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通过上面的设置基本就可以实现类似幻灯片的网页效果了。</p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">属性/方法</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">可选值</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">通过Id获取父级元素(必须)</td>
+</tr>
+<tr>
+<td style="text-align:center">slideTime</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">800</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">每页切换时间(毫秒)</td>
+</tr>
+<tr>
+<td style="text-align:center">continuous</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true/false</td>
+<td style="text-align:center">是否循环(最后页跳到第一页)</td>
+</tr>
+<tr>
+<td style="text-align:center">effect</td>
+<td style="text-align:center">object</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">transform/opacity</td>
+<td style="text-align:center">切换动画的效果</td>
+</tr>
+<tr>
+<td style="text-align:center">mode</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">null</td>
+<td style="text-align:center">wheel,touch,nav:navBar</td>
+<td style="text-align:center">转换模式，表示’滚轮,触摸,导航条:导航条id</td>
+</tr>
+<tr>
+<td style="text-align:center">easing</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">ease/ease-in/ease-in-out/cubic-bezier like [.33, 1.81, 1, 1]</td>
+<td style="text-align:center">动画行进速度</td>
+</tr>
+<tr>
+<td style="text-align:center">start</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">初始化时被展示的页面页码</td>
+</tr>
+<tr>
+<td style="text-align:center">onSwipeStart</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">return ‘stop’</td>
+<td style="text-align:center">触摸开始时的回调函数(stop停止此次触摸)</td>
+</tr>
+<tr>
+<td style="text-align:center">beforeChange</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">return ‘stop’</td>
+<td style="text-align:center">滑动开始时的回调函数(stop还原此次滑动)</td>
+</tr>
+<tr>
+<td style="text-align:center">callback</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center">null</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">滑动结束后的回调函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>Fullpage也提供了一些接口供开发者调用：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性/方法</th>
+<th style="text-align:center">使用</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.prev()</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center">向上滚动一页/一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">.next()</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center">向下滚动一页/一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">.thisPage()</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center">返回当前的页码</td>
+</tr>
+<tr>
+<td style="text-align:center">.go(num)</td>
+<td style="text-align:center">function</td>
+<td style="text-align:center">滚动到第 num 页</td>
+</tr>
+</tbody>
+</table>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p><code>fullPage</code>是一个非常简单却又很实用的插件，可以实现很炫酷的ppt效果的网页，而且借口简单，功能强大，文件也很小，才9kb，比起<code>jQuery</code>的<code>fullPage.js</code>插件虽然功能上略显逊色，但是强大的自定义属性可以有更多的发挥。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JavaScript之数组降维]]></title>
+      <url>http://www.foreverz.cn/2016/11/01/JavaScript%E4%B9%8B%E6%95%B0%E7%BB%84%E9%99%8D%E7%BB%B4/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>将多维数组（尤其是二维数组）转化为一维数组是业务开发中的常用逻辑，除了使用朴素的循环转换以外，我们还可以利用Javascript的语言特性和数据结构的思想实现更为简洁优雅的转换。<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="二维数组降维"><a href="#二维数组降维" class="headerlink" title="二维数组降维"></a>二维数组降维</h2><p>二维数组只有两个维度，降维比较简单，也不用考虑太复杂的算法逻辑，我们看一下二维数组降维的几种方法；</p>
+<h3 id="遍历降维"><a href="#遍历降维" class="headerlink" title="遍历降维"></a>遍历降维</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [</div><div class="line">    [<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>],</div><div class="line">    [<span class="string">'m'</span>, <span class="string">'y'</span>],</div><div class="line">    [<span class="string">'w'</span>, <span class="string">'o'</span>, <span class="string">'r'</span>, <span class="string">'l'</span>, <span class="string">'d'</span>],</div><div class="line">    [<span class="string">'!'</span>]</div><div class="line">];</div><div class="line"><span class="keyword">var</span> result = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> r = <span class="number">0</span>; r &lt; arr.length; r++) &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> c = <span class="number">0</span>; c &lt; arr[r].length; c++) &#123;</div><div class="line">        result.push(arr[r][c]);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(result); <span class="comment">//=&gt;[ 'h', 'e', 'l', 'l', 'o', 'm', 'y', 'w', 'o', 'r', 'l', 'd', '!' ]</span></div></pre></td></tr></table></figure>
+<p>此方法思路简单，利用双重循环遍历二维数组中的每个元素并放到新数组中。</p>
+<h3 id="使用concat"><a href="#使用concat" class="headerlink" title="使用concat"></a>使用concat</h3><p>利用concat方法，可以将双重循环简化为单重循环：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [</div><div class="line">    [<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>],</div><div class="line">    [<span class="string">'m'</span>, <span class="string">'y'</span>],</div><div class="line">    [<span class="string">'w'</span>, <span class="string">'o'</span>, <span class="string">'r'</span>, <span class="string">'l'</span>, <span class="string">'d'</span>],</div><div class="line">    [<span class="string">'!'</span>]</div><div class="line">];</div><div class="line"><span class="keyword">var</span> result = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> r = <span class="number">0</span>, result = []; r &lt; arr.length; r++) &#123;</div><div class="line">    result = result.concat(arr[r]);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(result); <span class="comment">//=&gt;[ 'h', 'e', 'l', 'l', 'o', 'm', 'y', 'w', 'o', 'r', 'l', 'd', '!' ]</span></div></pre></td></tr></table></figure></p>
+<p>arr的每一个元素都是一个数组或参数，作为concat方法的参数，数组中的参数或每一个子元素又都会被独立插入进新数组。</p>
+<h3 id="使用apply-concat"><a href="#使用apply-concat" class="headerlink" title="使用apply+concat"></a>使用apply+concat</h3><p>apply方法会调用一个函数，apply方法的第一个参数会作为被调用函数的this值，apply方法的第二个参数（一个数组，或类数组的对象）会作为被调用对象的arguments值，也就是说该数组的各个元素将会依次成为被调用函数的各个参数；<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [</div><div class="line">    [<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>],</div><div class="line">    [<span class="string">'m'</span>, <span class="string">'y'</span>],</div><div class="line">    [<span class="string">'w'</span>, <span class="string">'o'</span>, <span class="string">'r'</span>, <span class="string">'l'</span>, <span class="string">'d'</span>],</div><div class="line">    [<span class="string">'!'</span>]</div><div class="line">];</div><div class="line"><span class="keyword">var</span> result = <span class="built_in">Array</span>.prototype.concat.apply([], arr);</div><div class="line"><span class="built_in">console</span>.log(result); <span class="comment">//=&gt;[ 'h', 'e', 'l', 'l', 'o', 'm', 'y', 'w', 'o', 'r', 'l', 'd', '!' ]</span></div></pre></td></tr></table></figure></p>
+<p>利用apply方法，只需要一行代码就可以完成二维数组降维了。</p>
+<h2 id="多维数组降维"><a href="#多维数组降维" class="headerlink" title="多维数组降维"></a>多维数组降维</h2><p>多维数组就没二维数组那么简单了，因为不确定数组的深度，所以也不能进行遍历来降维，只能通过递归或者栈方法来实现。</p>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype.deepFlatten = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> result = []; <span class="comment">//定义保存结果的数组</span></div><div class="line">    <span class="keyword">this</span>.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val, idx</span>) </span>&#123; <span class="comment">//遍历数组</span></div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(val)) &#123; <span class="comment">//判断是否为子数组</span></div><div class="line">            val.forEach(<span class="built_in">arguments</span>.callee); <span class="comment">//为子数组则递归执行</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            result.push(val); <span class="comment">//不为子数组则将值存入结果数组中</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> result; <span class="comment">//返回result数组</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr = [<span class="number">2</span>, <span class="number">3</span>, [<span class="number">2</span>, <span class="number">2</span>],</div><div class="line">    [<span class="number">3</span>, <span class="string">'f'</span>, [<span class="string">'w'</span>, <span class="number">3</span>]], &#123; <span class="string">"name"</span>: <span class="string">'Tom'</span> &#125;</div><div class="line">];</div><div class="line"><span class="built_in">console</span>.log(arr.deepFlatten()); <span class="comment">//=&gt;[ 2, 3, 2, 2, 3, 'f', 'w', 3, &#123; name: 'Tom' &#125; ]</span></div></pre></td></tr></table></figure>
+<p>这是通过递归的方法实现了多维数组的降维，在这里面，我有使用了原型链将方法封装进了Array原型中，可以直接在数组方法中调用。</p>
+<h3 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype.deepFlatten = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> result = []; <span class="comment">//定义保存结果的数组</span></div><div class="line">    <span class="keyword">var</span> stack = <span class="keyword">this</span>; <span class="comment">//将数组放入栈中</span></div><div class="line">    <span class="keyword">while</span> (stack.length !== <span class="number">0</span>) &#123; <span class="comment">//如果栈不为空，则循环遍历</span></div><div class="line">        <span class="keyword">var</span> val = stack.pop(); <span class="comment">//取出最后一个值</span></div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(val)) &#123; <span class="comment">//判断是不是数组</span></div><div class="line">            stack = stack.concat(val); <span class="comment">//如果是数组就将拼接入栈中</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            result.unshift(val); <span class="comment">//如果不是数组就将其取出来放入结果数组中</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">2</span>, <span class="number">3</span>, [<span class="number">2</span>, <span class="number">2</span>],</div><div class="line">    [<span class="number">3</span>, <span class="string">'f'</span>, [<span class="string">'w'</span>, <span class="number">3</span>]], &#123; <span class="string">"name"</span>: <span class="string">'Tom'</span> &#125;</div><div class="line">];</div><div class="line"><span class="built_in">console</span>.log(arr.deepFlatten()); <span class="comment">//=&gt;[ 2, 3, 2, 2, 3, 'f', 'w', 3, &#123; name: 'Tom' &#125; ]</span></div></pre></td></tr></table></figure>
+<p>这是通过栈方法，建立了一个栈，将数组的内容存进去，然后逐个取出来，如果取出来的是个数组，就将这个数组打散拼接进栈中，在出栈一个，这样循环。</p>
+<p>多维数组降维的方法也可以降维二维数组，但是有点大材小用，还是用对的方法做对的事才是最好的！</p>
+</the>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端面试宝典之HTML/CSS]]></title>
+      <url>http://www.foreverz.cn/2016/10/27/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8%E4%B9%8BHTML-CSS/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>前端内容太多太杂，要时时总结，这里就总结一下最近遇到的或者看到的前端面试题与HTML/CSS相关的题目，以便以后查阅，也与大家分享！<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="HTML基础"><a href="#HTML基础" class="headerlink" title="HTML基础"></a>HTML基础</h2><h3 id="对WEB标准以及W3C的理解与认识"><a href="#对WEB标准以及W3C的理解与认识" class="headerlink" title="对WEB标准以及W3C的理解与认识?"></a>对WEB标准以及W3C的理解与认识?</h3><p>标签闭合、标签小写、不乱嵌套、提高搜索机器人搜索几率、使用外链css和js脚本、结构行为表现的分离、文件下载与页面速度更快、内容能被更多的用户所访问、内容能被更广泛的设备所访问、更少的代码和组件，容易维护、改版方便，不需要变动页面内容、提供打印版本而不需要复制内容、提高网站易用性；</p>
+<h3 id="xhtml和html有什么区别"><a href="#xhtml和html有什么区别" class="headerlink" title="xhtml和html有什么区别?"></a>xhtml和html有什么区别?</h3><p>HTML是一种基本的WEB网页设计语言，XHTML是一个基于XML的置标语言<br>最主要的不同：<br>    XHTML元素必须被正确地嵌套。<br>    XHTML元素必须被关闭。<br>    标签名必须用小写字母。<br>    XHTML文档必须拥有根元素。</p>
+<h3 id="Doctype的作用-什么是严格模式与混杂模式-如何触发这两种模式，区分它们有何意义"><a href="#Doctype的作用-什么是严格模式与混杂模式-如何触发这两种模式，区分它们有何意义" class="headerlink" title="Doctype的作用?什么是严格模式与混杂模式,如何触发这两种模式，区分它们有何意义?"></a>Doctype的作用?什么是严格模式与混杂模式,如何触发这两种模式，区分它们有何意义?</h3><p><code>&lt;!DOCTYPE&gt;</code>声明位于位于HTML文档中的第一行，处于<code>&lt;html&gt;</code>标签之前。告知浏览器的解析器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。<br>严格模式：使用此类型的网页，浏览器解析将相对严格，不允许使用任何表现样式的标识和属性，比如在元素中直接使用background-color背景色属性。<br>混杂模式：浏览器对XHTML的解析较为宽松。允许使用4.01中的标签，但必须符合XHTML的语法。</p>
+<h3 id="什么是语义化的HTML"><a href="#什么是语义化的HTML" class="headerlink" title="什么是语义化的HTML?"></a>什么是语义化的HTML?</h3><p>HTML 标签语义化是让大家直观的认识标签(markup)和属性(attribute)的用途和作用；<br>对搜索引擎友好，有了良好的结构和语义你的网页内容自然容易被搜索引擎抓取，网站的推广便可以省下不少的功夫。<br>语义 Web 技术有助于利用基于开放标准的技术，从数据、文档内容或应用代码中分离出意义。</p>
+<h3 id="行内元素有哪些？块级元素有哪些？空-void-元素有那些？"><a href="#行内元素有哪些？块级元素有哪些？空-void-元素有那些？" class="headerlink" title="行内元素有哪些？块级元素有哪些？空(void)元素有那些？"></a>行内元素有哪些？块级元素有哪些？空(void)元素有那些？</h3><p>行内元素：a、b、span、img、input、strong、select、label、em、button、textarea;<br>块级元素：div、ul、li、dl、dt、dd、p、h1-h6、blockquote;<br>空元素：即系没有内容的HTML元素，例如：br、meta、hr、link、input、img;</p>
+<h3 id="标签上alt与title属性的区别是什么"><a href="#标签上alt与title属性的区别是什么" class="headerlink" title="标签上alt与title属性的区别是什么?"></a>标签上alt与title属性的区别是什么?</h3><p><code>Alt</code>当图片不显示时用文字代表。<br><code>Title</code>为该属性提供信息，当鼠标移动上去时显示。</p>
+<h3 id="前端页面有哪三层构成，分别是什么-作用是什么"><a href="#前端页面有哪三层构成，分别是什么-作用是什么" class="headerlink" title="前端页面有哪三层构成，分别是什么?作用是什么?"></a>前端页面有哪三层构成，分别是什么?作用是什么?</h3><p>结构层；主要指DOM节点；HTML/XHTML;<br>样式层；主要是指页面渲染；CSS;<br>脚本层：主要指页面动画效果；JS/AS;</p>
+<h2 id="CSS基础"><a href="#CSS基础" class="headerlink" title="CSS基础"></a>CSS基础</h2><h3 id="CSS引入的方式有哪些-link和-import的区别是"><a href="#CSS引入的方式有哪些-link和-import的区别是" class="headerlink" title="CSS引入的方式有哪些? link和@import的区别是?"></a>CSS引入的方式有哪些? link和@import的区别是?</h3><p>CSS引入的方式有内联、内嵌、外链、导入四种。<br>link属于XHTML标签，而@import是CSS提供的;<br>link标签除了可以加载CSS外，还可以做很多其它的事情，@import就只能加载CSS了。<br>import只在IE5以上才能识别，而link是XHTML标签，无兼容问题;<br>内联和important中，important优先级高;<br><strong>页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载</strong>;</p>
+<h3 id="什么是盒子模型？W3C与IE的盒子模型有什么区别？"><a href="#什么是盒子模型？W3C与IE的盒子模型有什么区别？" class="headerlink" title="什么是盒子模型？W3C与IE的盒子模型有什么区别？"></a>什么是盒子模型？W3C与IE的盒子模型有什么区别？</h3><p>CSS盒模型本质上是一个盒子，封装周围的HTML元素，它包括：边距margin，边框border，填充padding和实际内容content。<br>根据 W3C 的规范，元素内容占据的空间是由 width 属性设置的，而内容周围的 padding 和 border 值是另外计算的。<br>IE5.X 和 6 在怪异模式中使用自己的非标准模型。这些浏览器的 width 属性不是内容的宽度，而是内容、内边距和边框的宽度的总和。<br>解决：不要给元素添加具有指定宽度的内边距，而是尝试将内边距或外边距添加到元素的父元素和子元素。<br>IE8 及更早IE版本不支持 填充的宽度和边框的宽度属性。<br>解决IE8及更早版本不兼容问题可以在HTML页面声明 即可。</p>
+<h3 id="CSS选择符有哪些-哪些属性可以继承-优先级算法如何计算"><a href="#CSS选择符有哪些-哪些属性可以继承-优先级算法如何计算" class="headerlink" title="CSS选择符有哪些?哪些属性可以继承?优先级算法如何计算?"></a>CSS选择符有哪些?哪些属性可以继承?优先级算法如何计算?</h3><p>CSS选择符: 类选择器、 标签名选择器、 ID选择器、 后代选择器（派生选择器）、 群组选择器;<br>可以继承： 类选择器、 标签名选择器、 后代选择器（派生选择器）、群组选择器;<br>优先级算法：标签内直接定义：1000;ID选择器：100;类选择器 ：10;标签名选择器：1;</p>
+<h3 id="css的基本语句构成"><a href="#css的基本语句构成" class="headerlink" title="css的基本语句构成?"></a>css的基本语句构成?</h3><p>选择器{属性1:值1;属性2:值2;……}</p>
+<h3 id="你做的页面在哪些流览器测试过-这些浏览器的内核分别是什么"><a href="#你做的页面在哪些流览器测试过-这些浏览器的内核分别是什么" class="headerlink" title="你做的页面在哪些流览器测试过?这些浏览器的内核分别是什么?"></a>你做的页面在哪些流览器测试过?这些浏览器的内核分别是什么?</h3><p>Ie(Trident)、火狐（Gecko）、谷歌（webkit/Blink）、opear(Presto)、Safari（webkit）</p>
+<h3 id="什么是CSS-Hack"><a href="#什么是CSS-Hack" class="headerlink" title="什么是CSS Hack?"></a>什么是CSS Hack?</h3><p>一般来说是针对不同的浏览器写不同的CSS,就是 CSS Hack。</p>
+<p>IE浏览器Hack一般又分为三种，条件Hack、属性级Hack、选择符Hack。例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 1、条件Hack</div><div class="line">&lt;!--[if IE]&gt;</div><div class="line">  &lt;style&gt;</div><div class="line">		.test&#123;color:red;&#125;</div><div class="line">  &lt;/style&gt;</div><div class="line">&lt;![endif]--&gt;</div><div class="line">// 2、属性Hack</div><div class="line">.test&#123;</div><div class="line">color:#090\9; /* For IE8+ */</div><div class="line">*color:#f00;  /* For IE7 and earlier */</div><div class="line">_color:#ff0;  /* For IE6 and earlier */</div><div class="line">&#125;</div><div class="line">// 3、选择符Hack</div><div class="line">* html .test&#123;color:#090;&#125;       /* For IE6 and earlier */</div><div class="line">* + html .test&#123;color:#ff0;&#125;     /* For IE7 */</div></pre></td></tr></table></figure>
+<h3 id="IE6-BUG的解决方法"><a href="#IE6-BUG的解决方法" class="headerlink" title="IE6 BUG的解决方法"></a>IE6 BUG的解决方法</h3><ol>
+<li>双边距BUG:float引起的,使用display;</li>
+<li>3像素问题:使用float引起的,使用dislpay:inline -3px;</li>
+<li>超链接hover点击后失效:使用正确的书写顺序:link、visited、hover、active;</li>
+<li>Ie的z-index问题:给父级添加position:relative;</li>
+<li>Png透明:使用js代码改;</li>
+<li>Min-height最小高度:!Important解决;</li>
+<li>select在ie6下遮盖:使用iframe嵌套;</li>
+<li>为什么没有办法定义1px左右的宽度容器（IE6默认的行高造成的，使用over:hidden;zoom:.08;line-height:1px）;</li>
+</ol>
+<h2 id="CSS布局"><a href="#CSS布局" class="headerlink" title="CSS布局"></a>CSS布局</h2><h3 id="CSS清除浮动"><a href="#CSS清除浮动" class="headerlink" title="CSS清除浮动"></a>CSS清除浮动</h3><p>应用在父级元素是自动获取高度的情况下，或者下面元素不需要浮动。</p>
+<ol>
+<li><p>结尾处加空<code>div</code>标签<code>clear</code>;<br><code>clear:both</code>:清除当前元素的左右浮动；<br><code>clear:left</code>:清除当前元素的左浮动；<br><code>clear:right</code>:清除当前元素的右浮动；<br>优点：简单，代码少，浏览器支持好；<br>缺点：如果页面浮动过多，就要增加很多空div</p>
+</li>
+<li><p>父级元素定义<code>height</code>;<br>解决了父级元素无法自动获得高度的问题；<br>优点：简单、代码少；<br>缺点：只适合固定高度的布局，，要给出精确的高度，如果高度小于父级元素的高度，会把下面内容覆盖；</p>
+</li>
+<li><p>父级div定义伪类:<code>after</code>和<code>zoom</code>;<br>父元素<code>div</code>：<code>zoom: 1</code>;<br>父元素div:after:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">	<span class="attribute">content</span>: <span class="string">""</span>;</div><div class="line">	<span class="attribute">display</span>: block;</div><div class="line">	<span class="attribute">clear</span>: both;</div><div class="line">	<span class="attribute">visibility</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>父级元素定义：<code>overflow:hidden</code>或<code>overflow:auto</code>;<br>原理：必须定义width或zoom:1，同时不能定义height，使用overflow:hidden时，浏览器会自动检查浮动区域的高度;<br>优点：简单、代码少、浏览器支持好;<br>缺点：不能和position配合使用，因为超出的尺寸的会被隐藏。 </p>
+</li>
+<li><p>父级div 也一起浮动;<br>原理：所有代码一起浮动，就变成了一个整体<br>缺点：会产生新的浮动问题。 </p>
+</li>
+<li><p>父级div定义:display:table;<br>原理：将div属性变成表格<br>缺点：会产生新的未知问题。 </p>
+</li>
+<li><p>结尾处加br标签，定义属性：<code>clear:both</code>;</p>
+</li>
+</ol>
+<h3 id="浮动增加宽度会浮动滑移怎么办"><a href="#浮动增加宽度会浮动滑移怎么办" class="headerlink" title="浮动增加宽度会浮动滑移怎么办?"></a>浮动增加宽度会浮动滑移怎么办?</h3><ul>
+<li>从设定的元素宽度中减去添加的水平外边距、边框和内边距的宽度和。</li>
+<li>在容器内部的元素上添加内边距或外边距。</li>
+<li>使用 CSS3 的 box-sizing 属性切换盒子缩放方式。应该该属性后，给元素添加边框和内边距都不会增大盒子，相反会导致内容变窄。</li>
+</ul>
+<h3 id="css三列布局"><a href="#css三列布局" class="headerlink" title="css三列布局"></a>css三列布局</h3><ul>
+<li>左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏不设宽度，用左右<code>margin</code>值撑开距离</li>
+<li>父元素：<code>display:box</code>;子元素：<code>box-flex: x</code>;总宽度为所有子元素的<code>box-flex</code>之和。</li>
+<li>父元素：<code>display:table</code>;子元素：<code>display:table-cell</code>;表格布局，宽度自适应。但是会有等高问题。</li>
+</ul>
+<h3 id="文本居中"><a href="#文本居中" class="headerlink" title="文本居中"></a>文本居中</h3><ol>
+<li><p>单行垂直居中<br>设置实际高度height和line-height</p>
+</li>
+<li><p>多行未知高度文字垂直居中<br>设置<code>padding</code></p>
+</li>
+<li><p>多行文本固定高度居中</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span> &#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">500px</span>;</div><div class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid;</div><div class="line">	<span class="attribute">vertical-align</span>: middle;</div><div class="line">	<span class="attribute">display</span>: table-cell;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="定高div垂直居中"><a href="#定高div垂直居中" class="headerlink" title="定高div垂直居中"></a>定高div垂直居中</h3><ol>
+<li><p>定位<br>先父元素：<code>position: relative</code>;<br>然后居中元素:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">top</span>: <span class="number">50%</span>;</div><div class="line">	<span class="attribute">left</span>: <span class="number">50%</span>;</div><div class="line">	<span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">	<span class="attribute">margin-left</span>: -<span class="number">100px</span>;</div><div class="line">	<span class="attribute">margin-top</span>: -<span class="number">100px</span>;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>flex<br>父元素：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">display</span>: <span class="selector-tag">flex</span>;</div><div class="line"><span class="selector-tag">justify-content</span>: <span class="selector-tag">center</span>;</div><div class="line"><span class="selector-tag">align-items</span>: <span class="selector-tag">center</span>;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</the>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端如何跨域]]></title>
+      <url>http://www.foreverz.cn/2016/10/20/%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E8%B7%A8%E5%9F%9F/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。然而，当进行一些比较深入的前端编程的时候，不可避免地需要进行跨域操作，这时候“同源策略”就显得过于苛刻。这时候就需要跨域！<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略（Same origin policy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。</p>
+<h3 id="为什么要有同源限制"><a href="#为什么要有同源限制" class="headerlink" title="为什么要有同源限制"></a>为什么要有同源限制</h3><p>我们举例说明：比如一个黑客程序，他利用IFrame把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。而同源策略就为了防止这种事情发生。<br>比如说，浏览器的两个tab页中分别打开了<a href="http://www.baidu.com/index.html和http" target="_blank" rel="external">http://www.baidu.com/index.html和http</a>: //www.google.com/index.html，其中，JavaScript1和JavaScript3是属于百度的脚本，而 JavaScript2是属于谷歌的脚本，当浏览器的tab1要运行一个脚本时，便会进行同源检查，只有和www.baidu.com同源的脚本才能被执行，所谓同源，就是指域名、协议、端口相同。所以，tab1只能执行JavaScript1和JavaScript3脚本，而JavaScript2不能 执行，从而防止其他网页对本网页的非法篡改。<br>如果两个页面拥有相同的协议（protocol），端口（如果指定），和主机，那么这两个页面就属于同一个源（origin）。</p>
+<p>下图说明了同源策略的检测机制：</p>
+<div style="text-align: center"><br><img src="http://oef1ordmv.bkt.clouddn.com/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5.png" alt=""><br></div>
+
+<h2 id="跨域网络访问"><a href="#跨域网络访问" class="headerlink" title="跨域网络访问"></a>跨域网络访问</h2><p>同源策略控制了不同源之间的交互，例如在使用<code>XMLHttpRequest</code>或标签时则会受到同源策略的约束。交互通常分为三类：</p>
+<blockquote>
+<p>浏览器同源策略并不是对所有的请求均制约：</p>
+<blockquote>
+<p>制约： XmlHttpRequest<br>不制约： img、iframe、script等具有src属性的标签</p>
+</blockquote>
+<p>处理Ajax跨域问题主要有以下4种方式：</p>
+<blockquote>
+<ol>
+<li>利用JSONP</li>
+<li>利用iframe</li>
+<li>利用代理</li>
+<li>跨域资源共享(CORS)</li>
+</ol>
+</blockquote>
+</blockquote>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>在<code>HTML DOM</code>中,<code>script</code>标签是可以跨域访问服务器上的数据的.因此,可以指定<code>script</code>的<code>src</code>属性为跨域的<code>url</code>,从而实现跨域访问。<br>利用在页面中创建<code>&lt;script&gt;</code>节点的方法向不同域提交<code>HTTP</code>请求的方法称为<code>JSONP</code>，这项技术可以解决跨域提交<code>Ajax</code>请求的问题。</p>
+<h4 id="客户端代码："><a href="#客户端代码：" class="headerlink" title="客户端代码："></a>客户端代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function doResponse(data)&#123;</div><div class="line">       console.log(&apos;开始处理响应数据&apos;);</div><div class="line">       console.log(data);</div><div class="line">&#125;</div><div class="line">//JSONP方式</div><div class="line">$(&apos;#bt3&apos;).click(function()&#123;</div><div class="line">       var script = document.createElement(&apos;script&apos;);</div><div class="line">	   script.type = &quot;text/javascript&quot;;</div><div class="line">       script.src=&quot;http://localhost/AJAX_day08/5.php?callback=doResponse&quot;;</div><div class="line">       document.head.appendChild(script);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="服务器端代码："><a href="#服务器端代码：" class="headerlink" title="服务器端代码："></a>服务器端代码：</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">header(<span class="string">'Content-Type: application/javascript'</span>);</div><div class="line">$cb = $_REQUEST[<span class="string">'callback'</span>];</div><div class="line">$arr = [<span class="string">'ename'</span>=&gt;<span class="string">'King'</span>, <span class="string">'age'</span>=&gt;<span class="number">50</span>];</div><div class="line">$str = json_encode($arr);</div><div class="line"><span class="keyword">echo</span> $cb.<span class="string">'('</span> .$str. <span class="string">')'</span> ;</div></pre></td></tr></table></figure>
+<h4 id="jQuery中两个可以发起JSONP请求的函数"><a href="#jQuery中两个可以发起JSONP请求的函数" class="headerlink" title="jQuery中两个可以发起JSONP请求的函数"></a>jQuery中两个可以发起JSONP请求的函数</h4><blockquote>
+<p>$.getJSON()</p>
+<blockquote>
+<p>XHR请求：<code>$.getJSON(&#39;x.php&#39;, data, fn);</code><br>JSONP请求：<code>$.getJSON(&#39;x.php?callback=?&#39;,data,fn);</code></p>
+</blockquote>
+<p>$.ajax();</p>
+<blockquote>
+<p>XHR请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">        url: &apos;x.php&apos;,</div><div class="line">        data: &#123;&apos;uname&apos;:&apos;tom&apos;&#125;,</div><div class="line">        success: fn</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>JSONP请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">        url: &apos;x.php&apos;,</div><div class="line">        data: &#123;&apos;uname&apos;:&apos;tom&apos;&#125;,</div><div class="line">        dataType: &apos;jsonp&apos;,  /*text/html/script/xml/json/jsonp指定服务器端返回的数据的类型*/</div><div class="line">        success: fn</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<ul>
+<li>JSONP的优点<br>不像<code>XMLHttpRequest</code>对象实现的<code>Ajax</code>请求那样受到同源策略的限制；兼容性更好，在更加古老的浏览器中都可以运行，不需要<code>XMLHttpRequest</code>或<code>ActiveX</code>的支持；并且在请求完毕后可以通过调用<code>callback</code>的方式回传结果。</li>
+<li>JSONP的缺点<br>只支持<code>GET</code>请求而不支持<code>POST</code>等其它类型的<code>HTTP</code>请求；它只支持跨域<code>HTTP</code>请求这种情况，不能解决不同域的两个页面之间如何进行<code>JavaScript</code>调用的问题。</li>
+</ul>
+<h3 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h3><p>一般分两种情况：</p>
+<h4 id="是同主域下面，不同子域之间的跨域"><a href="#是同主域下面，不同子域之间的跨域" class="headerlink" title="是同主域下面，不同子域之间的跨域"></a>是同主域下面，不同子域之间的跨域</h4><p>同主域，不同子域跨域，设置相同的document.domian就可以解决;<br>父页访问子页，可以document.getElementById(“myframe”).contentWindow.document来访问iframe页面的内容；如果支持contentDocument也可以直接document.getElementById(“myframe”).contentDocument访问子页面内容；<br>子页访问父页，可以parent.js全局属性;</p>
+<h4 id="不同主域跨域"><a href="#不同主域跨域" class="headerlink" title="不同主域跨域"></a>不同主域跨域</h4><p>前提，<code>www.a.com</code>下<code>a.html</code>，<code>a.html</code>内<code>iframe</code>调用了<code>www.b.com</code>下的<code>b.html</code>，<code>b.html</code>下<code>iframe</code>调用了<code>www.a.com</code>下的<code>c.html</code>;<br><code>b.html</code>是不无法直接访问<code>a.html</code>的对象，因为涉及到跨域，但可以访问<code>parent</code>，同样<code>c.html</code>的<code>parent</code>可以访问<code>b.html</code>。<code>c.html</code>和<code>a.html</code>同域，是可以访问<code>a</code>下的对象的。<code>parent.parent.js</code>对象!</p>
+<h3 id="利用代理"><a href="#利用代理" class="headerlink" title="利用代理"></a>利用代理</h3><p>即用户访问A网站时所产生的对B网站的跨域访问请求均提交到A网站的指定页面（Post页面过去），由该页面代替用户页面完成交互，从而返回合适的结果。此方案可以解决现阶段所能够想到的多数跨域访问问题，但要求A网站提供Web代理的支持，因此A网站与B网站之间必须是紧密协作的，且每次交互过程，A网站的服务器负担增加，且无法代用户保存session状态。</p>
+<h3 id="跨域资源共享-CORS"><a href="#跨域资源共享-CORS" class="headerlink" title="跨域资源共享(CORS)"></a>跨域资源共享(CORS)</h3><p>新版本的XMLHttpRequest对象，可以向不同域名的服务器发出HTTP请求。这叫做”跨域资源共享”（Cross-origin resource sharing，简称CORS）。<br>使用”跨域资源共享”的前提，是浏览器必须支持这个功能，而且服务器端必须同意这种”跨域”。如果能够满足上面的条件，则代码的写法与不跨域的请求完全一样。</p>
+<p>服务器端则要进行一些设置：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">header(<span class="string">'Access-Control-Allow-Origin:*'</span>); </div><div class="line">header(<span class="string">'Access-Control-Allow-Methods:POST,GET'</span>);</div></pre></td></tr></table></figure></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以上就是前端实现跨域的几种方式，很多时候我们都会遇到跨域的问题，以上几种方法就可以解决了，因此要好好掌握。</p>
+</the>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[从输入URL到页面加载完成的过程中都发生了什么事情？]]></title>
+      <url>http://www.foreverz.cn/2016/10/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E5%AE%8C%E6%88%90%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>前端不仅要让用户对网页有完美的体验，让用户尽快体验到完美的网页也是很重要的，这就要前端攻城狮掌握一些计算机原理相关的知识了，这里就来聊一聊从用户输入URL到页面加载完成的过程中都发生了什么事情？<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<blockquote>
+<p>用户输入url之后大致发生了以下几件事：</p>
+<blockquote>
+<ol>
+<li>浏览器查找域名的IP地址:这一步包括DNS具体的查找过程，包括：浏览器缓存-&gt;系统缓存-&gt;路由器缓存…</li>
+<li>浏览器向web服务器发送一个HTTP请求;</li>
+<li>服务器的永久重定向响应;</li>
+<li>浏览器跟踪重定向地址;</li>
+<li>服务器处理请求;</li>
+<li>服务器返回一个HTTP响应;</li>
+<li>浏览器显示HTML;</li>
+<li>浏览器发送请求获取嵌入在HTML中的资源（如图片、音频、视频、CSS、JS等等）;</li>
+<li>浏览器发送异步请求;</li>
+</ol>
+</blockquote>
+</blockquote>
+<p>下面我们就详细地了解一下这些过程。</p>
+<h2 id="DNS查找IP地址"><a href="#DNS查找IP地址" class="headerlink" title="DNS查找IP地址"></a>DNS查找IP地址</h2><p>DNS是域名系统(Domain Name System)的缩写，是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。</p>
+<h3 id="DNS查找过程"><a href="#DNS查找过程" class="headerlink" title="DNS查找过程"></a>DNS查找过程</h3><ol>
+<li>浏览器缓存 – 浏览器会缓存DNS记录一段时间，但是操作系统并没有告诉浏览器储存DNS记录的时间，这样不同浏览器会储存个自固定的一个时间（2分钟到30分钟不等）。</li>
+<li>系统缓存 – 如果在浏览器缓存里没有找到需要的记录，浏览器会做一个系统调用（windows里是gethostbyname），这样便可获得系统缓存中的记录。</li>
+<li>路由器缓存 – 接着，前面的查询请求发向路由器，它一般会有自己的DNS缓存。</li>
+<li>ISP DNS缓存 – 接下来要check的就是ISP缓存DNS的服务器。在这一般都能找到相应的缓存记录。</li>
+<li>递归搜索 – 你的ISP的DNS服务器从跟域名服务器开始进行递归搜索，从.com顶级域名服务器到example的域名服务器。一般DNS服务器的缓存中会有.com域名服务器中的域名，所以到顶级服务器的匹配过程不是那么必要了。</li>
+</ol>
+<h3 id="DNS进行域名解析的过程"><a href="#DNS进行域名解析的过程" class="headerlink" title="DNS进行域名解析的过程"></a>DNS进行域名解析的过程</h3><ol>
+<li>客户端发出DNS请求翻译IP地址或主机名；</li>
+<li>DNS服务器在收到客户机的请求后检查DNS服务器的缓存，若查到请求的地址或名字，即向客户机发出应答信息；</li>
+<li>若没有查到，则在数据库中查找，若查到请求的地址或名字，即向客户机发出应答信息；</li>
+<li>若没有查到，则将请求发给根域DNS服务器，并依序从根域查找顶级域，由顶级查找二级域，二级域查找三级，直至找到要解析的地址或名字，即向客户机所在网络的DNS服务器发出应答信息，DNS服务器收到应答后现在缓存中存储，然后，将解析结果发给客户机。</li>
+<li>若没有找到，则返回错误信息。</li>
+</ol>
+<h2 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h2><h3 id="三次握手建立TCP连接"><a href="#三次握手建立TCP连接" class="headerlink" title="三次握手建立TCP连接"></a>三次握手建立TCP连接</h3><p>在HTTP工作开始之前，Web浏览器首先要通过网络与Web服务器建立连接，该连接是通过TCP来完成的，该协议与IP协议共同构建Internet，即著名的TCP/IP协议族，因此Internet又被称作是TCP/IP网络。HTTP是比TCP更高层次的应用层协议，根据规则，只有低层协议建立之后才能，才能进行更层协议的连接，因此，首先要建立TCP连接，一般TCP连接的端口号是80。在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接。</p>
+<ul>
+<li>第一次握手：<br>建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；<br>SYN：同步序列编号（Synchronize Sequence Numbers）。</li>
+<li>第二次握手：<br>服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</li>
+<li>第三次握手：<br>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</li>
+</ul>
+<p>完成三次握手，客户端与服务器开始传送数据。<br>一旦建立了TCP连接，Web浏览器就会向Web服务器发送请求命令。<br>浏览器发送其请求命令之后，还要以头信息的形式向Web服务器发送一些别的信息，之后浏览器发送了一空白行来通知服务器，它已经结束了该头信息的发送。</p>
+<h3 id="四次挥手终止连接"><a href="#四次挥手终止连接" class="headerlink" title="四次挥手终止连接"></a>四次挥手终止连接</h3><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<ol>
+<li>TCP客户端发送一个FIN，用来关闭客户到服务器的数据传送。</li>
+<li>服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</li>
+<li>服务器关闭客户端的连接，发送一个FIN给客户端。</li>
+<li>客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</li>
+</ol>
+<h2 id="服务器的永久重定向响应"><a href="#服务器的永久重定向响应" class="headerlink" title="服务器的永久重定向响应"></a>服务器的永久重定向响应</h2><p>服务器给浏览器响应一个301永久重定向响应，这样浏览器就会访问“HTTP://www.facebook.com/” 而非“HTTP://facebook.com/”。<br>为什么服务器一定要重定向而不是直接发会用户想看的网页内容呢？这个问题有好多有意思的答案。<br>其中一个原因跟搜索引擎排名有关。你看，如果一个页面有两个地址，就像HTTP://www.igoro.com/ 和HTTP://igoro.com/，搜索引擎会认为它们是两个网站，结果造成每一个的搜索链接都减少从而降低排名。而搜索引擎知道301永久重定向是 什么意思，这样就会把访问带www的和不带www的地址归到同一个网站排名下。<br>还有一个是用不同的地址会造成缓存友好性变差。当一个页面有好几个名字时，它可能会在缓存里出现好几次。</p>
+<h2 id="浏览器跟踪重定向地址"><a href="#浏览器跟踪重定向地址" class="headerlink" title="浏览器跟踪重定向地址"></a>浏览器跟踪重定向地址</h2><p>现在，浏览器知道了“HTTP://www.facebook.com/”才是要访问的正确地址，所以它会发送另一个获取请求。</p>
+<h2 id="服务器”处理”请求"><a href="#服务器”处理”请求" class="headerlink" title="服务器”处理”请求"></a>服务器”处理”请求</h2><p>服务器接收到获取请求，然后处理并返回一个响应。</p>
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><p>现代浏览器渲染页面的过程是这样的：解析<code>HTML</code>以构建<code>DOM树</code> –&gt; 构建渲染树 –&gt; 布局渲染树 –&gt; 绘制渲染树。</p>
+<p><code>DOM树</code>是由<code>HTML</code>文件中的标签排列组成，渲染树是在<code>DOM树</code>中加入<code>CSS</code>或<code>HTML</code>中的<code>style</code>样式而形成。渲染树只包含需要显示在页面中的<code>DOM元素</code>，像<code>&lt;head&gt;</code>元素或<code>display</code>属性值为<code>none</code>的元素都不在渲染树中。<br>在浏览器还没接收到完整的<code>HTML</code>文件时，它就开始渲染页面了，在遇到外部链入的脚本标签或样式标签或图片时，会再次发送<code>HTTP</code>请求重复上述的步骤。在收到<code>CSS</code>文件后会对已经渲染的页面重新渲染，加入它们应有的样式，图片文件加载完立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>做前端不仅要掌握前端的知识，对一些前端相关的例如计算机网络、数据结构、计算机原理都要有一定的了解，因为网络世界连接在一起的，前端与这些知识都是有接触的，说不准什么时候就会用上。而且，学好这些知识，对前端优化也有很大的帮助。</p>
+</the>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js的原型与继承]]></title>
+      <url>http://www.foreverz.cn/2016/10/20/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>js是可以面向对象编程的，而面向对象很重要的一个特性就是继承，js的继承是通过原型链模拟的，达到了继承的效果，我们就探讨一下原型链和继承到底是什么。<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="什么是继承"><a href="#什么是继承" class="headerlink" title="什么是继承"></a>什么是继承</h2><p>继承是指一个对象直接使用另一个对象的属性和方法，是面向对象语言中类与类之间的一种关系。继承的类被称为子类、派生类，就是在JS中所说的实例化的对象；而被继承的类被称为父类、基类或超类，在JS中一般是构造函数。</p>
+<h2 id="继承的作用"><a href="#继承的作用" class="headerlink" title="继承的作用"></a>继承的作用</h2><p>通过继承，可以使得子类拥有父类的属性和方法，同时子类也可以通过加入新的属性和方法或者修改父类的属性和方法建立新的类层次。<br>继承体制体现了面向对象技术中的复用性、扩展性和安全性。为面向对象软件开发和模块化软件架构提供了最基本的技术基础。</p>
+<h2 id="JS中的类"><a href="#JS中的类" class="headerlink" title="JS中的类"></a>JS中的类</h2><p>JS本身就是一种面向对象的语言，它所涉及的元素根据其属性的不同都依附于某一个特定的类。<br>我们常见的类包括：对象变量(Object)、结构变量(Function)、数组变量(Array)、字符串变量(String)、数值变量(Number)、逻辑变量(Boolean)、日期变量(Data)等，而相关的类的方法，也是我们经常用到的，例如数组的push方法，字符串的split方法等。但是在实际编程中这些方法严重不足，所以也就有了<code>prototype</code>。</p>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>在JS中，每个对象都会在其内部初始化一个属性，就是<code>__proto__</code>，当我们访问一个对象的属性时，如果这个对象的内部不存在这个属性，那么它就会去<strong>proto</strong>里寻找这个属性，这个<strong>proto</strong>又会有自己的<strong>proto</strong>，于是就这样一直找下去，也就是我们平时所说的原型链的概念。</p>
+<p><code>__proto__</code>是原型链中对象之间从下到上的联系的桥梁，所有的对象的<strong>proto</strong>最终都指向<code>Object.prototype</code>，为<code>undefined</code>。</p>
+<p>按照标准，<strong>proto</strong>是不对外公开的，也就是说这是个私有属性，但是现在很多浏览器引擎已经将它暴露出来称为一个公有属性，可以对外访问和设置。</p>
+<p>但是大多是时候我们并不需要使用<strong>proto</strong>，而是使用prototype来向下继承。JS每个函数都是一个Function对象，函数对象都有一个子对象prototype对象。而JS中的类是以函数的形式来定义的。prototype表示该函数的原型，也表示一个类的成员的集合。在通过<code>new</code>创建一个类的实例对象时，prototype对象的成员都成为实例化对象的成员，可以被对象直接使用。</p>
+<p>其实，prototype只是一个假象，在原型链中只起到一个辅助作用，只有在对构造函数<code>new</code>实例化时才会用有一定的价值，原型链的本质其实在于<code>__proto__</code>。</p>
+<p>下面看一个简单的例子来详细理解：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.width = <span class="number">10</span>;</div><div class="line">    <span class="keyword">this</span>.data = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">    <span class="keyword">this</span>.key = <span class="string">"this is A"</span>;</div><div class="line">&#125;</div><div class="line">A._objectNum = <span class="number">0</span>; <span class="comment">//定义A的属性</span></div><div class="line">A.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">//给A的原型对象添加属性</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"hello world"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>图解过程如下：</p>
+<div style="text-align: center"><br><img src="http://oef1ordmv.bkt.clouddn.com/prototypes-and-inheritance2.jpg" alt=""><br></div>
+
+<p>简单说原型就是函数的一个属性，在函数的创建过程中由JS编译器自动添加。</p>
+<h2 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h2><p>在上面的例子中，A函数是一个构造函数，可以用<code>new</code>来实例化；<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a1 = <span class="keyword">new</span> A;</div><div class="line"><span class="keyword">var</span> a2 = <span class="keyword">new</span> A;</div></pre></td></tr></table></figure></p>
+<p>这是通过构造函数来创建对象的方式，那么创建对象为什么要这样创建而不是直接var a1 = {};呢？这就涉及new的具体步骤了，这里的new操作可以分成三步(以a1的创建为例)：</p>
+<ol>
+<li>新建一个对象并赋值给变量a1：<code>var a1 = {}</code>;</li>
+<li>把这个对象的<strong>proto</strong>属性指向函数A的原型对象：<code>a1.__proto__= A.prototype</code>;</li>
+<li>调用函数A，同时把this指向创建的对象a1，对对象进行初始化：A.apply(a1,arguments);<br>其结构图示如下：</li>
+</ol>
+<div style="text-align: center"><br><img src="http://oef1ordmv.bkt.clouddn.com/prototypes-and-inheritance3.jpg" alt=""><br></div>
+
+<p>从图中看到，无论是对象a1还是a2，都有一个属性保存了对函数A的原型对象的引用，对于这些对象来说，一些公用的方法可以在函数的原型中找到，节省了内存空间。</p>
+<p>注意，在这里<code>new</code>实例化的<code>a1</code>、<code>a2</code>是Object对象，而不是函数方法。</p>
+<h2 id="JS中的继承"><a href="#JS中的继承" class="headerlink" title="JS中的继承"></a>JS中的继承</h2><p>js里常用的如下两种继承方式：</p>
+<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><h4 id="原型链继承原理"><a href="#原型链继承原理" class="headerlink" title="原型链继承原理"></a>原型链继承原理</h4><p>原型式继承是借助已有的对象创建新的对象，将子类的原型指向父类，就相当于加入了父类这条原型链。<br>例如定义一个空函数B:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;&#125;;</div></pre></td></tr></table></figure></p>
+<p>这个时候产生了B的原型<code>B.prototype</code>;<br>原型本身就是一个Object对象，我们可以看看里面放着哪些数据<br><code>B.prototype</code>实际上就是<code>{constructor : B , __proto__: Object.prototype}</code>,因为prototype本身是一个Object对象的实例，所以其原型链指向的是Object的原型。</p>
+<p>接下来我们让B继承A：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">B.prototype = <span class="keyword">new</span> A();</div></pre></td></tr></table></figure></p>
+<p>这样产生的结果是：<br>产生一个A的实例，同时赋值给B的原型，也即<code>B.prototype</code>相当于对象<code>{width :10 , data : [1,2,3] , key : &quot;this is A&quot; ,__proto__: A.prototype}</code>;<br>这样就把A的原型通过<code>B.prototype.__proto__</code>这个对象属性保存起来，构成了原型的链接。<br>但是注意，这样B产生的对象的构造函数发生了改变，因为在B中没有<code>constructor</code>属性，只能从原型链找到<code>A.prototype</code>，读出<code>constructor:A</code>。<br>所以有时我们还要人为设回B本身：<code>B.prototype.constructor = B</code>;</p>
+<h4 id="原型链直接继承"><a href="#原型链直接继承" class="headerlink" title="原型链直接继承"></a>原型链直接继承</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.say = <span class="string">'Hello'</span>;</div><div class="line">&#125;</div><div class="line">A.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A();</div><div class="line"><span class="built_in">console</span>.log(a.say); <span class="comment">//=&gt;Hello</span></div><div class="line">a.sayHello(); <span class="comment">//=&gt;Hello</span></div></pre></td></tr></table></figure>
+<p>这样直接通过一个函数<code>new</code>实例化继承下来的就是直接继承了。会得到一个Object对象<code>a</code>，继承了构造函数<code>A</code>的属性和方法。</p>
+<h4 id="原型链多重继承"><a href="#原型链多重继承" class="headerlink" title="原型链多重继承"></a>原型链多重继承</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.say += <span class="string">' World!'</span>;</div><div class="line">&#125;;</div><div class="line">B.prototype = <span class="keyword">new</span> A();</div><div class="line">B.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hi!'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B();</div><div class="line">b.sayHello(); <span class="comment">//=&gt;hello world!</span></div><div class="line">b.sayHi(); <span class="comment">//=&gt;Hi!</span></div></pre></td></tr></table></figure>
+<p>在这里B继承里A的属性和方法，同时又声明了自己的属性和方法。然后通过<code>new</code>实例化，得到一个Object对象<code>b</code>，可以同时使用<code>A</code>和<code>B</code>的属性和方法。</p>
+<p>通过这样我们就可以使用<code>prototype</code>实现继承，使用父类的属性和方法，实现代码的复用，大大减少代码量。</p>
+<h3 id="类式继承（构造函数间的继承）"><a href="#类式继承（构造函数间的继承）" class="headerlink" title="类式继承（构造函数间的继承）"></a>类式继承（构造函数间的继承）</h3><h4 id="类式继承原理"><a href="#类式继承原理" class="headerlink" title="类式继承原理"></a>类式继承原理</h4><p>类式继承是在子类型构造函数的内部调用超类型的构造函数。严格的类式继承并不是很常见，一般都是组合着用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a + b);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sub</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a - b);</div><div class="line">&#125;</div><div class="line">add.call(sub, <span class="number">3</span>, <span class="number">1</span>);</div></pre></td></tr></table></figure>
+<p>这个例子中的意思就是用<code>add</code>来替换<code>sub</code>，<code>add.call(sub,3,1) == add(3,1)</code>，所以运行结果为：4;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = <span class="string">"Animal"</span>;</div><div class="line">    <span class="keyword">this</span>.showName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = <span class="string">"Cat"</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> animal = <span class="keyword">new</span> Animal();</div><div class="line"><span class="keyword">var</span> cat = <span class="keyword">new</span> Cat();</div><div class="line">animal.showName.call(cat); <span class="comment">//=&gt;Cat</span></div></pre></td></tr></table></figure>
+<p><code>call</code>的意思是把<code>animal</code>的方法放到<code>cat</code>上执行，原来<code>cat</code>是没有<code>showName()</code>方法，现在是把<code>animal</code>的<code>showName()</code>方法放到<code>cat</code>上来执行，所以<code>this.name</code>应该是<code>Cat</code>;</p>
+<h4 id="类式直接继承"><a href="#类式直接继承" class="headerlink" title="类式直接继承"></a>类式直接继承</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.showName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    Animal.call(<span class="keyword">this</span>, name);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> cat = <span class="keyword">new</span> Cat(<span class="string">"Black Cat"</span>);</div><div class="line">cat.showName(); <span class="comment">//=&gt;Black Cat</span></div></pre></td></tr></table></figure>
+<p>Animal.call(this) 的意思就是使用Animal对象代替this对象，那么Cat中不就有Animal的所有属性和方法了吗，Cat对象就能够直接调用Animal的方法以及属性了.</p>
+<h4 id="类式多重继承"><a href="#类式多重继承" class="headerlink" title="类式多重继承"></a>类式多重继承</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ClassA</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.showSub = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(a - b);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ClassB</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.showAdd = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(a + b);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ClassC</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    ClassA.call(<span class="keyword">this</span>);</div><div class="line">    ClassB.call(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> ClassC();</div><div class="line">c.showSub(<span class="number">3</span>, <span class="number">1</span>); <span class="comment">//=&gt;2</span></div><div class="line">c.showAdd(<span class="number">3</span>, <span class="number">1</span>); <span class="comment">//=&gt;4</span></div></pre></td></tr></table></figure>
+<p>很简单，使用两个 call 就实现多重继承了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>JS的面向继承有很重要的作用，可以使得子类拥有父类的属性和方法，大大提高了代码的复用性、扩展性和安全性，但是JS中是用原型链模拟的继承，所以效率有些低下，代码量少的时候可以少用或不用继承。</p>
+<p>参考链接：<br><a href="http://blog.jobbole.com/19795/" target="_blank" rel="external">JavaScript原型和继承</a><br><a href="https://segmentfault.com/a/1190000002440502" target="_blank" rel="external">JavaScript继承方式详解</a></p>
+</the>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js函数与作用域链]]></title>
+      <url>http://www.foreverz.cn/2016/10/19/js%E7%9A%84%E5%87%BD%E6%95%B0%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>js中有函数和作用域的概念，在js中变量和函数都依赖于作用域，作用域又是以作用域链的形式存在的。函数的定义和执行都与作用域链息息相关！<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="函数的概念和作用"><a href="#函数的概念和作用" class="headerlink" title="函数的概念和作用"></a>函数的概念和作用</h2><p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块，是用来帮助我们封装、调用代码的最方便的工具！<br>在js中，函数是一种带有可执行代码的对象类型数据。JS中的函数其实是对象，函数名是对 Function 对象的引用。</p>
+<h2 id="函数的创建方法"><a href="#函数的创建方法" class="headerlink" title="函数的创建方法"></a>函数的创建方法</h2><p>函数的创建方法有四种：</p>
+<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;</div><div class="line">fun();</div></pre></td></tr></table></figure>
+<p>在这种定义方式下，函数不属于任何对象，但是在js中它始终是默认的全局对象！函数必须用<code>fun()</code>来调用，也可以在函数声明前调用，但是不调用的函数是没有用的。</p>
+<h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;</div><div class="line">fun();</div></pre></td></tr></table></figure>
+<p>这种方式是将函数保存在变量中，也是通过<code>fun()</code>调用，但是这里因为变量有声明提前，原地赋值的特性，所以不能提前调用，只能在定义之后再使用。</p>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<p>匿名函数是没有函数名的一种函数，会直接执行，不能再函数外调用，但是可以在函数内通过<code>arguments.callee()</code>自调。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="built_in">console</span>.log(<span class="string">'Hello World'</span>));</div></pre></td></tr></table></figure>
+<p>这种方法是比较少见的一种函数创建方法，也是很神奇的一种方法，这里简略一下，后面会详细说明。这种方法还有一个特点，就是函数可以自调。</p>
+<h2 id="函数的调用方式"><a href="#函数的调用方式" class="headerlink" title="函数的调用方式"></a>函数的调用方式</h2><p>函数的调用方式有四种：</p>
+<h3 id="作为一个函数去调用"><a href="#作为一个函数去调用" class="headerlink" title="作为一个函数去调用"></a>作为一个函数去调用</h3><p>调用方式就是前面用过的<code>fun();</code>,以函数名+()的方式直接调用，也是我们常见的调用方法。此时函数作为全局对象调用，会使this的值成为全局对象，使用window对象作为一个变量，容易造成程序崩溃！</p>
+<h3 id="函数作为方法调用"><a href="#函数作为方法调用" class="headerlink" title="函数作为方法调用"></a>函数作为方法调用</h3><p>函数作为对象的方法调用，会使this的值成为对象的本身！举个栗子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">say</span>: <span class="string">'Hello World!'</span>,</div><div class="line">    <span class="attr">sayHello</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">obj.sayHello();</div></pre></td></tr></table></figure></p>
+<h3 id="使用构造函数调用函数"><a href="#使用构造函数调用函数" class="headerlink" title="使用构造函数调用函数"></a>使用构造函数调用函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.say = <span class="string">"Hello World!"</span>;</div><div class="line">    <span class="keyword">this</span>.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> fun();</div><div class="line">obj.say;	<span class="comment">//=&gt;Hello World!</span></div><div class="line">obj.sayHello();</div></pre></td></tr></table></figure>
+<p>构造函数中的this没有任何值，但是当用<code>new</code>新建<code>obj</code>对象时，this会指向<code>obj</code>，此时<code>obj</code>会继承<code>fun</code>的属相和方法成为自己的属性和方法！</p>
+<h3 id="作为函数方法调用函数"><a href="#作为函数方法调用函数" class="headerlink" title="作为函数方法调用函数"></a>作为函数方法调用函数</h3><p>在js中函数是对象，是对象就有对象的方法，而<code>call()</code>和<code>apply()</code>是预定义的函数方法！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a * b);</div><div class="line">&#125;</div><div class="line">fun.call(foo, <span class="number">10</span>, <span class="number">2</span>);	<span class="comment">//=&gt;20</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a * b);</div><div class="line">&#125;</div><div class="line">fun.apply(foo, [<span class="number">10</span>, <span class="number">2</span>]);	<span class="comment">//=&gt;20</span></div></pre></td></tr></table></figure>
+<p><code>call</code>和<code>apply</code>是为了动态改变this而出现的，当一个object没有某个方法，但是其他的有，我们可以借助call或apply用其它对象的方法来操作。在这里<code>foo</code>只是一个变量，没有任何属性和方法，所以用call或apply调用<code>fun</code>方法操作。<br>两个方法的区别在于call传入的是一个个普通的参数，而apply传入的是一个数组。</p>
+<h2 id="函数的运行机制"><a href="#函数的运行机制" class="headerlink" title="函数的运行机制"></a>函数的运行机制</h2><ol>
+<li>在js中，js引擎会优先解析var变量和function定义！在预解析完成后从上到下逐步进行！</li>
+<li>解析var变量时，会把值存储在“执行环境”中，而不会去赋值，也就是通常所说的声明提前，原地赋值。</li>
+<li>而在解析function时会把函数整体定义，这也就解释了为什么在function定义函数时为什么可以先调用后声明了！其实表面上看是先调用了，其实在内部机制中第一步实行的是把以function方式定义的函数先声明了！</li>
+<li>函数被调用时，是运行在被声明时的语法环境中。</li>
+<li>函数自己无法运行，它总是被对象调用的，函数运行时，函数体内的this指向调用该函数的对象，如果调用函数时，没有明确的指定该对象，this默认指向window；</li>
+</ol>
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p>1.在js中函数定义没有任何参数，调用该函数时可以传递任意参数！<br>2.arguments对象是数组对象。<br>3.arguments对象的length属性：获取函数的实参个数！<br>4.利用Arguments对象特性,实现模拟函数的重载的效果.</p>
+<h2 id="JS作用域"><a href="#JS作用域" class="headerlink" title="JS作用域"></a>JS作用域</h2><h3 id="全局作用域（Global-Scope）"><a href="#全局作用域（Global-Scope）" class="headerlink" title="全局作用域（Global Scope）"></a>全局作用域（Global Scope）</h3><p>在代码中任何地方都能访问到的对象拥有全局作用域，一般来说以下几种情形拥有全局作用域：</p>
+<ol>
+<li>最外层函数和在最外层函数外面定义的变量拥有全局作用域；</li>
+<li>所有未定义直接赋值的变量自动声明为拥有全局作用域；</li>
+<li>所有window对象的属性拥有全局作用域；</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'hi!'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> b = <span class="string">'hello!'</span>;</div><div class="line">    c = <span class="string">'how are you!'</span>;</div><div class="line">    <span class="built_in">window</span>.d = <span class="string">'thank you!'</span>;</div><div class="line">    <span class="built_in">console</span>.log(b);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(a); <span class="comment">//=&gt;hi!</span></div><div class="line">fun(); <span class="comment">//=&gt;hello!</span></div><div class="line"><span class="built_in">console</span>.log(d); <span class="comment">//=&gt;报错</span></div><div class="line"><span class="built_in">console</span>.log(c); <span class="comment">//=&gt;how are you!</span></div><div class="line"><span class="built_in">console</span>.log(d); <span class="comment">//=&gt;thank you!</span></div></pre></td></tr></table></figure>
+<p>a,c,d都是全局变量，可以在任何地方直接使用,而b不是全局变量，只能声明它的函数内使用。</p>
+<h3 id="局部作用域（Local-Scope）"><a href="#局部作用域（Local-Scope）" class="headerlink" title="局部作用域（Local Scope）"></a>局部作用域（Local Scope）</h3><p>和全局作用域相反，局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部，所有在一些地方也会看到有人把这种作用域称为函数作用域。<br>在ES6中还引入了块级作用域，用<code>let</code>声明。</p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>在JavaScript中，函数也是对象，实际上，JavaScript里一切都是对象。函数对象和其它对象一样，拥有可以通过代码访问的属性和一系列仅供JavaScript引擎访问的内部属性。其中一个内部属性是[[Scope]],该内部属性包含了函数被创建的作用域中对象的集合，这个集合被称为函数的作用域链，它决定了哪些数据能被函数访问。</p>
+<ul>
+<li>当一个函数创建后，它的作用域链会被创建此函数的作用域中可访问的数据对象填充。例：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> sum = num1 + num2;</div><div class="line">    <span class="keyword">return</span> sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在函数add创建时，它的作用域链中会填入一个全局对象，该全局对象包含了所有全局变量。<br>函数add的作用域将会在执行时用到。如执行以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> total = add(<span class="number">5</span>,<span class="number">10</span>);</div></pre></td></tr></table></figure>
+<p>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中。它们共同组成了一个新的对象，叫“活动对象(activation object)”，该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁。如下图：</p>
+<div style="text-align: center;"><br><img src="http://oef1ordmv.bkt.clouddn.com/AO.jpg" alt=""><br></div>
+
+<p>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
+<h3 id="作用域链的代码优化"><a href="#作用域链的代码优化" class="headerlink" title="作用域链的代码优化"></a>作用域链的代码优化</h3><p>从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。<br>如上图所示，因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。<br>一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
+<h3 id="JS函数创建过程"><a href="#JS函数创建过程" class="headerlink" title="JS函数创建过程"></a>JS函数创建过程</h3><p>以一个空函数为例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;&#125;;</div></pre></td></tr></table></figure>
+<p>当我们在代码里面声明这么一个空函数，js解析的本质是</p>
+<ol>
+<li>创建一个对象（有constructor属性及[[Prototype]]属性），根据ECMA，其中[[Prototype]]属性不可见、不可枚举;其实就是我们现在所见的<code>__proto__</code>属性，各大浏览器已经暴露出来。</li>
+<li>创建一个函数（有name、prototype属性），再通过prototype属性引用刚才创建的对象;</li>
+<li>创建变量A，同时把函数的引用赋值给变量A;<br>如下图所示：</li>
+</ol>
+<div style="text-align: center;"><br><img src="http://oef1ordmv.bkt.clouddn.com/prototypes-and-inheritance.jpg" alt=""><br></div>
+
+<p><strong>每个函数的创建都经历上述过程。</strong></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.cnblogs.com/Jabin/p/5804052.html" target="_blank" rel="external">Js函数的概念、作用、创建、调用！</a><br><a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="external">JavaScript 开发进阶：理解 JavaScript 作用域和作用域链</a></p>
+</the>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[二叉树与JavaScript]]></title>
+      <url>http://www.foreverz.cn/2016/10/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%8EJavaScript/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>二叉树是非常基础有非常重要的数据结构，在一些场合有着非常重要的左右。掌握二叉树对编写高质量代码、减少代码量有很大的帮助！<a id="more"></a></excerpt></p>
 <the rest="" of="" contents="" |="" 余下全文="">
 
 <h2 id="关于二叉树"><a href="#关于二叉树" class="headerlink" title="关于二叉树"></a>关于二叉树</h2><p>二叉树是一种特殊的树， 非常适合计算机处理数据， 所以对于程序员来说掌握二叉树是非常有必要的。</p>
@@ -24,7 +520,7 @@
 <li>后序遍历：遍历左子树–&gt;遍历右子树–&gt;访问根;</li>
 <li>广度遍历：按照层次一层层遍历;</li>
 </ol>
-<p>例如“(a+b*c)-d/e”,该表达式用二叉树表示如图：</p>
+<p>例如<code>(a+b*c)-d/e</code>,该表达式用二叉树表示如图：</p>
 <div style="text-align: center"><br><img src="http://oef1ordmv.bkt.clouddn.com/%E4%BA%8C%E5%8F%89%E6%A0%91.png" alt=""><br></div>
 
 <p>对该二叉树进行深度和广度遍历为：</p>
@@ -39,8 +535,7 @@
 <p>中序递归遍历的思路是先递归遍历左子树，从最后一个左子树开始存入数组，然后回溯遍历双亲结点，再是右子树，这样递归循环。</p>
 <h4 id="非递归遍历-1"><a href="#非递归遍历-1" class="headerlink" title="非递归遍历"></a>非递归遍历</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> inListUnRec = []; <span class="comment">//定义保存中序遍历结果的数组</span></div><div class="line"><span class="keyword">var</span> inOrderUnRec = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (node) &#123; <span class="comment">//判断二叉树是否为空</span></div><div class="line">        <span class="keyword">var</span> stack = []; <span class="comment">//建立一个栈</span></div><div class="line">        <span class="keyword">while</span> (stack.length !== <span class="number">0</span> || node) &#123; <span class="comment">//如果栈不为空或结点不为空，则循环遍历</span></div><div class="line">            <span class="keyword">if</span> (node) &#123; <span class="comment">//如果结点不为空</span></div><div class="line">                stack.push(node); <span class="comment">//将结点压入栈</span></div><div class="line">                node = node.left; <span class="comment">//将左子树作为当前结点</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">//左子树为空，即没有左子树的情况</span></div><div class="line">                node = stack.pop(); <span class="comment">//将结点取出来</span></div><div class="line">                inListUnRec.push(node.value); <span class="comment">//将取出结点的值存入数组中</span></div><div class="line">                node = node.right; <span class="comment">//将右结点作为当前结点</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">inOrderUnRec(tree);</div><div class="line"><span class="built_in">console</span>.log(inListUnRec);</div><div class="line"><span class="comment">//[ 'a', '+', 'b', '*', 'c', '-', 'd', '/', 'e' ]</span></div></pre></td></tr></table></figure>
 <p>非递归遍历的思路是将当前结点压入栈，然后将左子树当做当前结点，如果当前结点为空，将双亲结点取出来，将值保存进数组，然后将右子树当做当前结点，进行循环。</p>
-<p>###后续遍历</p>
-<h4 id="递归遍历-2"><a href="#递归遍历-2" class="headerlink" title="递归遍历"></a>递归遍历</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> postListRec = []; <span class="comment">//定义保存后序遍历结果的数组</span></div><div class="line"><span class="keyword">var</span> postOrderRec = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (node) &#123; <span class="comment">//判断二叉树是否为空</span></div><div class="line">        postOrderRec(node.left); <span class="comment">//递归遍历左子树</span></div><div class="line">        postOrderRec(node.right); <span class="comment">//递归遍历右子树</span></div><div class="line">        postListRec.push(node.value); <span class="comment">//将结点的值存入数组中</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">postOrderRec(tree);</div><div class="line"><span class="built_in">console</span>.log(postListRec);</div><div class="line"><span class="comment">//[ 'a', 'b', 'c', '*', '+', 'd', 'e', '/', '-' ]</span></div></pre></td></tr></table></figure>
+<h3 id="后续遍历"><a href="#后续遍历" class="headerlink" title="后续遍历"></a>后续遍历</h3><h4 id="递归遍历-2"><a href="#递归遍历-2" class="headerlink" title="递归遍历"></a>递归遍历</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> postListRec = []; <span class="comment">//定义保存后序遍历结果的数组</span></div><div class="line"><span class="keyword">var</span> postOrderRec = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (node) &#123; <span class="comment">//判断二叉树是否为空</span></div><div class="line">        postOrderRec(node.left); <span class="comment">//递归遍历左子树</span></div><div class="line">        postOrderRec(node.right); <span class="comment">//递归遍历右子树</span></div><div class="line">        postListRec.push(node.value); <span class="comment">//将结点的值存入数组中</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">postOrderRec(tree);</div><div class="line"><span class="built_in">console</span>.log(postListRec);</div><div class="line"><span class="comment">//[ 'a', 'b', 'c', '*', '+', 'd', 'e', '/', '-' ]</span></div></pre></td></tr></table></figure>
 <p>递归遍历也是和上面的差不多，先走左子树，当左子树没有孩子结点时，将此结点的值放入数组中，然后回溯遍历双亲结点的右结点，递归遍历。</p>
 <h4 id="非递归遍历-2"><a href="#非递归遍历-2" class="headerlink" title="非递归遍历"></a>非递归遍历</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> postListUnRec = []; <span class="comment">//定义保存后序遍历结果的数组</span></div><div class="line"><span class="keyword">var</span> postOrderUnRec = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (node) &#123; <span class="comment">//判断二叉树是否为空</span></div><div class="line">        <span class="keyword">var</span> stack = [node]; <span class="comment">//将二叉树压入栈</span></div><div class="line">        <span class="keyword">var</span> tmp = <span class="literal">null</span>; <span class="comment">//定义缓存变量</span></div><div class="line">        <span class="keyword">while</span> (stack.length !== <span class="number">0</span>) &#123; <span class="comment">//如果栈不为空，则循环遍历</span></div><div class="line">            tmp = stack[stack.length - <span class="number">1</span>]; <span class="comment">//将栈顶的值保存在tmp中</span></div><div class="line">            <span class="keyword">if</span> (tmp.left &amp;&amp; node !== tmp.left &amp;&amp; node !== tmp.right) &#123; <span class="comment">//如果存在左子树</span></div><div class="line">                stack.push(tmp.left); <span class="comment">//将左子树结点压入栈</span></div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tmp.right &amp;&amp; node !== tmp.right) &#123; <span class="comment">//如果结点存在右子树</span></div><div class="line">                stack.push(tmp.right); <span class="comment">//将右子树压入栈中</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                postListUnRec.push(stack.pop().value);</div><div class="line">                node = tmp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">postOrderUnRec(tree);</div><div class="line"><span class="built_in">console</span>.log(postListUnRec);</div><div class="line"><span class="comment">//[ 'a', 'b', 'c', '*', '+', 'd', 'e', '/', '-' ]</span></div></pre></td></tr></table></figure>
 <p>这里使用了一个tmp变量来记录上一次出栈、入栈的结点。思路是先把根结点和左树推入栈，然后取出左树，再推入右树，取出，最后取根结点。</p>
@@ -48,33 +543,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> breadthList = []; <span class="comment">//定义保存广度遍历结果的数组</span></div><div class="line"><span class="keyword">var</span> breadthTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (node) &#123; <span class="comment">//判断二叉树是否为空</span></div><div class="line">        <span class="keyword">var</span> que = [node]; <span class="comment">//将二叉树放入队列</span></div><div class="line">        <span class="keyword">while</span> (que.length !== <span class="number">0</span>) &#123; <span class="comment">//判断队列是否为空</span></div><div class="line">            node = que.shift(); <span class="comment">//从队列中取出一个结点</span></div><div class="line">            breadthList.push(node.value); <span class="comment">//将取出结点的值保存到数组</span></div><div class="line">            <span class="keyword">if</span> (node.left) que.push(node.left); <span class="comment">//如果存在左子树，将左子树放入队列</span></div><div class="line">            <span class="keyword">if</span> (node.right) que.push(node.right); <span class="comment">//如果存在右子树，将右子树放入队列</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">breadthTraversal(tree);</div><div class="line"><span class="built_in">console</span>.log(breadthList);</div><div class="line"><span class="comment">//[ '-', '+', '/', 'a', '*', 'd', 'e', 'b', 'c' ]</span></div></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>二叉树的遍历还是比较难懂的，如果想要好好的理解，可以把程序转化一下，比如递归的程序可以吧每个递归都写成实际的函数嵌套，这样一层层的直接执行代码，不用递归，就很容易读懂了。</p>
 <p>参考资料：<a href="https://segmentfault.com/a/1190000004620352" target="_blank" rel="external">https://segmentfault.com/a/1190000004620352</a></p>
-</the>]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[js函数、原型与继承]]></title>
-      <url>http://www.foreverz.cn/2016/10/18/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF/</url>
-      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>js是可以面向对象编程的，而面向对象很重要的一个特性就是继承，js的继承是通过原型链模拟的，达到了原型链的效果，我们就探讨一下原型链到底是个什么东西。<a id="more"></a></excerpt></p>
-<the rest="" of="" contents="" |="" 余下全文="">
-
-<h2 id="函数的概念和作用"><a href="#函数的概念和作用" class="headerlink" title="函数的概念和作用"></a>函数的概念和作用</h2><p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块，是用来帮助我们封装、调用代码的最方便的工具！</p>
-<h2 id="函数的创建方法"><a href="#函数的创建方法" class="headerlink" title="函数的创建方法"></a>函数的创建方法</h2><p>函数的创建方法有三种：</p>
-<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;</div><div class="line">fun();</div></pre></td></tr></table></figure>
-<p>在这种定义方式下，函数不属于任何对象，但是在js中它始终是默认的全局对象！函数必须用<code>fun();</code>来调用，也可以在函数声明前调用，但是不调用的函数是没有用的。</p>
-<h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;</div><div class="line">fun();</div></pre></td></tr></table></figure>
-<p>这种方式是将函数保存在变量中，也是通过<code>fun();</code>调用，但是这里因为变量有声明提前，原地赋值的特性，所以不能提前调用，只能在定义之后再使用。</p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="built_in">console</span>.log(<span class="string">'Hello World'</span>));</div></pre></td></tr></table></figure>
-<p>这种方法是比较少见的一种函数创建方法，也是很神奇的一种方法，这里简略一下，后面会详细说明。这种方法还有一个特点，就是函数可以自调。</p>
-<h2 id="函数的调用方式"><a href="#函数的调用方式" class="headerlink" title="函数的调用方式"></a>函数的调用方式</h2><p>函数的调用方式有四种：</p>
-<h3 id="作为一个函数去调用"><a href="#作为一个函数去调用" class="headerlink" title="作为一个函数去调用"></a>作为一个函数去调用</h3><p>调用方式就是前面用过的<code>fun();</code>,以函数名+()的方式直接调用，也是我们常见的调用方法。此时函数作为全局对象调用，会使this的值成为全局对象，使用window对象作为一个变量，容易造成程序崩溃！</p>
-<h3 id="函数作为方法调用"><a href="#函数作为方法调用" class="headerlink" title="函数作为方法调用"></a>函数作为方法调用</h3><p>函数作为对象的方法调用，会使this的值成为对象的本身！举个栗子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">say</span>: <span class="string">'Hello World!'</span>,</div><div class="line">    <span class="attr">sayHello</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">obj.sayHello();</div></pre></td></tr></table></figure></p>
-<h3 id="使用构造函数调用函数"><a href="#使用构造函数调用函数" class="headerlink" title="使用构造函数调用函数"></a>使用构造函数调用函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.say = <span class="string">"Hello World!"</span>;</div><div class="line">    <span class="keyword">this</span>.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> fun();</div><div class="line">obj.say;	<span class="comment">//=&gt;Hello World!</span></div><div class="line">obj.sayHello();</div></pre></td></tr></table></figure>
-<p>构造函数中的this<br>没有任何值，但是当用new新建<code>obj</code>对象时，this会指向<code>obj</code>，此时<code>obj</code>会继承<code>fun</code>的属相和方法成为自己的属性和方法！</p>
-<h3 id="作为函数方法调用函数"><a href="#作为函数方法调用函数" class="headerlink" title="作为函数方法调用函数"></a>作为函数方法调用函数</h3><p>在js中函数是对象，是对象就有对象的方法，而<code>call()</code>和<code>apply()</code>是预定义的函数方法！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a * b);</div><div class="line">&#125;</div><div class="line">fun.call(foo, <span class="number">10</span>, <span class="number">2</span>);	<span class="comment">//=&gt;20</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a * b);</div><div class="line">&#125;</div><div class="line">fun.apply(foo, [<span class="number">10</span>, <span class="number">2</span>]);	<span class="comment">//=&gt;20</span></div></pre></td></tr></table></figure></p>
-<p><code>call</code>和<code>apply</code>是为了动态改变this而出现的，当一个object没有某个方法，但是其他的有，我们可以借助call或apply用其它对象的方法来操作。在这里<code>foo</code>只是一个变量，没有任何属性和方法，所以用call或apply调用<code>fun</code>方法操作。<br>两个方法的区别在于call传入的是一个个普通的参数，而apply传入的是一个数组。</p>
-<h2 id="函数的运行机制"><a href="#函数的运行机制" class="headerlink" title="函数的运行机制"></a>函数的运行机制</h2><p>1、在js中，js引擎会优先解析var变量和function定义！在预解析完成后从上到下逐步进行！<br>2、解析var变量时，会把值存储在“执行环境”中，而不会去赋值，也就是通常所说的声明提前，原地赋值。<br>3、在解析function时会把函数整体定义，这也就解释了为什么在function定义函数时为什么可以先调用后声明了！其实表面上看是先调用了，其实在内部机制中第一步实行的是把以function方式定义的函数先声明了！</p>
-<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p>1.在js中函数定义没有任何参数，调用该函数时可以传递任意参数！<br>2.arguments对象是数组对象。<br>3.arguments对象的length属性：获取函数的实参个数！<br>4.利用Arguments对象特性,实现模拟函数的重载的效果.</p>
-<p>参考链接：<a href="http://www.cnblogs.com/Jabin/p/5804052.html" target="_blank" rel="external">http://www.cnblogs.com/Jabin/p/5804052.html</a><br>构造函数：<a href="http://www.2cto.com/kf/201402/281841.html" target="_blank" rel="external">http://www.2cto.com/kf/201402/281841.html</a><br>原型链和继承：<a href="http://www.w2bc.com/Article/10575" target="_blank" rel="external">http://www.w2bc.com/Article/10575</a><br><a href="http://www.cnblogs.com/ljchow/archive/2010/06/08/1753526.html" target="_blank" rel="external">http://www.cnblogs.com/ljchow/archive/2010/06/08/1753526.html</a><br><a href="http://www.108js.com/article/article1/10201.html?id=1092" target="_blank" rel="external">http://www.108js.com/article/article1/10201.html?id=1092</a><br><a href="http://www.cnblogs.com/TomXu/archive/2012/01/05/2305453.html" target="_blank" rel="external">http://www.cnblogs.com/TomXu/archive/2012/01/05/2305453.html</a><br>原型链原理 <a href="http://www.cnblogs.com/xdp-gacl/p/3704722.html" target="_blank" rel="external">http://www.cnblogs.com/xdp-gacl/p/3704722.html</a><br><a href="http://2660311.blog.51cto.com/2650311/1358226/" target="_blank" rel="external">http://2660311.blog.51cto.com/2650311/1358226/</a><br>函数创建过程 <a href="http://blog.jobbole.com/19795/" target="_blank" rel="external">http://blog.jobbole.com/19795/</a><br>继承：<a href="http://uule.iteye.com/blog/1158829" target="_blank" rel="external">http://uule.iteye.com/blog/1158829</a><br><a href="http://blog.csdn.net/james521314/article/details/8645815" target="_blank" rel="external">http://blog.csdn.net/james521314/article/details/8645815</a></p>
 </the>]]></content>
     </entry>
     
@@ -136,34 +604,6 @@
 <li>尽量少学习。</li>
 </ol>
 </the>]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Node.js的nodegrass网页请求模块]]></title>
-      <url>http://www.foreverz.cn/2016/10/09/Node-js%E7%9A%84nodegrass%E7%BD%91%E9%A1%B5%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97/</url>
-      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>Node.js的网页请求有官方提供的的http模块，但是用起来过于繁琐与复杂，所以有了第三方基于http封装的nodegrass模块，简单易懂，方便使用。<a id="more"></a></excerpt></p>
-<p><the rest="" of="" contents="" |="" 余下全文=""></the></p>
-<h2 id="nodegrass是什么？"><a href="#nodegrass是什么？" class="headerlink" title="nodegrass是什么？"></a>nodegrass是什么？</h2><p>模块开发者的介绍是：nodegrass is a tool to process client request for Node.js，翻译过来就是nodegress是为Node.js处理客户端请求的工具。是对Node.js官方提供的http模块的二次处理封装，使Node.js更加的易于使用，下面我们就来看看nodegrass的用法。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先是nodegrass的安装方法，可以直接使用npm安装,建议安装在项目文件夹里:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install nodegrass -save</div></pre></td></tr></table></figure></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>然后就介绍Node.js的使用了。<br>下面是开发者提供的Demo,首先是get请求：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//get request</span></div><div class="line"><span class="keyword">var</span> nodegrass = <span class="built_in">require</span>(<span class="string">'nodegrass'</span>);</div><div class="line">nodegrass.get(<span class="string">"https://github.com"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data,status,headers</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(status);</div><div class="line">    <span class="built_in">console</span>.log(headers);</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">&#125;,<span class="literal">null</span>,<span class="string">'utf8'</span>).on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Got error: "</span> + e.message);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>首先<code>require</code>加载模块，然后就可以直接使用了。这里是get的<code>https://github.com</code>网站</p>
-<p>post请求<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ng=<span class="built_in">require</span>(<span class="string">'nodegrass'</span>);</div><div class="line">ng.post(<span class="string">"https://api.weibo.com/oauth2/access_token"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data,status,headers</span>)</span>&#123;</div><div class="line"> <span class="keyword">var</span> accessToken = <span class="built_in">JSON</span>.parse(data);</div><div class="line">	<span class="keyword">var</span> err = <span class="literal">null</span>;</div><div class="line"> <span class="keyword">if</span>(accessToken.error)&#123;</div><div class="line">     	err = accessToken;</div><div class="line"> &#125;</div><div class="line"> callback(err,accessToken);</div><div class="line"> &#125;,headers,options,<span class="string">'utf8'</span>);</div></pre></td></tr></table></figure></p>
-<p>post方法相比get方法多提供了headers请求头参数，options–post的数据，它们都是对象字面量的类型：</p>
-<p>var headers = {<br>    ‘Content-Type’: ‘application/x-www-form-urlencoded’,<br>    ‘Content-Length’:data.length<br>};</p>
-<p>var options = {<br>         client_id : ‘id’,<br>     client_secret : ‘cs’,<br>     grant_type : ‘authorization_code’,<br>     redirect_uri : ‘your callback url’,<br>     code: acode<br>};</p>
-<p>利用nodegrass做代理服务器？……**</p>
-<p>看例子：</p>
-<p>var ng = require(‘nodegrass’),<br> http=require(‘http’),<br> url=require(‘url’);</p>
-<p> http.createServer(function(req,res){<br>    var pathname = url.parse(req.url).pathname;</p>
-<pre><code>if(pathname === &apos;/&apos;){
-    ng.get(&apos;http://www.cnblogs.com/&apos;,function(data){
-        res.writeHeader(200,{&apos;Content-Type&apos;:&apos;text/html;charset=utf-8&apos;});
-        res.write(data+&quot;\n&quot;);
-        res.end();
-        },&apos;utf8&apos;);
-    }
-</code></pre><p> }).listen(8088);<br> console.log(‘server listening 8088…’);<br>就这么简单，当然代理服务器还有复杂的多，这个不算是，但至少你访问本地8088端口，看到的是不是博客园的页面呢？</p>
-]]></content>
     </entry>
     
     <entry>
@@ -339,9 +779,27 @@
     </entry>
     
     <entry>
-      <title></title>
+      <title><![CDATA[Sublime Text3的使用]]></title>
       <url>http://www.foreverz.cn/2016/10/02/Sublime%20Text3%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-      <content type="html"></content>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>前端开发有很多款方便易用的编辑器和IDE，如WebStoem、Atom和Brackets等，每个编辑器都有她自己的优点和缺点，但是都不如Sublime那么全面和强大，但是刚装上的Sublime就如一张白纸一样，怎么才能把她变成娜塔莎呢？这里我就逐步介绍一些我的Sublime使用史，帮助大家的Sublime强大起来！<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="Package-Control"><a href="#Package-Control" class="headerlink" title="Package Control"></a>Package Control</h2><p>Package Control插件本身是一个为了方便管理插件的插件，安装了她你的Sublime才算有了强大的基础，没有她的Sublime并不是真的Sublime。怎么安装呢？如下：<br>使用Ctrl+`快捷键或者通过View-&gt;Show Console菜单打开命令行，粘贴如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import urllib.request,os; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &apos;wb&apos;).write(urllib.request.urlopen( &apos;http://sublime.wbond.net/&apos; + pf.replace(&apos; &apos;,&apos;%20&apos;)).read())</div></pre></td></tr></table></figure>
+<p>安装了Package Control，你就可以非常方便的安装其它插件了，安装方法如下：<br>使用Ctrl+Shift+P快捷键或者Tools-&gt;Command Palette打开调出面板，然后输入Install package，回车，然后就会进入插件库了，在插件库里搜索自己想装的插件，然后点击就会下载并安装了。</p>
+<h2 id="生产力插件推荐"><a href="#生产力插件推荐" class="headerlink" title="生产力插件推荐"></a>生产力插件推荐</h2><blockquote>
+<p>ChineseLocalizations：各国语言包<br>ConvertToUTF8：GBK编码兼容</p>
+<blockquote>
+<p>很多文件都是GBK编码的文件，如果其中有汉字的话，在Sublime中打开是会乱码的，而且很难恢复回来，使用这个插件就可以吧GBK转为UTF-8格式，就不会有乱码了。</p>
+</blockquote>
+<p>sideNav：左边栏增强<br>SideBarEnhancements：侧栏右键功能增强<br>Emment：快速编写HTML和CSS代码</p>
+<blockquote>
+<p>Emment，大名鼎鼎啊，原名Zencoding，动态扩展HTML和CSS的缩写，前端开发必不可少的东东，略过。</p>
+</blockquote>
+<p>Sublime CodeIntel代码提示插件<br>JavaScript Completions：js全能提示<br>All Autocomplete：搜索所有打开的文件来寻找匹配的提示词<br>HTML/CSS/JVScriptPrettify：代码格式化<br>JsFormat：JS代码格式化<br>PHPCodeBeautifier：PHP代码格式化<br>Alignment：代码对齐<br>Color Highlighter：颜色高亮显示<br>CSScomb： CSS属性排序<br>Autoprefixer配置浏览器兼容<br>SublimeLinter：代码校验<br>Bracket Highlighter：匹配括号<br>AutoFileName: 文件路径自动提示<br>ColorPicker：调色盘<br>TrailingSpaces：高亮显示多余空格和Tab<br>LiveStyle：实时预览<br>Keymaps：快速查找所有插件的快捷键<br>Ternimal：CMD控制台<br>MarkDown Preview：MarkDown生成HTML文件、预览功能</p>
+</blockquote>
+<p>由于时间有限，很多插件都没有仔细介绍，有空我会慢慢补上插件的功能介绍，大家也可以自行摸索或者Google，最好去github上找到项目看官方的介绍。</p>
+</the>]]></content>
     </entry>
     
     <entry>
