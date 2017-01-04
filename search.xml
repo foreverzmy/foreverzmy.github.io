@@ -4,6 +4,106 @@
   
     
     <entry>
+      <title><![CDATA[基于Socket.IO的简单聊天应用]]></title>
+      <url>http://www.foreverz.cn/2017/01/04/%E5%9F%BA%E4%BA%8Esocket-io%E7%9A%84%E7%AE%80%E5%8D%95%E8%81%8A%E5%A4%A9%E5%BA%94%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>本文翻译自<a href="http://socket.io/" target="_blank" rel="external">socket.io官网</a>的<a href="http://socket.io/get-started/chat/" target="_blank" rel="external">Get Started: Chat application</a>，文中将创建一个简单的聊天应用，它几乎不需要<code>Node.js</code>或者<code>Socket.IO</code>的基础知识，所以它是所有用户的理想选择。<a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<p>翻译：<a href="http://foreverz.cn/" target="_blank" rel="external">ForeverZ</a><br>校对：金炜同学</p>
+<p>文中对其中的程序略有改动，全部由ES6实现，同时添加了一些注释。由于功力不够，翻译中出现的错误还请指正。</p>
+<p>以下是翻译内容：</p>
+<p>在本指南中，我们将创建一个简单的聊天应用，它几乎不需要<code>Node.js</code>或者<code>Socket.IO</code>的基础知识，所以它是所有用户的理想选择。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>使用流行的web应用程序栈，如LAMP(PHP)，编写聊天应用程序历来非常困难。它涉及轮询更改服务器和记录时间戳，因此编写软件会慢得多。</p>
+<p>Sockets能提供在客户端和服务器之间的双向通信，所以一直以来是构建大多数实时聊天系统的解决方案。</p>
+<p>也就是说服务器可以将消息推送到客户端，我们的想法是：每当你发一条信息，服务器会接收它并推送给其它连接的客户端。</p>
+<h2 id="web框架"><a href="#web框架" class="headerlink" title="web框架"></a>web框架</h2><p>第一个目标是建立一个简单的HTML页面，提供一个表单和一个消息列表，我们将使用Node.js的web框架<code>express</code>完成这个目标，请确保Node.js已安装。</p>
+<p>首先创建一个<code>package.json</code>清单文件来描述项目，建议把它放在一个专门的空目录。</p>
+<blockquote>
+<p>注：在我的仓库中，我命名为<code>socket-chat-example</code>，但是我把这个项目放在了01文件夹中，02…是对该项目的扩充。</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"socket-chat-example"</span>,</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</div><div class="line">  <span class="attr">"description"</span>: <span class="string">"my first socket.io app"</span>,</div><div class="line">  <span class="attr">"dependencies"</span>: &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，为了便于安装我们所需要的依赖(相当于jar包)，我们会使用<code>npm install --save</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save express@4.10.2</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注：这里是直接指定了安装4.10.2版本的express，也可以不加版本号直接安装最新版本的express：<code>npm install --save express</code>。</p>
+</blockquote>
+<p>现在express已经安装了，我们可以创建一个<code>index.js</code>文件来配置我们的应用程序。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">'express'</span>)();</div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>).Server(app);</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</div><div class="line">  res.send(<span class="string">'&lt;h1&gt;Hello world&lt;/h1&gt;'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">http.listen(<span class="number">3000</span>, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'listening on *:3000'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这个过程解释为以下几步：</p>
+<ol>
+<li>将express初始化为可以用来提供给HTTP服务的处理函数:<code>app</code>(见第2行)。</li>
+<li>定义了一个路由处理程序，当访问我们的网站首页时调用。</li>
+<li>让http服务监听3000端口。</li>
+</ol>
+<p>如果你运行<code>node index.js</code>，你会看到如下内容：</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/LsMcTduUg.png" alt=""></p>
+<p>当你的浏览器访问<code>http://localhost:3000</code>时：</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/AOuGSHy7QM.png" alt=""></p>
+<blockquote>
+<p>注：我的仓库代码监听的是9000端口，因此需要访问<code>http://localhost:9000</code>，以下如是。</p>
+</blockquote>
+<h2 id="访问HTML"><a href="#访问HTML" class="headerlink" title="访问HTML"></a>访问HTML</h2><p>到目前为止，我们是在<code>index.js</code>中调用了<code>res.send</code>并传递了一个HTML字符串。但如果把我们整个应用的HTML都放在这里，那会看起来十分混乱。因此，我们创建一个<code>index.html</code>文件并引入它。</p>
+<p>让我们使用<code>sendFile</code>重构我们的路由处理程序：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</div><div class="line">  res.sendFile(<span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/index.html`</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>然后使用以下内容填充<code>index.html</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Socket.IO chat<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">      * &#123; margin: 0; padding: 0; box-sizing: border-box; &#125;</div><div class="line">      body &#123; font: 13px Helvetica, Arial; &#125;</div><div class="line">      form &#123; background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; &#125;</div><div class="line">      form input &#123; border: 0; padding: 10px; width: 90%; margin-right: .5%; &#125;</div><div class="line">      form button &#123; width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; &#125;</div><div class="line">      #messages &#123; list-style-type: none; margin: 0; padding: 0; &#125;</div><div class="line">      #messages li &#123; padding: 5px 10px; &#125;</div><div class="line">      #messages li:nth-child(odd) &#123; background: #eee; &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"messages"</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"m"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span> /&gt;</span><span class="tag">&lt;<span class="name">button</span>&gt;</span>Send<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果你重新启动进程(通过点击 Control+C 并再次运行<code>node index</code>)，然后刷新窗口就会看到如下页面：</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/985FgSH2HQ.png" alt=""></p>
+<h2 id="整合Socket-IO"><a href="#整合Socket-IO" class="headerlink" title="整合Socket.IO"></a>整合Socket.IO</h2><p>Socket.IO由两部分组成：</p>
+<ul>
+<li>整合(或依托于)Node.js HTTP Server的服务器:<code>socket.io</code></li>
+<li>在浏览器端加载的客户端库:<code>socket.io-client</code></li>
+</ul>
+<p>在开发过程中，<code>socket.io</code>会自动为我们服务客户端，因此，现在我们只需要安装一个模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save socket.io</div></pre></td></tr></table></figure>
+<p>这会安装模块并添加依赖关系到<code>package.json</code>。现在，我们在<code>index.js</code>添加下面内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">'express'</span>)();</div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>).Server(app);</div><div class="line"><span class="keyword">const</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(http);</div><div class="line"></div><div class="line">app.get(<span class="string">''</span>, (req, res) =&gt; &#123;</div><div class="line">  res.sendfile(<span class="string">'index.html'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'a user connected'</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">http.listen(<span class="number">3000</span>, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'listening on *:3000'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>注意，我通过传递<code>http</code>(HTTP服务器)来初始化<code>socket.io</code>的一个新实例，然后监听连接sockets的<code>connection</code>事件，并将其记录到控制台。</p>
+<p>现在在<code>index.html</code>中，<code>&lt;/body&gt;</code>前添加以下代码段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">const</span> socket = io();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>加载<code>socket.io-client</code>会暴露一个全局<code>io</code>并连接。</p>
+<p>注意，当我调用<code>io()</code>时，没有指定任何URL，因为他默认尝试连接到提供页面的主机。</p>
+<p>如果你现在重新加载服务器和网站，你会看到控制台打印<code>a user connected</code>。<br>尝试打开多个页面，你会看到以下消息：</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/F5EBcTVDcd.png" alt=""></p>
+<p>每个socket也会触发一个特殊的<code>disconnect</code>事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'a user connected'</span>);</div><div class="line">  socket.on(<span class="string">'disconnect'</span>, () =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'user disconnected'</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>然后如果你刷新页面几次，你就会看到：</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/bOmy6xrJmi.png" alt=""></p>
+<h2 id="Emitting事件"><a href="#Emitting事件" class="headerlink" title="Emitting事件"></a>Emitting事件</h2><p>Socket.IO背后的主要思想是你可以接受和发送你想要的任何事件和里面的任何数据。任何可以编码为JSON的对象都可以，也支持<a href="http://socket.io/blog/introducing-socket-io-1-0/#binary" target="_blank" rel="external">二进制数据</a>。</p>
+<p>在用户键入消息时，我们让服务端接收并作为一个<code>chat message</code>事件，<code>index.html</code>的<code>script</code>部分应如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/socket.io/socket.io.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://code.jquery.com/jquery-1.11.1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">const</span> socket = io();</div><div class="line">  $(<span class="string">'form'</span>).submit(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    socket.emit(<span class="string">'chat message'</span>, $(<span class="string">'#m'</span>).val());</div><div class="line">    $(<span class="string">'#m'</span>).val(<span class="string">''</span>);</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>同时在<code>index.js</code>中我们打印出来<code>chat message</code>事件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</div><div class="line">  socket.on(<span class="string">'chat message'</span>, (msg) =&gt; &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`message: <span class="subst">$&#123;msg&#125;</span>`</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>运行结果应如下:</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/a.gif" alt=""></p>
+<h2 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h2><p>我们的下一个目标是从服务端向其它用户发送事件。</p>
+<p>为了给每个人发送事件，Socket.IO给我们提供了<code>io.emit</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">io.emit(<span class="string">'some event'</span>, &#123; <span class="attr">for</span>: <span class="string">'everyone'</span> &#125;);</div></pre></td></tr></table></figure>
+<p>如果你想向每个人发送一条不包含某个socket的消息，我们有<code>broadcast</code>标志：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</div><div class="line">  socket.broadcast.emit(<span class="string">'hi'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在这种情况下，为了简单起见，我们向包括发消息者在内的所有人发送消息：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">io.on(<span class="string">'connection'</span>, (socket) =&gt; &#123;</div><div class="line">  socket.on(<span class="string">'chat message'</span>, (msg) =&gt; &#123;</div><div class="line">    io.emit(<span class="string">'chat message'</span>, msg);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在客户端，当我们捕获<code>chat message</code>事件时我们会将其显示在页面中，所有客户端javascript代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">const</span> socket = io();</div><div class="line">  $(<span class="string">'form'</span>).submit(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    socket.emit(<span class="string">'chat message'</span>, $(<span class="string">'#m'</span>).val());</div><div class="line">    $(<span class="string">'#m'</span>).val(<span class="string">''</span>);</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;);</div><div class="line">  socket.on(<span class="string">'chat message'</span>, (msg) =&gt; &#123;</div><div class="line">    $(<span class="string">'#messages'</span>).append($(<span class="string">'&lt;li&gt;'</span>).text(msg));</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样大约20行代码就完成了我们的聊天程序，看起来应该是下面这样：</p>
+<p><img src="http://oef1ordmv.bkt.clouddn.com/b.gif" alt=""></p>
+<h2 id="Homework"><a href="#Homework" class="headerlink" title="Homework"></a>Homework</h2><p>这里有一些改善应用程序的想法：</p>
+<ul>
+<li>当有人连接或断开连接时，向连接的用户广播消息;</li>
+<li>添加对昵称的支持;</li>
+<li>不要想发送消息的人发送自己发送的消息。相反，只要他按<code>Enter</code>键，直接添加消息;</li>
+<li>添加用户正在输入功能;</li>
+<li>显示谁在线;</li>
+<li>添加私人消息;</li>
+<li>用数据库保存消息;</li>
+<li>分享您的改进！</li>
+</ul>
+<h2 id="获取此示例"><a href="#获取此示例" class="headerlink" title="获取此示例"></a>获取此示例</h2><p>你可以在Github上找到：<br><a href="https://github.com/rauchg/chat-example" target="_blank" rel="external">原版DEMO</a><br><a href="https://github.com/zmyforever1/NodeDemo/tree/master/12%20Socket.IO" target="_blank" rel="external">我的DEMO</a></p>
+<p>原版DEMO的git地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/guille/chat-example.git</div></pre></td></tr></table></figure></the>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Node.js的nodegrass网页请求模块]]></title>
       <url>http://www.foreverz.cn/2016/12/08/Node-js%E7%9A%84nodegrass%E7%BD%91%E9%A1%B5%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97/</url>
       <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>Node.js的网页请求有官方提供的的http模块，但是用起来过于繁琐与复杂，所以有了第三方基于http封装的nodegrass模块，简单易懂，方便使用。<a id="more"></a></excerpt></p>
