@@ -201,7 +201,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP协议/">HTTP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Material-Design/">Material Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP协议/">TCP/IP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/color/">color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fs模块/">fs模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullPage/">fullPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js作用域链/">js作用域链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js函数/">js函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js继承/">js继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodegrass模块/">nodegrass模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket-IO/">socket.IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP协议/">HTTP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Material-Design/">Material Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP协议/">TCP/IP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/color/">color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fs模块/">fs模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullPage/">fullPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js作用域链/">js作用域链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js函数/">js函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js继承/">js继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/liveload/">liveload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodegrass模块/">nodegrass模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket-IO/">socket.IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
                     </div>
                 </section>
                 
@@ -290,6 +290,74 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-用Node-js实现页面热加载" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/13/用Node-js实现页面热加载/" class="article-date">
+      <time datetime="2017-01-13T01:46:45.000Z" itemprop="datePublished">2017-01-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/13/用Node-js实现页面热加载/">Liveload：用Node.js实现页面热加载</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><Excerpt in index | 首页摘要><br>我们在开发前段页面时，修改了样式表之后都会到浏览器手动刷新页面才能看到修改后的效果。但是这样非常繁琐而且非常耗时。尤其是在各种设备上测试不同的浏览器时更是如此。使用Node.js可以帮助我们实现页面热加载，点击一下保存，所有打开的页面都会刷新，是不是爽歪歪！
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/liveload/">liveload</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/01/13/用Node-js实现页面热加载/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-基于socket-io的简单聊天应用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -339,7 +407,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/01/04/基于socket-io的简单聊天应用/#more">more >></a>
+          <a href="/2017/01/04/基于socket-io的简单聊天应用/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -407,7 +475,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/12/08/Node-js的nodegrass网页请求模块/#more">more >></a>
+          <a href="/2016/12/08/Node-js的nodegrass网页请求模块/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -475,7 +543,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/11/03/全屏滚动插件fullPage使用教程/#more">more >></a>
+          <a href="/2016/11/03/全屏滚动插件fullPage使用教程/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -543,7 +611,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/11/01/JavaScript之数组降维/#more">more >></a>
+          <a href="/2016/11/01/JavaScript之数组降维/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -611,7 +679,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/27/前端面试宝典之HTML-CSS/#more">more >></a>
+          <a href="/2016/10/27/前端面试宝典之HTML-CSS/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -679,7 +747,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/20/前端如何跨域/#more">more >></a>
+          <a href="/2016/10/20/前端如何跨域/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -747,7 +815,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/#more">more >></a>
+          <a href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -815,7 +883,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/20/js的原型与继承/#more">more >></a>
+          <a href="/2016/10/20/js的原型与继承/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -883,75 +951,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2016/10/19/js的函数与作用域链/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-二叉树与JavaScript" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/19/二叉树与JavaScript/" class="article-date">
-      <time datetime="2016-10-19T14:15:31.000Z" itemprop="datePublished">2016-10-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/19/二叉树与JavaScript/">二叉树与JavaScript</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><Excerpt in index | 首页摘要><br>二叉树是非常基础有非常重要的数据结构，在一些场合有着非常重要的左右。掌握二叉树对编写高质量代码、减少代码量有很大的帮助！
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a><a class="article-category-link" href="/categories/JavaScript/数据结构/">数据结构</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二叉树/">二叉树</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/19/二叉树与JavaScript/#more">more >></a>
+          <a href="/2016/10/19/js的函数与作用域链/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
