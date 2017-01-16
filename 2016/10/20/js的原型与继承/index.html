@@ -143,13 +143,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -285,7 +285,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap"><article id="post-js的原型与继承" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -387,17 +387,17 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2016/10/20/js的原型与继承/">js的原型与继承</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">Mervyn Zhang</a></p>
-        <p><span>Created:</span>2016-10-20, 12:10:41</p>
-        <p><span>Updated:</span>2016-12-08, 10:08:03</p>
+        <p><span>本文标题:</span><a href="/2016/10/20/js的原型与继承/">js的原型与继承</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Mervyn Zhang</a></p>
+        <p><span>发布时间:</span>2016-10-20, 12:10:41</p>
+        <p><span>最后更新:</span>2016-12-08, 10:08:03</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2016/10/20/js的原型与继承/" title="js的原型与继承">http://www.foreverz.cn/2016/10/20/js的原型与继承/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.foreverz.cn/2016/10/20/js的原型与继承/　　By Mervyn Zhang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/20/js的原型与继承/" title="js的原型与继承">http://www.foreverz.cn/2016/10/20/js的原型与继承/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.foreverz.cn/2016/10/20/js的原型与继承/　　作者: Mervyn Zhang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -424,7 +424,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+        <strong class="toc-title">文章目录</strong>
         
             <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是继承"><span class="toc-number">1.</span> <span class="toc-text">什么是继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承的作用"><span class="toc-number">2.</span> <span class="toc-text">继承的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS中的类"><span class="toc-number">3.</span> <span class="toc-text">JS中的类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型链"><span class="toc-number">4.</span> <span class="toc-text">原型链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new运算符"><span class="toc-number">5.</span> <span class="toc-text">new运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS中的继承"><span class="toc-number">6.</span> <span class="toc-text">JS中的继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链继承"><span class="toc-number">6.1.</span> <span class="toc-text">原型链继承</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原型链继承原理"><span class="toc-number">6.1.1.</span> <span class="toc-text">原型链继承原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型链直接继承"><span class="toc-number">6.1.2.</span> <span class="toc-text">原型链直接继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型链多重继承"><span class="toc-number">6.1.3.</span> <span class="toc-text">原型链多重继承</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类式继承（构造函数间的继承）"><span class="toc-number">6.2.</span> <span class="toc-text">类式继承（构造函数间的继承）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类式继承原理"><span class="toc-number">6.2.1.</span> <span class="toc-text">类式继承原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类式直接继承"><span class="toc-number">6.2.2.</span> <span class="toc-text">类式直接继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类式多重继承"><span class="toc-number">6.2.3.</span> <span class="toc-text">类式多重继承</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
         
@@ -440,10 +440,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
     <script>
-        yiliaConfig.toc = ["Hide", "Show", !!"true"];
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
     </script>
 
 
@@ -501,15 +501,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/" title="Pre: 从输入URL到页面加载完成的过程中都发生了什么事情？">
+            <a href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/" title="上一篇: 从输入URL到页面加载完成的过程中都发生了什么事情？">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/10/19/js的函数与作用域链/" title="Next: js函数与作用域链">
+            <a href="/2016/10/19/js的函数与作用域链/" title="下一篇: js函数与作用域链">
                 <i class="fa fa-angle-right"></i>
             </a>
         
@@ -532,14 +532,14 @@
                 2016-2017 Mervyn Zhang
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -548,7 +548,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -604,9 +604,9 @@ MathJax.Hub.Queue(function() {
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window

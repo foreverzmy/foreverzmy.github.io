@@ -140,13 +140,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -282,7 +282,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap"><article id="post-详细理解JS闭包" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -390,17 +390,17 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">Mervyn Zhang</a></p>
-        <p><span>Created:</span>2016-10-16, 10:04:36</p>
-        <p><span>Updated:</span>2016-10-18, 22:36:05</p>
+        <p><span>本文标题:</span><a href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Mervyn Zhang</a></p>
+        <p><span>发布时间:</span>2016-10-16, 10:04:36</p>
+        <p><span>最后更新:</span>2016-10-18, 22:36:05</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2016/10/16/详细理解JS闭包/" title="详细理解JS闭包">http://www.foreverz.cn/2016/10/16/详细理解JS闭包/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.foreverz.cn/2016/10/16/详细理解JS闭包/　　By Mervyn Zhang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/16/详细理解JS闭包/" title="详细理解JS闭包">http://www.foreverz.cn/2016/10/16/详细理解JS闭包/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.foreverz.cn/2016/10/16/详细理解JS闭包/　　作者: Mervyn Zhang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -427,7 +427,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+        <strong class="toc-title">文章目录</strong>
         
             <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于变量"><span class="toc-number">1.</span> <span class="toc-text">关于变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于函数"><span class="toc-number">2.</span> <span class="toc-text">关于函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是闭包？"><span class="toc-number">3.</span> <span class="toc-text">什么是闭包？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包的作用"><span class="toc-number">4.</span> <span class="toc-text">闭包的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#保护函数内的变量安全-加强了封装性"><span class="toc-number">4.1.</span> <span class="toc-text">保护函数内的变量安全,加强了封装性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在内存中维持一个变量，使逻辑连续-用的太多就变成了缺点，占内存"><span class="toc-number">4.2.</span> <span class="toc-text">在内存中维持一个变量，使逻辑连续(用的太多就变成了缺点，占内存)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现JS私有属性和私有方法"><span class="toc-number">4.3.</span> <span class="toc-text">实现JS私有属性和私有方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包的缺点"><span class="toc-number">5.</span> <span class="toc-text">闭包的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包的应用"><span class="toc-number">6.</span> <span class="toc-text">闭包的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解决for循环后执行输出全为循环后值的问题。"><span class="toc-number">6.1.</span> <span class="toc-text">解决for循环后执行输出全为循环后值的问题。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用闭包模拟对象的私有属性"><span class="toc-number">6.2.</span> <span class="toc-text">利用闭包模拟对象的私有属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用闭包模拟对象的私有方法"><span class="toc-number">6.3.</span> <span class="toc-text">利用闭包模拟对象的私有方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
         
@@ -443,10 +443,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
     <script>
-        yiliaConfig.toc = ["Hide", "Show", !!"true"];
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
     </script>
 
 
@@ -504,15 +504,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/19/二叉树与JavaScript/" title="Pre: 二叉树与JavaScript">
+            <a href="/2016/10/19/二叉树与JavaScript/" title="上一篇: 二叉树与JavaScript">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/10/04/Node-js的fs文件系统/" title="Next: Node.js的FileSystem文件模块">
+            <a href="/2016/10/04/Node-js的fs文件系统/" title="下一篇: Node.js的FileSystem文件模块">
                 <i class="fa fa-angle-right"></i>
             </a>
         
@@ -535,14 +535,14 @@
                 2016-2017 Mervyn Zhang
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -551,7 +551,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -607,9 +607,9 @@ MathJax.Hub.Queue(function() {
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
