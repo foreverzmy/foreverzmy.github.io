@@ -15,21 +15,21 @@
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/%E6%8F%92%E4%BB%B6/</loc>
-        <lastmod>2016-12-08T01:38:16.345Z</lastmod>
+        <lastmod>2016-12-08T01:38:16.346Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/%E9%9D%A2%E8%AF%95/</loc>
-        <lastmod>2016-12-08T01:43:06.224Z</lastmod>
+        <lastmod>2016-12-08T01:43:06.225Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
-        <lastmod>2016-12-08T02:11:50.809Z</lastmod>
+        <lastmod>2016-12-08T02:11:50.810Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -50,7 +50,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/</loc>
-        <lastmod>2016-12-08T02:53:24.395Z</lastmod>
+        <lastmod>2016-12-08T02:53:24.396Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -65,6 +65,20 @@
     <url>
         <loc>http://www.foreverz.cn/categories/%E6%AF%95%E4%B8%9A/</loc>
         <lastmod>2017-06-05T12:31:29.911Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/categories/Angular/</loc>
+        <lastmod>2017-07-18T03:14:18.239Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/categories/Angular/Electron/</loc>
+        <lastmod>2017-07-18T03:14:18.239Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
