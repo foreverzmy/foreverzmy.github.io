@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://www.foreverz.cn/2016/09/29/js%E9%9A%8F%E6%9C%BA%E9%A2%9C%E8%89%B2/</loc>
+        <lastmod>2017-09-13T02:21:27.182Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://www.foreverz.cn/2017/06/18/Angular%20CLI+Electron%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
         <lastmod>2017-08-29T10:37:59.265Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -65,14 +73,6 @@
     <url>
         <loc>http://www.foreverz.cn/2016/10/04/Node-js%E7%9A%84fs%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</loc>
         <lastmod>2016-12-08T02:44:23.651Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.foreverz.cn/2016/09/29/js%E9%9A%8F%E6%9C%BA%E9%A2%9C%E8%89%B2/</loc>
-        <lastmod>2016-12-08T02:42:56.203Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
