@@ -8,42 +8,42 @@
 
     <url>
         <loc>http://www.foreverz.cn/categories/%E9%9D%A2%E8%AF%95/</loc>
-        <lastmod>2016-12-07T15:47:25.769Z</lastmod>
+        <lastmod>2016-12-07T15:47:25.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/%E6%8F%92%E4%BB%B6/</loc>
-        <lastmod>2016-12-08T01:38:16.346Z</lastmod>
+        <lastmod>2016-12-08T01:38:16.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/%E9%9D%A2%E8%AF%95/</loc>
-        <lastmod>2016-12-08T01:43:06.225Z</lastmod>
+        <lastmod>2016-12-08T01:43:06.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
-        <lastmod>2016-12-08T02:11:50.810Z</lastmod>
+        <lastmod>2016-12-08T02:11:50.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/Tools/</loc>
-        <lastmod>2016-12-08T02:42:38.036Z</lastmod>
+        <lastmod>2016-12-08T02:42:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/</loc>
-        <lastmod>2016-12-08T02:53:24.396Z</lastmod>
+        <lastmod>2016-12-08T02:53:24.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -57,42 +57,56 @@
 
     <url>
         <loc>http://www.foreverz.cn/categories/%E6%AF%95%E4%B8%9A/</loc>
-        <lastmod>2017-06-05T12:31:29.911Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://www.foreverz.cn/categories/%E8%A7%84%E8%8C%83/</loc>
-        <lastmod>2017-08-23T08:42:08.182Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://www.foreverz.cn/categories/%E8%A7%84%E8%8C%83/JavaScript/</loc>
-        <lastmod>2017-08-23T08:42:08.182Z</lastmod>
+        <lastmod>2017-06-05T12:31:29.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/Angular/</loc>
-        <lastmod>2017-08-29T10:37:59.265Z</lastmod>
+        <lastmod>2017-08-29T10:37:59.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/Angular/Electron/</loc>
-        <lastmod>2017-08-29T10:37:59.265Z</lastmod>
+        <lastmod>2017-08-29T10:37:59.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/categories/%E8%A7%84%E8%8C%83/</loc>
+        <lastmod>2017-12-08T01:19:24.645Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/categories/%E8%A7%84%E8%8C%83/JavaScript/</loc>
+        <lastmod>2017-12-08T01:19:24.645Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/categories/Vue/</loc>
+        <lastmod>2017-12-08T10:15:34.363Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/categories/Vue/TypeScript/</loc>
+        <lastmod>2017-12-08T10:15:34.363Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.foreverz.cn/categories/JavaScript/</loc>
-        <lastmod>2017-09-13T02:21:27.182Z</lastmod>
+        <lastmod>2018-02-28T08:54:37.056Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

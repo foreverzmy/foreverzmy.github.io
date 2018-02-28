@@ -7,16 +7,16 @@
     </url>
 
     <url>
-        <loc>http://www.foreverz.cn/2016/09/29/js%E9%9A%8F%E6%9C%BA%E9%A2%9C%E8%89%B2/</loc>
-        <lastmod>2017-09-13T02:21:27.182Z</lastmod>
+        <loc>http://www.foreverz.cn/2018/02/28/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%BC%80%E5%8F%91%E6%8E%88%E6%9D%83%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%94%B6%E8%8E%B7/</loc>
+        <lastmod>2018-02-28T08:54:37.056Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>http://www.foreverz.cn/2017/06/18/Angular%20CLI+Electron%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
-        <lastmod>2017-08-29T10:37:59.265Z</lastmod>
+        <loc>http://www.foreverz.cn/2017/12/08/%E5%83%8F%E5%86%99%20Angular%20%E4%B8%80%E6%A0%B7%E5%86%99%20Vue/</loc>
+        <lastmod>2017-12-08T10:15:34.363Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -24,7 +24,23 @@
 
     <url>
         <loc>http://www.foreverz.cn/2017/08/23/JS%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</loc>
-        <lastmod>2017-08-23T08:42:08.182Z</lastmod>
+        <lastmod>2017-12-08T01:19:24.645Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/2016/09/29/js%E9%9A%8F%E6%9C%BA%E9%A2%9C%E8%89%B2/</loc>
+        <lastmod>2017-09-13T02:21:27.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.foreverz.cn/2017/06/18/Angular%20CLI+Electron%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+        <lastmod>2017-08-29T10:37:59.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -32,7 +48,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2017/06/05/%E8%A6%81%E6%AF%95%E4%B8%9A%E4%BA%86,%E8%AF%B4%E7%82%B9%E4%BB%80%E4%B9%88/</loc>
-        <lastmod>2017-06-05T12:31:29.911Z</lastmod>
+        <lastmod>2017-06-05T12:31:29.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -56,7 +72,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/12/08/Node-js%E7%9A%84nodegrass%E7%BD%91%E9%A1%B5%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97/</loc>
-        <lastmod>2016-12-08T02:58:32.446Z</lastmod>
+        <lastmod>2016-12-08T02:58:32.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -64,7 +80,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/20/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E5%AE%8C%E6%88%90%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B%E6%83%85/</loc>
-        <lastmod>2016-12-08T02:53:24.396Z</lastmod>
+        <lastmod>2016-12-08T02:53:24.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -72,7 +88,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/04/Node-js%E7%9A%84fs%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</loc>
-        <lastmod>2016-12-08T02:44:23.651Z</lastmod>
+        <lastmod>2016-12-08T02:44:23.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -80,7 +96,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/09/27/Markdown%E8%AF%AD%E6%B3%95/</loc>
-        <lastmod>2016-12-08T02:42:38.036Z</lastmod>
+        <lastmod>2016-12-08T02:42:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -88,7 +104,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/02/Sublime%20Text3%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-        <lastmod>2016-12-08T02:40:23.143Z</lastmod>
+        <lastmod>2016-12-08T02:40:23.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -96,7 +112,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/19/js%E7%9A%84%E5%87%BD%E6%95%B0%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</loc>
-        <lastmod>2016-12-08T02:30:02.555Z</lastmod>
+        <lastmod>2016-12-08T02:30:02.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -104,7 +120,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/19/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%8EJavaScript/</loc>
-        <lastmod>2016-12-08T02:11:50.810Z</lastmod>
+        <lastmod>2016-12-08T02:11:50.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -112,7 +128,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/20/js%E7%9A%84%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF/</loc>
-        <lastmod>2016-12-08T02:08:03.679Z</lastmod>
+        <lastmod>2016-12-08T02:08:03.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -120,7 +136,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/20/%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E8%B7%A8%E5%9F%9F/</loc>
-        <lastmod>2016-12-08T01:56:31.613Z</lastmod>
+        <lastmod>2016-12-08T01:56:31.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -128,7 +144,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/11/01/JavaScript%E4%B9%8B%E6%95%B0%E7%BB%84%E9%99%8D%E7%BB%B4/</loc>
-        <lastmod>2016-12-08T01:43:06.225Z</lastmod>
+        <lastmod>2016-12-08T01:43:06.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -136,7 +152,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/11/03/%E5%85%A8%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%8F%92%E4%BB%B6fullPage%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
-        <lastmod>2016-12-08T01:38:16.346Z</lastmod>
+        <lastmod>2016-12-08T01:38:16.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -144,7 +160,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/27/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8%E4%B9%8BHTML-CSS/</loc>
-        <lastmod>2016-12-07T15:47:25.769Z</lastmod>
+        <lastmod>2016-12-07T15:47:25.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -152,7 +168,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/16/%E8%AF%A6%E7%BB%86%E7%90%86%E8%A7%A3JS%E9%97%AD%E5%8C%85/</loc>
-        <lastmod>2016-10-18T14:36:05.846Z</lastmod>
+        <lastmod>2016-10-18T14:36:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -160,7 +176,7 @@
 
     <url>
         <loc>http://www.foreverz.cn/2016/10/03/loadingView/</loc>
-        <lastmod>2016-10-03T08:07:13.552Z</lastmod>
+        <lastmod>2016-10-03T08:07:13.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

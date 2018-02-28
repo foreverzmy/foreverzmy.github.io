@@ -16,13 +16,15 @@
 
 
 <meta name="description" content="在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。然而，当进行一些比较深入的前端编程的时候，不可避免地需要进行跨域操作，这时候“同源策略”就显得过于苛刻。这时候就需要跨域！">
+<meta name="keywords" content="跨域,JSONP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端如何跨域">
 <meta property="og:url" content="http://www.foreverz.cn/2016/10/20/前端如何跨域/index.html">
 <meta property="og:site_name" content="心有猛虎，细嗅蔷薇">
 <meta property="og:description" content="在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。然而，当进行一些比较深入的前端编程的时候，不可避免地需要进行跨域操作，这时候“同源策略”就显得过于苛刻。这时候就需要跨域！">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oef1ordmv.bkt.clouddn.com/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5.png">
-<meta property="og:updated_time" content="2016-12-08T01:56:31.613Z">
+<meta property="og:updated_time" content="2016-12-08T01:56:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端如何跨域">
 <meta name="twitter:description" content="在JavaScript中，有一个很重要的安全性限制，被称为“Same-Origin Policy”（同源策略）。然而，当进行一些比较深入的前端编程的时候，不可避免地需要进行跨域操作，这时候“同源策略”就显得过于苛刻。这时候就需要跨域！">
@@ -142,13 +144,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>Menu</li>
+                        <li>Tags</li>
                         
-                        <li>友情链接</li>
+                        <li>Friends</li>
                         
                         
-                        <li>关于我</li>
+                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -284,7 +286,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
       <div class="body-wrap"><article id="post-前端如何跨域" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -334,7 +336,7 @@
 <the rest="" of="" contents="" |="" 余下全文="">
 
 <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>同源策略（Same origin policy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。</p>
-<h3 id="为什么要有同源限制"><a href="#为什么要有同源限制" class="headerlink" title="为什么要有同源限制"></a>为什么要有同源限制</h3><p>我们举例说明：比如一个黑客程序，他利用IFrame把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。而同源策略就为了防止这种事情发生。<br>比如说，浏览器的两个tab页中分别打开了<a href="http://www.baidu.com/index.html和http" target="_blank" rel="external">http://www.baidu.com/index.html和http</a>: //www.google.com/index.html，其中，JavaScript1和JavaScript3是属于百度的脚本，而 JavaScript2是属于谷歌的脚本，当浏览器的tab1要运行一个脚本时，便会进行同源检查，只有和www.baidu.com同源的脚本才能被执行，所谓同源，就是指域名、协议、端口相同。所以，tab1只能执行JavaScript1和JavaScript3脚本，而JavaScript2不能 执行，从而防止其他网页对本网页的非法篡改。<br>如果两个页面拥有相同的协议（protocol），端口（如果指定），和主机，那么这两个页面就属于同一个源（origin）。</p>
+<h3 id="为什么要有同源限制"><a href="#为什么要有同源限制" class="headerlink" title="为什么要有同源限制"></a>为什么要有同源限制</h3><p>我们举例说明：比如一个黑客程序，他利用IFrame把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。而同源策略就为了防止这种事情发生。<br>比如说，浏览器的两个tab页中分别打开了<a href="http://www.baidu.com/index.html和http" target="_blank" rel="noopener">http://www.baidu.com/index.html和http</a>: //<a href="http://www.google.com/index.html，其中，JavaScript1和JavaScript3是属于百度的脚本，而" target="_blank" rel="noopener">www.google.com/index.html，其中，JavaScript1和JavaScript3是属于百度的脚本，而</a> JavaScript2是属于谷歌的脚本，当浏览器的tab1要运行一个脚本时，便会进行同源检查，只有和<a href="http://www.baidu.com同源的脚本才能被执行，所谓同源，就是指域名、协议、端口相同。所以，tab1只能执行JavaScript1和JavaScript3脚本，而JavaScript2不能" target="_blank" rel="noopener">www.baidu.com同源的脚本才能被执行，所谓同源，就是指域名、协议、端口相同。所以，tab1只能执行JavaScript1和JavaScript3脚本，而JavaScript2不能</a> 执行，从而防止其他网页对本网页的非法篡改。<br>如果两个页面拥有相同的协议（protocol），端口（如果指定），和主机，那么这两个页面就属于同一个源（origin）。</p>
 <p>下图说明了同源策略的检测机制：</p>
 <div style="text-align: center"><br><img src="http://oef1ordmv.bkt.clouddn.com/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5.png" alt=""><br></div>
 
@@ -344,6 +346,8 @@
 <blockquote>
 <p>制约： XmlHttpRequest<br>不制约： img、iframe、script等具有src属性的标签</p>
 </blockquote>
+</blockquote>
+<blockquote>
 <p>处理Ajax跨域问题主要有以下4种方式：</p>
 <blockquote>
 <ol>
@@ -355,17 +359,23 @@
 </blockquote>
 </blockquote>
 <h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>在<code>HTML DOM</code>中,<code>script</code>标签是可以跨域访问服务器上的数据的.因此,可以指定<code>script</code>的<code>src</code>属性为跨域的<code>url</code>,从而实现跨域访问。<br>利用在页面中创建<code>&lt;script&gt;</code>节点的方法向不同域提交<code>HTTP</code>请求的方法称为<code>JSONP</code>，这项技术可以解决跨域提交<code>Ajax</code>请求的问题。</p>
-<h4 id="客户端代码："><a href="#客户端代码：" class="headerlink" title="客户端代码："></a>客户端代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function doResponse(data)&#123;</div><div class="line">       console.log(&apos;开始处理响应数据&apos;);</div><div class="line">       console.log(data);</div><div class="line">&#125;</div><div class="line">//JSONP方式</div><div class="line">$(&apos;#bt3&apos;).click(function()&#123;</div><div class="line">       var script = document.createElement(&apos;script&apos;);</div><div class="line">	   script.type = &quot;text/javascript&quot;;</div><div class="line">       script.src=&quot;http://localhost/AJAX_day08/5.php?callback=doResponse&quot;;</div><div class="line">       document.head.appendChild(script);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h4 id="服务器端代码："><a href="#服务器端代码：" class="headerlink" title="服务器端代码："></a>服务器端代码：</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">header(<span class="string">'Content-Type: application/javascript'</span>);</div><div class="line">$cb = $_REQUEST[<span class="string">'callback'</span>];</div><div class="line">$arr = [<span class="string">'ename'</span>=&gt;<span class="string">'King'</span>, <span class="string">'age'</span>=&gt;<span class="number">50</span>];</div><div class="line">$str = json_encode($arr);</div><div class="line"><span class="keyword">echo</span> $cb.<span class="string">'('</span> .$str. <span class="string">')'</span> ;</div></pre></td></tr></table></figure>
+<h4 id="客户端代码："><a href="#客户端代码：" class="headerlink" title="客户端代码："></a>客户端代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function doResponse(data)&#123;</span><br><span class="line">       console.log(&apos;开始处理响应数据&apos;);</span><br><span class="line">       console.log(data);</span><br><span class="line">&#125;</span><br><span class="line">//JSONP方式</span><br><span class="line">$(&apos;#bt3&apos;).click(function()&#123;</span><br><span class="line">       var script = document.createElement(&apos;script&apos;);</span><br><span class="line">	   script.type = &quot;text/javascript&quot;;</span><br><span class="line">       script.src=&quot;http://localhost/AJAX_day08/5.php?callback=doResponse&quot;;</span><br><span class="line">       document.head.appendChild(script);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="服务器端代码："><a href="#服务器端代码：" class="headerlink" title="服务器端代码："></a>服务器端代码：</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Content-Type: application/javascript'</span>);</span><br><span class="line">$cb = $_REQUEST[<span class="string">'callback'</span>];</span><br><span class="line">$arr = [<span class="string">'ename'</span>=&gt;<span class="string">'King'</span>, <span class="string">'age'</span>=&gt;<span class="number">50</span>];</span><br><span class="line">$str = json_encode($arr);</span><br><span class="line"><span class="keyword">echo</span> $cb.<span class="string">'('</span> .$str. <span class="string">')'</span> ;</span><br></pre></td></tr></table></figure>
 <h4 id="jQuery中两个可以发起JSONP请求的函数"><a href="#jQuery中两个可以发起JSONP请求的函数" class="headerlink" title="jQuery中两个可以发起JSONP请求的函数"></a>jQuery中两个可以发起JSONP请求的函数</h4><blockquote>
 <p>$.getJSON()</p>
 <blockquote>
 <p>XHR请求：<code>$.getJSON(&#39;x.php&#39;, data, fn);</code><br>JSONP请求：<code>$.getJSON(&#39;x.php?callback=?&#39;,data,fn);</code></p>
 </blockquote>
+</blockquote>
+<blockquote>
 <p>$.ajax();</p>
 <blockquote>
-<p>XHR请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">        url: &apos;x.php&apos;,</div><div class="line">        data: &#123;&apos;uname&apos;:&apos;tom&apos;&#125;,</div><div class="line">        success: fn</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>JSONP请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">        url: &apos;x.php&apos;,</div><div class="line">        data: &#123;&apos;uname&apos;:&apos;tom&apos;&#125;,</div><div class="line">        dataType: &apos;jsonp&apos;,  /*text/html/script/xml/json/jsonp指定服务器端返回的数据的类型*/</div><div class="line">        success: fn</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>XHR请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">        url: &apos;x.php&apos;,</span><br><span class="line">        data: &#123;&apos;uname&apos;:&apos;tom&apos;&#125;,</span><br><span class="line">        success: fn</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>JSONP请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">        url: &apos;x.php&apos;,</span><br><span class="line">        data: &#123;&apos;uname&apos;:&apos;tom&apos;&#125;,</span><br><span class="line">        dataType: &apos;jsonp&apos;,  /*text/html/script/xml/json/jsonp指定服务器端返回的数据的类型*/</span><br><span class="line">        success: fn</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 </blockquote>
 <ul>
@@ -377,7 +387,7 @@
 <h4 id="不同主域跨域"><a href="#不同主域跨域" class="headerlink" title="不同主域跨域"></a>不同主域跨域</h4><p>前提，<code>www.a.com</code>下<code>a.html</code>，<code>a.html</code>内<code>iframe</code>调用了<code>www.b.com</code>下的<code>b.html</code>，<code>b.html</code>下<code>iframe</code>调用了<code>www.a.com</code>下的<code>c.html</code>;<br><code>b.html</code>是不无法直接访问<code>a.html</code>的对象，因为涉及到跨域，但可以访问<code>parent</code>，同样<code>c.html</code>的<code>parent</code>可以访问<code>b.html</code>。<code>c.html</code>和<code>a.html</code>同域，是可以访问<code>a</code>下的对象的。<code>parent.parent.js</code>对象!</p>
 <h3 id="利用代理"><a href="#利用代理" class="headerlink" title="利用代理"></a>利用代理</h3><p>即用户访问A网站时所产生的对B网站的跨域访问请求均提交到A网站的指定页面（Post页面过去），由该页面代替用户页面完成交互，从而返回合适的结果。此方案可以解决现阶段所能够想到的多数跨域访问问题，但要求A网站提供Web代理的支持，因此A网站与B网站之间必须是紧密协作的，且每次交互过程，A网站的服务器负担增加，且无法代用户保存session状态。</p>
 <h3 id="跨域资源共享-CORS"><a href="#跨域资源共享-CORS" class="headerlink" title="跨域资源共享(CORS)"></a>跨域资源共享(CORS)</h3><p>新版本的XMLHttpRequest对象，可以向不同域名的服务器发出HTTP请求。这叫做”跨域资源共享”（Cross-origin resource sharing，简称CORS）。<br>使用”跨域资源共享”的前提，是浏览器必须支持这个功能，而且服务器端必须同意这种”跨域”。如果能够满足上面的条件，则代码的写法与不跨域的请求完全一样。</p>
-<p>服务器端则要进行一些设置：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">header(<span class="string">'Access-Control-Allow-Origin:*'</span>); </div><div class="line">header(<span class="string">'Access-Control-Allow-Methods:POST,GET'</span>);</div></pre></td></tr></table></figure></p>
+<p>服务器端则要进行一些设置：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">'Access-Control-Allow-Origin:*'</span>); </span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST,GET'</span>);</span><br></pre></td></tr></table></figure></p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以上就是前端实现跨域的几种方式，很多时候我们都会遇到跨域的问题，以上几种方法就可以解决了，因此要好好掌握。</p>
 </the>
       
@@ -387,17 +397,17 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/10/20/前端如何跨域/">前端如何跨域</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Mervyn Zhang</a></p>
-        <p><span>发布时间:</span>2016-10-20, 20:10:41</p>
-        <p><span>最后更新:</span>2016-12-08, 09:56:31</p>
+        <p><span>Title:</span><a href="/2016/10/20/前端如何跨域/">前端如何跨域</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Mervyn Zhang</a></p>
+        <p><span>Created:</span>2016-10-20, 20:10:41</p>
+        <p><span>Updated:</span>2016-12-08, 09:56:31</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/10/20/前端如何跨域/" title="前端如何跨域">http://www.foreverz.cn/2016/10/20/前端如何跨域/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.foreverz.cn/2016/10/20/前端如何跨域/　　作者: Mervyn Zhang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2016/10/20/前端如何跨域/" title="前端如何跨域">http://www.foreverz.cn/2016/10/20/前端如何跨域/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.foreverz.cn/2016/10/20/前端如何跨域/　　By Mervyn Zhang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
         </p>
     </div>
 
@@ -424,7 +434,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
+        <strong class="toc-title">Contents</strong>
         
             <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-number">1.</span> <span class="toc-text">同源策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要有同源限制"><span class="toc-number">1.1.</span> <span class="toc-text">为什么要有同源限制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域网络访问"><span class="toc-number">2.</span> <span class="toc-text">跨域网络访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSONP"><span class="toc-number">2.1.</span> <span class="toc-text">JSONP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端代码："><span class="toc-number">2.1.1.</span> <span class="toc-text">客户端代码：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务器端代码："><span class="toc-number">2.1.2.</span> <span class="toc-text">服务器端代码：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jQuery中两个可以发起JSONP请求的函数"><span class="toc-number">2.1.3.</span> <span class="toc-text">jQuery中两个可以发起JSONP请求的函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iframe"><span class="toc-number">2.2.</span> <span class="toc-text">iframe</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#是同主域下面，不同子域之间的跨域"><span class="toc-number">2.2.1.</span> <span class="toc-text">是同主域下面，不同子域之间的跨域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不同主域跨域"><span class="toc-number">2.2.2.</span> <span class="toc-text">不同主域跨域</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用代理"><span class="toc-number">2.3.</span> <span class="toc-text">利用代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨域资源共享-CORS"><span class="toc-number">2.4.</span> <span class="toc-text">跨域资源共享(CORS)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">3.</span> <span class="toc-text">结语</span></a></li></ol>
         
@@ -440,10 +450,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
 
     <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+        yiliaConfig.toc = ["Hide", "Show", !!"true"];
     </script>
 
 
@@ -501,21 +511,21 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/27/前端面试宝典之HTML-CSS/" title="上一篇: 前端面试宝典之HTML/CSS">
+            <a href="/2016/10/27/前端面试宝典之HTML-CSS/" title="Pre: 前端面试宝典之HTML/CSS">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/" title="下一篇: 从输入URL到页面加载完成的过程中都发生了什么事情？">
+            <a href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/" title="Next: 从输入URL到页面加载完成的过程中都发生了什么事情？">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/23/JS开发规范/">JS 命名与注释规范详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/18/Angular CLI+Electron开发环境搭建/">Angular CLI + Electron 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/05/要毕业了,说点什么/">要毕业了，说点什么吧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/用Node-js实现页面热加载/">Liveload：用Node.js实现页面热加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/基于socket-io的简单聊天应用/">基于Socket.IO的简单聊天应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/Node-js的nodegrass网页请求模块/">Node.js的nodegrass网页请求模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/03/全屏滚动插件fullPage使用教程/">全屏滚动插件fullPage使用教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/01/JavaScript之数组降维/">JavaScript之数组降维</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/前端面试宝典之HTML-CSS/">前端面试宝典之HTML/CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/前端如何跨域/">前端如何跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/">从输入URL到页面加载完成的过程中都发生了什么事情？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/js的原型与继承/">js的原型与继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/二叉树与JavaScript/">二叉树与JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/04/Node-js的fs文件系统/">Node.js的FileSystem文件模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/loadingView/">canvas画Material风格的loadingView</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Sublime Text3的使用/">Sublime Text3的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/js随机颜色/">JS实现随机颜色的三种方式和颜色格式的转化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/27/Markdown语法/">Markdown语法</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/02/28/记一次开发授权登录系统的收获/">记一次授权登录系统的前端开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/08/像写 Angular 一样写 Vue/">像写 Angular 一样写 Vue</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/23/JS开发规范/">JS 命名与注释规范详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/18/Angular CLI+Electron开发环境搭建/">Angular CLI + Electron 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/05/要毕业了,说点什么/">要毕业了，说点什么吧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/用Node-js实现页面热加载/">Liveload：用Node.js实现页面热加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/基于socket-io的简单聊天应用/">基于Socket.IO的简单聊天应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/Node-js的nodegrass网页请求模块/">Node.js的nodegrass网页请求模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/03/全屏滚动插件fullPage使用教程/">全屏滚动插件fullPage使用教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/01/JavaScript之数组降维/">JavaScript之数组降维</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/前端面试宝典之HTML-CSS/">前端面试宝典之HTML/CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/前端如何跨域/">前端如何跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/">从输入URL到页面加载完成的过程中都发生了什么事情？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/js的原型与继承/">js的原型与继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/二叉树与JavaScript/">二叉树与JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/04/Node-js的fs文件系统/">Node.js的FileSystem文件模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/loadingView/">canvas画Material风格的loadingView</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Sublime Text3的使用/">Sublime Text3的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/js随机颜色/">JS实现随机颜色的三种方式和颜色格式的转化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/27/Markdown语法/">Markdown语法</a></li></ul>
 
 
 
@@ -529,17 +539,17 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2017 Mervyn Zhang
+                2016-2018 Mervyn Zhang
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -548,7 +558,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -604,9 +614,9 @@ MathJax.Hub.Queue(function() {
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window

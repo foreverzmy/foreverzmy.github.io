@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Mervyn Zhang" />
+
+
+
+<meta name="description" content="个人比较喜欢 TypeScript，写了一段时间 Angular，对其代码组织方式也比较满意，公司选择使用 Vue，所以研究一下用 TypeScript 开发 Vue，后来发现这样的开发方式比较像 Angular，所以就靠拢 Angular 做了个 DEMO，这里写一下配置方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="像写 Angular 一样写 Vue">
+<meta property="og:url" content="http://www.foreverz.cn/2017/12/08/像写 Angular 一样写 Vue/index.html">
+<meta property="og:site_name" content="心有猛虎，细嗅蔷薇">
+<meta property="og:description" content="个人比较喜欢 TypeScript，写了一段时间 Angular，对其代码组织方式也比较满意，公司选择使用 Vue，所以研究一下用 TypeScript 开发 Vue，后来发现这样的开发方式比较像 Angular，所以就靠拢 Angular 做了个 DEMO，这里写一下配置方法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-12-08T10:15:34.363Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="像写 Angular 一样写 Vue">
+<meta name="twitter:description" content="个人比较喜欢 TypeScript，写了一段时间 Angular，对其代码组织方式也比较满意，公司选择使用 Vue，所以研究一下用 TypeScript 开发 Vue，后来发现这样的开发方式比较像 Angular，所以就靠拢 Angular 做了个 DEMO，这里写一下配置方法。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="心有猛虎，细嗅蔷薇" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>像写 Angular 一样写 Vue | 心有猛虎，细嗅蔷薇</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Mervyn Zhang</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">任他支离狂悖，任他颠倒颇僻，我自八风不动。我自心如磐石。</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/projects/">项目展示</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:foreverzmyer@gamil.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2201078341" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/foreverzmy" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 网易云音乐" href="http://music.163.com/#/user/home?id=71626540" title="网易云音乐"></a>
+                            
+                                <a class="fa QQ" href="/921255465" title="QQ"></a>
+                            
+                                <a class="fa 微信" href="/zmyloveforeve" title="微信"></a>
+                            
+                                <a class="fa CodePen" href="http://codepen.io/foreveryuan/" title="CodePen"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP协议/">HTTP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Material-Design/">Material Design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP协议/">TCP/IP协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/color/">color</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fs模块/">fs模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fullPage/">fullPage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js作用域链/">js作用域链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js函数/">js函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js继承/">js继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/liveload/">liveload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/module/">module</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodegrass模块/">nodegrass模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prototype/">prototype</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/socket-IO/">socket.IO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕业感言/">毕业感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一个即将毕业步入职场的小菜年，这在魔幻迷离的世界摸索前行，勤勤恳恳，认真耕耘。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Mervyn Zhang</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Mervyn Zhang</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">任他支离狂悖，任他颠倒颇僻，我自八风不动。我自心如磐石。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/projects/">项目展示</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:foreverzmyer@gamil.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2201078341" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/foreverzmy" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 网易云音乐" target="_blank" href="http://music.163.com/#/user/home?id=71626540" title="网易云音乐"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/921255465" title="QQ"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/zmyloveforeve" title="微信"></a>
+                            
+                                <a class="fa CodePen" target="_blank" href="http://codepen.io/foreveryuan/" title="CodePen"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-像写 Angular 一样写 Vue" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/08/像写 Angular 一样写 Vue/" class="article-date">
+      <time datetime="2017-12-08T01:42:39.000Z" itemprop="datePublished">2017-12-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      像写 Angular 一样写 Vue
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Vue/">Vue</a><a class="article-category-link" href="/categories/Vue/TypeScript/">TypeScript</a>
+    </div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>个人比较喜欢 TypeScript，写了一段时间 Angular，对其代码组织方式也比较满意，公司选择使用 Vue，所以研究一下用 TypeScript 开发 Vue，后来发现这样的开发方式比较像 Angular，所以就靠拢 Angular 做了个 DEMO，这里写一下配置方法。<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h1 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h1><h2 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h2><p>首先使用 vue-cli 创建项目，为了与官方保持同步，使用官方推荐的模板就可以:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局安装 vue-cli</span></span><br><span class="line">$ yarn global add vue-cli</span><br><span class="line"><span class="comment"># 创建一个基于 webpack 模板的新项目</span></span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"><span class="comment"># 安装依赖，走你</span></span><br><span class="line">$ <span class="built_in">cd</span> my-project</span><br><span class="line">$ yarn</span><br></pre></td></tr></table></figure>
+<h2 id="vue-class-component"><a href="#vue-class-component" class="headerlink" title="vue-class-component"></a>vue-class-component</h2><p>vue 官方提供了一个基于类的 vue 组件开发方式，代码组织方式非常像 Angular，而且官方开发的质量还是有保证的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add vue-class-component -D</span><br></pre></td></tr></table></figure>
+<h1 id="TypeScript-支持"><a href="#TypeScript-支持" class="headerlink" title="TypeScript 支持"></a>TypeScript 支持</h1><ol>
+<li>安装 typescript 包来支持 Typescript：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add typescript @types/node -D</span><br></pre></td></tr></table></figure>
+<ol>
+<li>新建 <code>tsconfig.json</code> 配置 Typescript:</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"noEmitOnError"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noUnusedParameters"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noUnusedLocals"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"types"</span>: [</span><br><span class="line">      <span class="string">"node"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"baseUrl"</span>: <span class="string">""</span>,</span><br><span class="line">    <span class="attr">"declaration"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"watch"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"skipLibCheck"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"emitDecoratorMetadata"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"experimentalDecorators"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"allowSyntheticDefaultImports"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"lib"</span>: [<span class="string">"es2017"</span>, <span class="string">"es2015"</span>, <span class="string">"es2015.promise"</span>, <span class="string">"dom"</span>],</span><br><span class="line">    <span class="attr">"mapRoot"</span>: <span class="string">"./src"</span>,</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"esnext"</span>,</span><br><span class="line">    <span class="attr">"moduleResolution"</span>: <span class="string">"node"</span>,</span><br><span class="line">    <span class="attr">"outDir"</span>: <span class="string">"./dist"</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"es5"</span>,</span><br><span class="line">    <span class="attr">"typeRoots"</span>: [</span><br><span class="line">      <span class="string">"./node_modules/@types"</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>配置 <code>tslint.json</code> 配置 Typescript 规则：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"rules"</span>: &#123;</span><br><span class="line">    <span class="attr">"max-line-length"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"no-inferrable-types"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"class-name"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"comment-format"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"check-space"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"indent"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"spaces"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"eofline"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-duplicate-variable"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-eval"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-arg"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-internal-module"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-trailing-whitespace"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-bitwise"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-unused-expression"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"no-var-keyword"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"one-line"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"check-catch"</span>,</span><br><span class="line">      <span class="string">"check-else"</span>,</span><br><span class="line">      <span class="string">"check-open-brace"</span>,</span><br><span class="line">      <span class="string">"check-whitespace"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"quotemark"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"single"</span>,</span><br><span class="line">      <span class="string">"avoid-escape"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"semicolon"</span>: [<span class="literal">true</span>, <span class="string">"always"</span>],</span><br><span class="line">    <span class="attr">"typedef-whitespace"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">"call-signature"</span>: <span class="string">"nospace"</span>,</span><br><span class="line">        <span class="attr">"index-signature"</span>: <span class="string">"nospace"</span>,</span><br><span class="line">        <span class="attr">"parameter"</span>: <span class="string">"nospace"</span>,</span><br><span class="line">        <span class="attr">"property-declaration"</span>: <span class="string">"nospace"</span>,</span><br><span class="line">        <span class="attr">"variable-declaration"</span>: <span class="string">"nospace"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"curly"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"variable-name"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"ban-keywords"</span>,</span><br><span class="line">      <span class="string">"check-format"</span>,</span><br><span class="line">      <span class="string">"allow-leading-underscore"</span>,</span><br><span class="line">      <span class="string">"allow-pascal-case"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"whitespace"</span>: [</span><br><span class="line">      <span class="literal">true</span>,</span><br><span class="line">      <span class="string">"check-branch"</span>,</span><br><span class="line">      <span class="string">"check-decl"</span>,</span><br><span class="line">      <span class="string">"check-operator"</span>,</span><br><span class="line">      <span class="string">"check-separator"</span>,</span><br><span class="line">      <span class="string">"check-type"</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Webpack-配置修改"><a href="#Webpack-配置修改" class="headerlink" title="Webpack 配置修改"></a>Webpack 配置修改</h1><p>为了支持 <code>.ts</code> 文件，还需要对 webpack 进行配置，首先要安装一些 webpack 编译器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add ts-loader -D</span><br></pre></td></tr></table></figure>
+<p>打开 <code>build/webpack.bash.conf.js</code> 对 webpack 配置做一些修改，讲以下规则添加到 <code>module.rules</code> 中用来编译 <code>.ts</code> 文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  test: <span class="regexp">/\.ts$/</span>,</span><br><span class="line">  loader: <span class="string">'ts-loader'</span>,</span><br><span class="line">  include: [resolve(<span class="string">'src'</span>), resolve(<span class="string">'test'</span>)]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>将 <code>entry.app</code> 的 <code>./src/main.js</code> 改为 <code>./src/main.ts</code>.<br>在 <code>resolve.extensions</code> 中添加 <code>.ts</code>.</p>
+<h1 id="项目文件修改"><a href="#项目文件修改" class="headerlink" title="项目文件修改"></a>项目文件修改</h1></the>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2017/12/08/像写 Angular 一样写 Vue/">像写 Angular 一样写 Vue</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Mervyn Zhang</a></p>
+        <p><span>Created:</span>2017-12-08, 09:42:39</p>
+        <p><span>Updated:</span>2017-12-08, 18:15:34</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2017/12/08/像写 Angular 一样写 Vue/" title="像写 Angular 一样写 Vue">http://www.foreverz.cn/2017/12/08/像写 Angular 一样写 Vue/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.foreverz.cn/2017/12/08/像写 Angular 一样写 Vue/　　By Mervyn Zhang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/02/28/记一次开发授权登录系统的收获/">
+                    记一次授权登录系统的前端开发
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/08/23/JS开发规范/">
+                    JS 命名与注释规范详解
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化项目"><span class="toc-number">1.</span> <span class="toc-text">初始化项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-cli"><span class="toc-number">1.1.</span> <span class="toc-text">vue-cli</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-class-component"><span class="toc-number">1.2.</span> <span class="toc-text">vue-class-component</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TypeScript-支持"><span class="toc-number">2.</span> <span class="toc-text">TypeScript 支持</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Webpack-配置修改"><span class="toc-number">3.</span> <span class="toc-text">Webpack 配置修改</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目文件修改"><span class="toc-number">4.</span> <span class="toc-text">项目文件修改</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"true"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"像写 Angular 一样写 Vue　| 心有猛虎，细嗅蔷薇　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/12/08/像写 Angular 一样写 Vue/" data-title="像写 Angular 一样写 Vue" data-url="http://www.foreverz.cn/2017/12/08/像写 Angular 一样写 Vue/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"null"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/02/28/记一次开发授权登录系统的收获/" title="Pre: 记一次授权登录系统的前端开发">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/08/23/JS开发规范/" title="Next: JS 命名与注释规范详解">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/02/28/记一次开发授权登录系统的收获/">记一次授权登录系统的前端开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/08/像写 Angular 一样写 Vue/">像写 Angular 一样写 Vue</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/23/JS开发规范/">JS 命名与注释规范详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/18/Angular CLI+Electron开发环境搭建/">Angular CLI + Electron 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/05/要毕业了,说点什么/">要毕业了，说点什么吧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/用Node-js实现页面热加载/">Liveload：用Node.js实现页面热加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/基于socket-io的简单聊天应用/">基于Socket.IO的简单聊天应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/Node-js的nodegrass网页请求模块/">Node.js的nodegrass网页请求模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/03/全屏滚动插件fullPage使用教程/">全屏滚动插件fullPage使用教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/01/JavaScript之数组降维/">JavaScript之数组降维</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/前端面试宝典之HTML-CSS/">前端面试宝典之HTML/CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/前端如何跨域/">前端如何跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/">从输入URL到页面加载完成的过程中都发生了什么事情？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/js的原型与继承/">js的原型与继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/二叉树与JavaScript/">二叉树与JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/04/Node-js的fs文件系统/">Node.js的FileSystem文件模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/loadingView/">canvas画Material风格的loadingView</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Sublime Text3的使用/">Sublime Text3的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/js随机颜色/">JS实现随机颜色的三种方式和颜色格式的转化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/27/Markdown语法/">Markdown语法</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 Mervyn Zhang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/js/GithubRepoWidget.js"></script>
+
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

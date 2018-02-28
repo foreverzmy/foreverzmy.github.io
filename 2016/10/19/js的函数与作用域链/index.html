@@ -16,14 +16,16 @@
 
 
 <meta name="description" content="js中有函数和作用域的概念，在js中变量和函数都依赖于作用域，作用域又是以作用域链的形式存在的。函数的定义和执行都与作用域链息息相关！">
+<meta name="keywords" content="js函数,js作用域链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js函数与作用域链">
 <meta property="og:url" content="http://www.foreverz.cn/2016/10/19/js的函数与作用域链/index.html">
 <meta property="og:site_name" content="心有猛虎，细嗅蔷薇">
 <meta property="og:description" content="js中有函数和作用域的概念，在js中变量和函数都依赖于作用域，作用域又是以作用域链的形式存在的。函数的定义和执行都与作用域链息息相关！">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oef1ordmv.bkt.clouddn.com/AO.jpg">
 <meta property="og:image" content="http://oef1ordmv.bkt.clouddn.com/prototypes-and-inheritance.jpg">
-<meta property="og:updated_time" content="2016-12-08T02:30:02.555Z">
+<meta property="og:updated_time" content="2016-12-08T02:30:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js函数与作用域链">
 <meta name="twitter:description" content="js中有函数和作用域的概念，在js中变量和函数都依赖于作用域，作用域又是以作用域链的形式存在的。函数的定义和执行都与作用域链息息相关！">
@@ -143,13 +145,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>Menu</li>
+                        <li>Tags</li>
                         
-                        <li>友情链接</li>
+                        <li>Friends</li>
                         
                         
-                        <li>关于我</li>
+                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -285,7 +287,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
       <div class="body-wrap"><article id="post-js的函数与作用域链" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -336,21 +338,21 @@
 
 <h2 id="函数的概念和作用"><a href="#函数的概念和作用" class="headerlink" title="函数的概念和作用"></a>函数的概念和作用</h2><p>函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块，是用来帮助我们封装、调用代码的最方便的工具！<br>在js中，函数是一种带有可执行代码的对象类型数据。JS中的函数其实是对象，函数名是对 Function 对象的引用。</p>
 <h2 id="函数的创建方法"><a href="#函数的创建方法" class="headerlink" title="函数的创建方法"></a>函数的创建方法</h2><p>函数的创建方法有四种：</p>
-<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;</div><div class="line">fun();</div></pre></td></tr></table></figure>
+<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">&#125;</span><br><span class="line">fun();</span><br></pre></td></tr></table></figure>
 <p>在这种定义方式下，函数不属于任何对象，但是在js中它始终是默认的全局对象！函数必须用<code>fun()</code>来调用，也可以在函数声明前调用，但是不调用的函数是没有用的。</p>
-<h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;</div><div class="line">fun();</div></pre></td></tr></table></figure>
+<h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">&#125;</span><br><span class="line">fun();</span><br></pre></td></tr></table></figure>
 <p>这种方式是将函数保存在变量中，也是通过<code>fun()</code>调用，但是这里因为变量有声明提前，原地赋值的特性，所以不能提前调用，只能在定义之后再使用。</p>
-<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
 <p>匿名函数是没有函数名的一种函数，会直接执行，不能再函数外调用，但是可以在函数内通过<code>arguments.callee()</code>自调。</p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="built_in">console</span>.log(<span class="string">'Hello World'</span>));</div></pre></td></tr></table></figure>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fun = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="built_in">console</span>.log(<span class="string">'Hello World'</span>));</span><br></pre></td></tr></table></figure>
 <p>这种方法是比较少见的一种函数创建方法，也是很神奇的一种方法，这里简略一下，后面会详细说明。这种方法还有一个特点，就是函数可以自调。</p>
 <h2 id="函数的调用方式"><a href="#函数的调用方式" class="headerlink" title="函数的调用方式"></a>函数的调用方式</h2><p>函数的调用方式有四种：</p>
 <h3 id="作为一个函数去调用"><a href="#作为一个函数去调用" class="headerlink" title="作为一个函数去调用"></a>作为一个函数去调用</h3><p>调用方式就是前面用过的<code>fun();</code>,以函数名+()的方式直接调用，也是我们常见的调用方法。此时函数作为全局对象调用，会使this的值成为全局对象，使用window对象作为一个变量，容易造成程序崩溃！</p>
-<h3 id="函数作为方法调用"><a href="#函数作为方法调用" class="headerlink" title="函数作为方法调用"></a>函数作为方法调用</h3><p>函数作为对象的方法调用，会使this的值成为对象的本身！举个栗子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">say</span>: <span class="string">'Hello World!'</span>,</div><div class="line">    <span class="attr">sayHello</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">obj.sayHello();</div></pre></td></tr></table></figure></p>
-<h3 id="使用构造函数调用函数"><a href="#使用构造函数调用函数" class="headerlink" title="使用构造函数调用函数"></a>使用构造函数调用函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.say = <span class="string">"Hello World!"</span>;</div><div class="line">    <span class="keyword">this</span>.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> fun();</div><div class="line">obj.say;	<span class="comment">//=&gt;Hello World!</span></div><div class="line">obj.sayHello();</div></pre></td></tr></table></figure>
+<h3 id="函数作为方法调用"><a href="#函数作为方法调用" class="headerlink" title="函数作为方法调用"></a>函数作为方法调用</h3><p>函数作为对象的方法调用，会使this的值成为对象的本身！举个栗子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    say: <span class="string">'Hello World!'</span>,</span><br><span class="line">    sayHello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.sayHello();</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用构造函数调用函数"><a href="#使用构造函数调用函数" class="headerlink" title="使用构造函数调用函数"></a>使用构造函数调用函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="string">"Hello World!"</span>;</span><br><span class="line">    <span class="keyword">this</span>.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.say);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> fun();</span><br><span class="line">obj.say;	<span class="comment">//=&gt;Hello World!</span></span><br><span class="line">obj.sayHello();</span><br></pre></td></tr></table></figure>
 <p>构造函数中的this没有任何值，但是当用<code>new</code>新建<code>obj</code>对象时，this会指向<code>obj</code>，此时<code>obj</code>会继承<code>fun</code>的属相和方法成为自己的属性和方法！</p>
 <h3 id="作为函数方法调用函数"><a href="#作为函数方法调用函数" class="headerlink" title="作为函数方法调用函数"></a>作为函数方法调用函数</h3><p>在js中函数是对象，是对象就有对象的方法，而<code>call()</code>和<code>apply()</code>是预定义的函数方法！</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a * b);</div><div class="line">&#125;</div><div class="line">fun.call(foo, <span class="number">10</span>, <span class="number">2</span>);	<span class="comment">//=&gt;20</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a * b);</div><div class="line">&#125;</div><div class="line">fun.apply(foo, [<span class="number">10</span>, <span class="number">2</span>]);	<span class="comment">//=&gt;20</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a * b);</span><br><span class="line">&#125;</span><br><span class="line">fun.call(foo, <span class="number">10</span>, <span class="number">2</span>);	<span class="comment">//=&gt;20</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a * b);</span><br><span class="line">&#125;</span><br><span class="line">fun.apply(foo, [<span class="number">10</span>, <span class="number">2</span>]);	<span class="comment">//=&gt;20</span></span><br></pre></td></tr></table></figure>
 <p><code>call</code>和<code>apply</code>是为了动态改变this而出现的，当一个object没有某个方法，但是其他的有，我们可以借助call或apply用其它对象的方法来操作。在这里<code>foo</code>只是一个变量，没有任何属性和方法，所以用call或apply调用<code>fun</code>方法操作。<br>两个方法的区别在于call传入的是一个个普通的参数，而apply传入的是一个数组。</p>
 <h2 id="函数的运行机制"><a href="#函数的运行机制" class="headerlink" title="函数的运行机制"></a>函数的运行机制</h2><ol>
 <li>在js中，js引擎会优先解析var变量和function定义！在预解析完成后从上到下逐步进行！</li>
@@ -366,23 +368,23 @@
 <li>所有未定义直接赋值的变量自动声明为拥有全局作用域；</li>
 <li>所有window对象的属性拥有全局作用域；</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'hi!'</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> b = <span class="string">'hello!'</span>;</div><div class="line">    c = <span class="string">'how are you!'</span>;</div><div class="line">    <span class="built_in">window</span>.d = <span class="string">'thank you!'</span>;</div><div class="line">    <span class="built_in">console</span>.log(b);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(a); <span class="comment">//=&gt;hi!</span></div><div class="line">fun(); <span class="comment">//=&gt;hello!</span></div><div class="line"><span class="built_in">console</span>.log(d); <span class="comment">//=&gt;报错</span></div><div class="line"><span class="built_in">console</span>.log(c); <span class="comment">//=&gt;how are you!</span></div><div class="line"><span class="built_in">console</span>.log(d); <span class="comment">//=&gt;thank you!</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">'hi!'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="string">'hello!'</span>;</span><br><span class="line">    c = <span class="string">'how are you!'</span>;</span><br><span class="line">    <span class="built_in">window</span>.d = <span class="string">'thank you!'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//=&gt;hi!</span></span><br><span class="line">fun(); <span class="comment">//=&gt;hello!</span></span><br><span class="line"><span class="built_in">console</span>.log(d); <span class="comment">//=&gt;报错</span></span><br><span class="line"><span class="built_in">console</span>.log(c); <span class="comment">//=&gt;how are you!</span></span><br><span class="line"><span class="built_in">console</span>.log(d); <span class="comment">//=&gt;thank you!</span></span><br></pre></td></tr></table></figure>
 <p>a,c,d都是全局变量，可以在任何地方直接使用,而b不是全局变量，只能声明它的函数内使用。</p>
 <h3 id="局部作用域（Local-Scope）"><a href="#局部作用域（Local-Scope）" class="headerlink" title="局部作用域（Local Scope）"></a>局部作用域（Local Scope）</h3><p>和全局作用域相反，局部作用域一般只在固定的代码片段内可访问到，最常见的例如函数内部，所有在一些地方也会看到有人把这种作用域称为函数作用域。<br>在ES6中还引入了块级作用域，用<code>let</code>声明。</p>
 <h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>在JavaScript中，函数也是对象，实际上，JavaScript里一切都是对象。函数对象和其它对象一样，拥有可以通过代码访问的属性和一系列仅供JavaScript引擎访问的内部属性。其中一个内部属性是[[Scope]],该内部属性包含了函数被创建的作用域中对象的集合，这个集合被称为函数的作用域链，它决定了哪些数据能被函数访问。</p>
 <ul>
 <li>当一个函数创建后，它的作用域链会被创建此函数的作用域中可访问的数据对象填充。例：</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> sum = num1 + num2;</div><div class="line">    <span class="keyword">return</span> sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sum = num1 + num2;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在函数add创建时，它的作用域链中会填入一个全局对象，该全局对象包含了所有全局变量。<br>函数add的作用域将会在执行时用到。如执行以下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> total = add(<span class="number">5</span>,<span class="number">10</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> total = add(<span class="number">5</span>,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
 <p>执行此函数时会创建一个称为“运行期上下文(execution context)”的内部对象，运行期上下文定义了函数执行时的环境。每个运行期上下文都有自己的作用域链，用于标识符解析，当运行期上下文被创建时，而它的作用域链初始化为当前运行函数的[[Scope]]所包含的对象。<br>这些值按照它们出现在函数中的顺序被复制到运行期上下文的作用域链中。它们共同组成了一个新的对象，叫“活动对象(activation object)”，该对象包含了函数的所有局部变量、命名参数、参数集合以及this，然后此对象会被推入作用域链的前端，当运行期上下文被销毁，活动对象也随之销毁。如下图：</p>
 <div style="text-align: center;"><br><img src="http://oef1ordmv.bkt.clouddn.com/AO.jpg" alt=""><br></div>
 
 <p>在函数执行过程中，每遇到一个变量，都会经历一次标识符解析过程以决定从哪里获取和存储数据。该过程从作用域链头部，也就是从活动对象开始搜索，查找同名的标识符，如果找到了就使用这个标识符对应的变量，如果没找到继续搜索作用域链中的下一个对象，如果搜索完所有对象都未找到，则认为该标识符未定义。函数执行过程中，每个标识符都要经历这样的搜索过程。</p>
 <h3 id="作用域链的代码优化"><a href="#作用域链的代码优化" class="headerlink" title="作用域链的代码优化"></a>作用域链的代码优化</h3><p>从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。<br>如上图所示，因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。<br>一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
 <h3 id="JS函数创建过程"><a href="#JS函数创建过程" class="headerlink" title="JS函数创建过程"></a>JS函数创建过程</h3><p>以一个空函数为例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
 <p>当我们在代码里面声明这么一个空函数，js解析的本质是</p>
 <ol>
 <li>创建一个对象（有constructor属性及[[Prototype]]属性），根据ECMA，其中[[Prototype]]属性不可见、不可枚举;其实就是我们现在所见的<code>__proto__</code>属性，各大浏览器已经暴露出来。</li>
@@ -392,7 +394,7 @@
 <div style="text-align: center;"><br><img src="http://oef1ordmv.bkt.clouddn.com/prototypes-and-inheritance.jpg" alt=""><br></div>
 
 <p><strong>每个函数的创建都经历上述过程。</strong></p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.cnblogs.com/Jabin/p/5804052.html" target="_blank" rel="external">Js函数的概念、作用、创建、调用！</a><br><a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="external">JavaScript 开发进阶：理解 JavaScript 作用域和作用域链</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.cnblogs.com/Jabin/p/5804052.html" target="_blank" rel="noopener">Js函数的概念、作用、创建、调用！</a><br><a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="noopener">JavaScript 开发进阶：理解 JavaScript 作用域和作用域链</a></p>
 </the>
       
     </div>
@@ -401,17 +403,17 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">Mervyn Zhang</a></p>
-        <p><span>发布时间:</span>2016-10-19, 23:26:44</p>
-        <p><span>最后更新:</span>2016-12-08, 10:30:02</p>
+        <p><span>Title:</span><a href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Mervyn Zhang</a></p>
+        <p><span>Created:</span>2016-10-19, 23:26:44</p>
+        <p><span>Updated:</span>2016-12-08, 10:30:02</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/10/19/js的函数与作用域链/" title="js函数与作用域链">http://www.foreverz.cn/2016/10/19/js的函数与作用域链/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.foreverz.cn/2016/10/19/js的函数与作用域链/　　作者: Mervyn Zhang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2016/10/19/js的函数与作用域链/" title="js函数与作用域链">http://www.foreverz.cn/2016/10/19/js的函数与作用域链/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.foreverz.cn/2016/10/19/js的函数与作用域链/　　By Mervyn Zhang" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
         </p>
     </div>
 
@@ -438,7 +440,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
+        <strong class="toc-title">Contents</strong>
         
             <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的概念和作用"><span class="toc-number">1.</span> <span class="toc-text">函数的概念和作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的创建方法"><span class="toc-number">2.</span> <span class="toc-text">函数的创建方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数声明"><span class="toc-number">2.1.</span> <span class="toc-text">函数声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数表达式"><span class="toc-number">2.2.</span> <span class="toc-text">函数表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匿名函数"><span class="toc-number">2.3.</span> <span class="toc-text">匿名函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">2.4.</span> <span class="toc-text">构造函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的调用方式"><span class="toc-number">3.</span> <span class="toc-text">函数的调用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作为一个函数去调用"><span class="toc-number">3.1.</span> <span class="toc-text">作为一个函数去调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数作为方法调用"><span class="toc-number">3.2.</span> <span class="toc-text">函数作为方法调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用构造函数调用函数"><span class="toc-number">3.3.</span> <span class="toc-text">使用构造函数调用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作为函数方法调用函数"><span class="toc-number">3.4.</span> <span class="toc-text">作为函数方法调用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的运行机制"><span class="toc-number">4.</span> <span class="toc-text">函数的运行机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arguments"><span class="toc-number">5.</span> <span class="toc-text">arguments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS作用域"><span class="toc-number">6.</span> <span class="toc-text">JS作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局作用域（Global-Scope）"><span class="toc-number">6.1.</span> <span class="toc-text">全局作用域（Global Scope）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部作用域（Local-Scope）"><span class="toc-number">6.2.</span> <span class="toc-text">局部作用域（Local Scope）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域链"><span class="toc-number">7.</span> <span class="toc-text">作用域链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域链的代码优化"><span class="toc-number">7.1.</span> <span class="toc-text">作用域链的代码优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS函数创建过程"><span class="toc-number">7.2.</span> <span class="toc-text">JS函数创建过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-number">8.</span> <span class="toc-text">参考链接</span></a></li></ol>
         
@@ -454,10 +456,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
 
     <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"true"];
+        yiliaConfig.toc = ["Hide", "Show", !!"true"];
     </script>
 
 
@@ -515,21 +517,21 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/20/js的原型与继承/" title="上一篇: js的原型与继承">
+            <a href="/2016/10/20/js的原型与继承/" title="Pre: js的原型与继承">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/10/19/二叉树与JavaScript/" title="下一篇: 二叉树与JavaScript">
+            <a href="/2016/10/19/二叉树与JavaScript/" title="Next: 二叉树与JavaScript">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/23/JS开发规范/">JS 命名与注释规范详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/18/Angular CLI+Electron开发环境搭建/">Angular CLI + Electron 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/05/要毕业了,说点什么/">要毕业了，说点什么吧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/用Node-js实现页面热加载/">Liveload：用Node.js实现页面热加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/基于socket-io的简单聊天应用/">基于Socket.IO的简单聊天应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/Node-js的nodegrass网页请求模块/">Node.js的nodegrass网页请求模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/03/全屏滚动插件fullPage使用教程/">全屏滚动插件fullPage使用教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/01/JavaScript之数组降维/">JavaScript之数组降维</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/前端面试宝典之HTML-CSS/">前端面试宝典之HTML/CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/前端如何跨域/">前端如何跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/">从输入URL到页面加载完成的过程中都发生了什么事情？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/js的原型与继承/">js的原型与继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/二叉树与JavaScript/">二叉树与JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/04/Node-js的fs文件系统/">Node.js的FileSystem文件模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/loadingView/">canvas画Material风格的loadingView</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Sublime Text3的使用/">Sublime Text3的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/js随机颜色/">JS实现随机颜色的三种方式和颜色格式的转化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/27/Markdown语法/">Markdown语法</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/02/28/记一次开发授权登录系统的收获/">记一次授权登录系统的前端开发</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/08/像写 Angular 一样写 Vue/">像写 Angular 一样写 Vue</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/23/JS开发规范/">JS 命名与注释规范详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/18/Angular CLI+Electron开发环境搭建/">Angular CLI + Electron 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/05/要毕业了,说点什么/">要毕业了，说点什么吧</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/用Node-js实现页面热加载/">Liveload：用Node.js实现页面热加载</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/基于socket-io的简单聊天应用/">基于Socket.IO的简单聊天应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/Node-js的nodegrass网页请求模块/">Node.js的nodegrass网页请求模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/03/全屏滚动插件fullPage使用教程/">全屏滚动插件fullPage使用教程</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/01/JavaScript之数组降维/">JavaScript之数组降维</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/27/前端面试宝典之HTML-CSS/">前端面试宝典之HTML/CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/前端如何跨域/">前端如何跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/从输入URL到页面加载完成的过程中都发生了什么事情/">从输入URL到页面加载完成的过程中都发生了什么事情？</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/20/js的原型与继承/">js的原型与继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/js的函数与作用域链/">js函数与作用域链</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/19/二叉树与JavaScript/">二叉树与JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/16/详细理解JS闭包/">详细理解JS闭包</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/04/Node-js的fs文件系统/">Node.js的FileSystem文件模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/03/loadingView/">canvas画Material风格的loadingView</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Sublime Text3的使用/">Sublime Text3的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/29/js随机颜色/">JS实现随机颜色的三种方式和颜色格式的转化</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/27/Markdown语法/">Markdown语法</a></li></ul>
 
 
 
@@ -543,17 +545,17 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2017 Mervyn Zhang
+                2016-2018 Mervyn Zhang
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -562,7 +564,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -618,9 +620,9 @@ MathJax.Hub.Queue(function() {
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
